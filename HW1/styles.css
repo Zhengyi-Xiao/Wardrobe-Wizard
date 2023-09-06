@@ -1,39 +1,444 @@
+/* Reset some default browser styles */
+body,
+h1,
+h2,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  /* Roboto Regular is font-weight 400 */
+}
+
+
+/* Basic styling */
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
-}
-
-.location {
-  background-color: #fff;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.location h2 {
-  font-size: 18px;
-  margin: 0;
-}
-
-.weather {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* iPhone styling */
+.iphone {
+  background-color: #000;
+  border-radius: 20px;
+  width: 375px;
+  min-width: 375px;
+  /* iPhone 12 width */
+  height: 812px;
+  min-height: 812px;
+  padding: 10px;
+  /* iPhone 12 height */
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 156, 15, 0.4928) 0%, rgba(241, 178, 77, 0.6248) 100%);
+}
+
+.iphone-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #222;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.iphone-screen {
+  background: linear-gradient(180deg, rgba(255, 156, 15, 0.4928) 0%, rgba(241, 178, 77, 0.6248) 100%);
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.iphone-footer {
+  background-color: #222;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  /* Adjust the top position as needed */
+  left: 10px;
+  /* Adjust the left position as needed */
+}
+
+.button {
+  background-color: #000000;
+  width: 80px;
+  height: 20px;
+  border-radius: 10px;
+  margin: auto;
+}
+
+/* Rest of your styles go here */
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .iphone {
+    width: 320px;
+    height: 568px;
+  }
+}
+
+
+/* home screen */
+
+/* position: absolute;
+width: 390px;
+height: 844px;
+left: 24px;
+top: 24px;
+
+background: linear-gradient(180deg, rgba(255, 156, 15, 0.4928) 0%, rgba(241, 178, 77, 0.6248) 100%);
+border-radius: 44px;
+
+ */
+
+
+/* Search Bar styling */
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 9px 9px 9px 16px;
+  gap: 5px;
+  width: 390px;
+  height: 57px;
+}
+
+.left-accessory {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 7px 8px;
+  width: 304px;
+  height: 27px;
+  background: linear-gradient(168.44deg, rgba(46, 51, 90, 0.26) 1.62%, rgba(28, 27, 51, 0.26) 95.72%);
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.icon-magnifyingglass {
+  width: 15.63px;
+  height: 15.78px;
+  background: url('images/search.png');
+  background-size: contain;
+  margin-left: 10px;
+  margin-right: 11px;
+}
+
+.placeholder {
+  width: 285.37px;
+  height: 22px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.408px;
+  color: rgba(235, 235, 245, 0.6);
+  background: none;
+  border: none;
+}
+
+.placeholder:focus {
+  outline: none;
+}
+
+.icon-microphone {
+  width: 16px;
+  height: 21.61px;
+  background: url('images/microphone.png');
+  background-size: contain;
+}
+
+.icon-setting {
+  width: 25px;
+  height: 23.59px;
+  background: url('images/setting.png');
+  background-size: contain;
+  margin-left: 5px;
+}
+
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.weather img {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
+.weather-widget {
+  width: 342px;
 }
 
-.weather p {
-  margin: 0;
+.back-philly {
+  width: 100%;
+  margin-top: 55px;
+  height: 324px;
+  background: linear-gradient(111.69deg, rgba(255, 162, 12, 0.73) 27.59%, rgba(255, 191, 41, 0.64) 76.1%);
+  border-radius: 23px;
 }
 
-.forecast {
-  margin-top: 10px;
-  font-size: 14px;
+.temp-phil {
+  position: absolute;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 86px;
+  line-height: 41px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.374px;
+  color: #FFFFFF;
+  left: 250px;
+  top: 137px;
+}
+
+.high-low-phil {
+  position: absolute;
+  width: 225px;
+  height: 45px;
+  left: 44px;
+  top: 203px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.078px;
+  color: rgba(235, 235, 245, 0.6);
+}
+
+.loc-phil {
+  position: absolute;
+  width: 225px;
+  height: 45px;
+  left: 44px;
+  top: 226px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.408px;
+  color: #FFFFFF;
+}
+
+.sunny {
+  position: absolute;
+  top: 106px;
+  width: 95px;
+  height: 95px;
+  background: url('images/sunny.png');
+  background-size: contain;
+  margin-left: 10px;
+  margin-right: 11px;
+}
+
+.line-chart {
+  position: absolute;
+  width: 298.01px;
+  height: 143.09px;
+  left: 44px;
+  top: 269px;
+  background: url('images/line-chart.png');
+  background-size: contain;
+}
+
+.botton-weather {
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 35px;
+
+  position: absolute;
+  width: 289px;
+  height: 18px;
+  left: 43.5px;
+  top: 426.09px;
+
+
+}
+
+.sunny-small {
+  /* Sun */
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(203.83deg, #FFD88B 12.36%, #FFA900 91.41%);
+  /* Inside auto layout */
+  flex: none;
+  flex-grow: 0;
+  background: url('images/sun.png');
+  background-size: contain;
+}
+
+.cloud {
+  /* Sun */
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(203.83deg, #FFD88B 12.36%, #FFA900 91.41%);
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  background: url('images/cloud.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.moon {
+  /* Sun */
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(203.83deg, #FFD88B 12.36%, #FFA900 91.41%);
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  background: url('images/moon.png');
+  background-size: contain;
+  /*not repeat*/
+  background-repeat: no-repeat;
+}
+
+
+.back-shanghai {
+  width: 100%;
+  margin-top: 54px;
+  height: 131px;
+  background: linear-gradient(142deg, #9FD9FF 18.47%, rgba(206, 235, 254, 0.61) 86.92%);
+  border-radius: 23px;
+}
+
+.temp-shanghai {
+  position: absolute;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 86px;
+  line-height: 41px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.374px;
+  color: #FFFFFF;
+  left: 250px;
+  top: 583px;
+}
+
+.high-low-shanghai {
+  position: absolute;
+  width: 225px;
+  height: 45px;
+  left: 44px;
+  top: 588px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.078px;
+  color: rgba(235, 235, 245, 0.6);
+}
+
+.loc-shanghai {
+  position: absolute;
+  width: 225px;
+  height: 45px;
+  left: 44px;
+  top: 609px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.408px;
+  color: #FFFFFF;
+}
+
+.cloud-large {
+  position: absolute;
+  top: 490px;
+  width: 95px;
+  height: 95px;
+  background: url(images/cloud-large.png);
+  background-size: contain;
+  margin-left: 10px;
+  margin-right: 11px;
+}
+
+.back-new-york {
+  width: 100%;
+  margin-top: 54px;
+  height: 131px;
+  background: linear-gradient(142deg, rgba(48, 72, 157, 0.48) 18.47%, rgba(15, 95, 214, 0.38) 86.92%);
+  border-radius: 23px;
+}
+
+.temp-new-york {
+  position: absolute;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 86px;
+  line-height: 41px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.374px;
+  color: #FFFFFF;
+  left: 250px;
+  top: 760px;
+}
+
+.high-low-new-york {
+  position: absolute;
+  width: 225px;
+  height: 45px;
+  left: 44px;
+  top: 770px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.078px;
+  color: rgba(235, 235, 245, 0.6);
+}
+
+.loc-new-york {
+  position: absolute;
+  width: 225px;
+  height: 45px;
+  left: 44px;
+  top: 791px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.408px;
+  color: #FFFFFF;
+}
+
+.tonado {
+  position: absolute;
+  top: 676px;
+  width: 95px;
+  height: 95px;
+  background: url(images/tonado.png);
+  background-size: contain;
+  margin-left: 10px;
+  margin-right: 11px;
 }
