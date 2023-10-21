@@ -20,22 +20,24 @@ in which, (whole) and (top and bottom) are exclusive.
   - Trousers
   - Short
 - Formal Event
-  - Dress
+  - Dress (Whole)
   - Pump
 - Meeting
-  - Whole Skirt
+  - Whole Skirt (Whole)
   - Jacket
   - Shirt
   - Pencil Skirt
   - Trousers
 - Night Out
-  - Dresses
+  - Dresses (Whole)
   - Tops
   - Pants
   - Skirt
   - Jackets
 - Casual
   - T-shirt
+  - Hoodie
+  - Shorts
 
 # Miscellaneous
 
