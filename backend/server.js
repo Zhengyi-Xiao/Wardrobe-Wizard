@@ -157,9 +157,9 @@ webapp.get('/generate/todays-outfit/:event', async (req, res) => {
   const clothingEvent = req.params.event.toLowerCase()
 
   const generalClothingTypes = {
-    cloth: ['beachwear', 'coat', 'knit', 'short', 'skirt', 'top', 'tailoring'],
-    outcloth: ['jacket'],
-    bottom: ['pant', 'dress'],
+    top: ['beachwear', 'knit', 'skirt', 'top', 'tailoring'],
+    coat: ['jacket', 'coat'],
+    bottom: ['pant', 'dress', 'short', 'legging', 'jean'],
     shoes: ['boot', 'pump'],
     accessory: ['accessory']
   }
