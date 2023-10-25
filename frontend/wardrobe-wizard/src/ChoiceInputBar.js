@@ -1,11 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import ClothContainer from './ClothContainer'
 import './ChoiceInputBar.css'
-import { delete_selected, add_to_todays_outfit } from './icons.js'
+import { delete_selected } from './icons.js'
+import { getClothByTypeEvent } from './api.js'
 
 function ChoiceInputBar () {
   const [selectedChoices, setSelectedChoices] = useState(['All'])
   const [displayEventButtons, setDisplayEventButtons] = useState(false)
   const clothType = ['All', 'Top', 'Bottom', 'Outwear']
+  const [clothTypeUrls, setClothTypeUrls] = useState([])
+  const [renderIndex, setRenderIndex] = useState(0)
+
+  useEffect(() => {
+    // Fetch image URLs based on selected choices
+    async function fetchClothUrls () {
+      // find the first event type in selectedChoices
+      const selectedEvent = selectedChoices.find(choice =>
+        eventTypes.includes(choice)
+      )
+      // find the first clothing type in selectedChoices
+      const selectedClothType = selectedChoices.find(choice =>
+        clothType.includes(choice)
+      )
+      const urls = await getClothByTypeEvent(
+        selectedClothType || 'all',
+        selectedEvent || 'null'
+      )
+      setClothTypeUrls(urls)
+    }
+
+    fetchClothUrls()
+  }, [selectedChoices])
+
+  useEffect(() => {
+    // Delay rendering the ClothContainer components
+    const timeout = setTimeout(() => {
+      setRenderIndex(renderIndex + 1)
+    }, 1000) // Adjust the delay time (in milliseconds) as needed
+
+    return () => clearTimeout(timeout)
+  }, [renderIndex])
 
   const handleChoiceClick = choice => {
     // Check if the selected choice is a clothing type
@@ -33,6 +67,7 @@ function ChoiceInputBar () {
       }
     }
   }
+
   const handleRemoveChoice = choice => {
     if (choice === 'All') {
       return
@@ -139,78 +174,17 @@ function ChoiceInputBar () {
         )}
       </div>
       <div className='all-clothes-container'>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/19/84/83/92/19848392_44454539_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/20/94/82/23/20948223_50926557_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/21/52/04/22/21520422_51450615_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/19/71/26/46/19712646_44056374_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/18/39/35/98/18393598_39585223_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/19/73/73/18/19737318_44132456_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/19/73/72/95/19737295_44134463_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/19/44/53/51/19445351_43272409_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
-        <div className='cloth-container'>
-          <img
-            className='cloth-image'
-            src='https://cdn-images.farfetch-contents.com/18/09/96/60/18099660_40080669_480.jpg'
-            alt='cloth'
-          ></img>
-          <div className='cloth-to-outfit'>{add_to_todays_outfit}</div>
-        </div>
+        {clothTypeUrls.slice(0, renderIndex).map((element, index) => (
+          <ClothContainer
+            key={index}
+            brand_name={element.brand_name}
+            descriptions={element.descriptions}
+            event={element.event}
+            imageUrl={element.image_urls}
+            type={element.type}
+            mongoid={element._id}
+          />
+        ))}
       </div>
     </div>
   )
