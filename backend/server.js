@@ -12,7 +12,7 @@ webapp.use(
 )
 webapp.use(express.json())
 
-const port = 3000
+const port = 8000
 
 webapp.get('/', (req, res) => {
   res.send('Hello World!')
@@ -44,8 +44,9 @@ webapp.get('/clothes', async (req, res) => {
   }
 })
 
-webapp.get('/clothes/:type', async (req, res) => {
+webapp.get('/clothes/type/:type/activity/:activity', async (req, res) => {
   const clothingType = req.params.type.toLowerCase()
+  const activity = req.params.activity.toLowerCase()
 
   // Connect to MongoDB
   const client = new MongoClient(urlService)
@@ -56,16 +57,20 @@ webapp.get('/clothes/:type', async (req, res) => {
     // Access the MongoDB collection where you stored the clothing data
     const collection = client.db('Wardrobe-Wizard').collection('clothes') // Replace with your collection name.
 
-    // Query for all clothing items of the specified type
-    const clothingItems = await collection
-      .find({ type: clothingType })
-      .toArray()
+    // Define the query object based on type and activity
+    const query = {}
 
-    if (clothingItems.length > 0) {
-      res.json(clothingItems)
-    } else {
-      res.status(404).json({ message: 'No matching clothing items found.' })
+    if (clothingType !== 'all' && clothingType !== 'null') {
+      query.type = clothingType
     }
+
+    if (activity !== 'all' && activity !== 'null') {
+      query.event = activity
+    }
+
+    // Query for clothing items matching the type and activity
+    const matchingClothes = await collection.find(query).toArray()
+    res.json({ data: matchingClothes })
   } catch (error) {
     console.error('Error:', error)
     res.status(500).json({ message: 'Internal Server Error' })

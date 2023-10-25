@@ -183,10 +183,10 @@
   display: flex;
   align-items: center; /* Vertically center the content */
   filter: drop-shadow(0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25));
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
-  padding-top: 20px;
+  margin-top: 20px;
   gap: 10px;
 }
 
