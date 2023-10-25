@@ -1,0 +1,214 @@
+.closet {
+  padding-top: 54.75px;
+}
+
+.search-bar-frame {
+  width: 100%;
+  height: 61.03px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.input-bar {
+  width: 318.162px;
+  height: 42.631px;
+  flex-shrink: 0;
+  border-radius: 13.462px;
+  border: 0.897px solid #000;
+  background: var(--Pink-background, #fffdfd);
+  display: flex;
+
+  align-items: center;
+}
+
+.input-bar-selection-part {
+  display: flex;
+  width: 74.492px;
+  height: 30.964px;
+  margin-left: 10px; /* Add a 10px left margin */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8.975px;
+}
+
+.selected-choice-button {
+  align-items: center;
+  border-radius: 13.462px;
+  border: 1.795px solid var(--colors-font, #454c4e);
+  background: #fead91;
+  text-align: center;
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 14.36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.type-event {
+  padding: 0px 173.216px 0px 37.25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4.487px;
+}
+
+.type-event-button {
+  display: flex;
+  height: 35.002px;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 17.95px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  appearance: none; /* Remove default appearance */
+  border: none; /* Remove default border */
+  background: none; /* Remove default background */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  outline: none; /* Remove outline on focus (use with caution) */
+  color: inherit; /* Inherit text color */
+  text-decoration: none; /* Remove text decoration */
+}
+
+.fw-400 {
+  font-weight: 400;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.top-row-frame {
+  border-bottom: 1.346px solid var(--colors-font, #454c4e);
+  padding: 0px 37.25px 0px 37.25px;
+  display: flex;
+  justify-content: space-between; /* Align items at each end of the container */
+  align-items: center;
+}
+
+.my-closet-title {
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 28.72px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.add-button {
+  height: 33.656px;
+  align-items: center;
+  border-radius: 13.462px;
+  border: none;
+  background: #fead91;
+  text-align: center;
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 14.36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.selection-fields-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none; /* Firefox */
+  height: 35px;
+  margin-left: 37.25px;
+  margin-right: 37.25px;
+  display: flex;
+  align-items: center; /* Vertically center the content */
+  /* Remove scrollbar for WebKit-based browsers (e.g., Chrome) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.selection-fields {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4.487px;
+}
+
+.choice-button {
+  align-items: center;
+  border-radius: 13.462px;
+  border: 1.795px solid var(--colors-font, #454c4e);
+  text-align: center;
+  background: white;
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 14.36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.selected {
+  background: #fead91;
+}
+
+.all-clothes-container {
+  overflow-y: auto;
+  white-space: nowrap;
+  scrollbar-width: none; /* Firefox */
+  max-height: 505px; /* Set a max height to enable scrolling */
+  margin-left: 37.25px;
+  margin-right: 37.25px;
+  display: flex;
+  align-items: center; /* Vertically center the content */
+  filter: drop-shadow(0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25));
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding-top: 20px;
+  gap: 10px;
+}
+
+
+.cloth-container {
+  position: relative;
+  width: 148.574px;
+  height: 179.499px;
+  border-radius: 13.462px;
+  border: 1.795px solid var(--colors-font, #454c4e);
+  background: var(--Pink-background, #fffdfd);
+}
+
+.cloth-image {
+  width: 134.399px;
+  height: 135.021px;
+  padding: 33.3px 9.04px 11.2px 9.04px;
+}
+
+.cloth-to-outfit {
+  position: absolute; /* Set the button as absolutely positioned */
+  top: 0; /* Position it at the top */
+  right: 0; /* Position it at the right */
+  padding: 6.28px 8.44px 152.22px 123.14px;
+}
