@@ -39,6 +39,11 @@ in which, (whole) and (top and bottom) are exclusive.
   - Hoodie
   - Shorts
 
+# Looks on Iphone
+
+![image](https://github.com/Zhengyi-Xiao/Wardrobe-Wizard/assets/34410439/156ac861-0e88-43c8-9c42-83710671d18f)
+
+
 # Miscellaneous
 
 - Assignment3: https://docs.google.com/document/d/1Jrjn6EVj6dP0nCZDBQOu_XbIs0tUYZUnJ-Z7Bomk11c/edit
