@@ -3,10 +3,11 @@ import axios from './axios'
 const eventMap = {
   Workout: 'workout',
   Meeting: 'meeting',
-  Party: 'party',
+  Party: 'night-out',
   Dinner: 'formal',
   Swimming: 'workout',
-  Interview: 'meeting'
+  Interview: 'meeting',
+  null: 'null'
 }
 
 export const getClothByTypeEvent = async (type, event) => {

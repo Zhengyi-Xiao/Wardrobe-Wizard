@@ -35,7 +35,7 @@ function ChoiceInputBar () {
   useEffect(() => {
     // Delay rendering the ClothContainer components
     const timeout = setTimeout(() => {
-      setRenderIndex(renderIndex + 1)
+      setRenderIndex(renderIndex + 4)
     }, 1000) // Adjust the delay time (in milliseconds) as needed
 
     return () => clearTimeout(timeout)
@@ -49,7 +49,7 @@ function ChoiceInputBar () {
         clothType.includes(currentChoice) ? choice : currentChoice
       )
       setSelectedChoices(updatedChoices)
-      setDisplayEventButtons(true)
+      // setDisplayEventButtons(true)
     } else {
       // Check if there's an event type already selected
       const eventTypeIndex = selectedChoices.findIndex(currentChoice =>
