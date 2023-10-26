@@ -7,7 +7,7 @@ import { getClothByTypeEvent } from './api.js'
 function ChoiceInputBar () {
   const [selectedChoices, setSelectedChoices] = useState(['All'])
   const [displayEventButtons, setDisplayEventButtons] = useState(false)
-  const clothType = ['All', 'Top', 'Bottom', 'Outwear']
+  const clothType = ['All', 'Top', 'Bottom', 'Full Body']
   const [clothTypeUrls, setClothTypeUrls] = useState([])
   const [renderIndex, setRenderIndex] = useState(0)
 
@@ -68,6 +68,38 @@ function ChoiceInputBar () {
     }
   }
 
+  const handleAddClothes = () => {
+    // Check if the user is on an iPhone
+    const isIPhone = /iPhone/i.test(navigator.userAgent)
+
+    if (isIPhone) {
+      // If on iPhone, open the camera
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then(stream => {
+          // Use the stream for your camera functionality
+          console.log('Camera opened on iPhone')
+        })
+        .catch(error => {
+          console.error('Error opening the camera:', error)
+        })
+    } else {
+      // If not on iPhone, trigger the file input element
+      const fileInput = document.createElement('input')
+      fileInput.type = 'file'
+      fileInput.accept = 'image/*'
+      fileInput.click()
+
+      fileInput.addEventListener('change', event => {
+        const selectedFile = event.target.files[0]
+        if (selectedFile) {
+          // Handle the selected file (uploaded image) here
+          console.log('Uploaded file:', selectedFile)
+        }
+      })
+    }
+  }
+
   const handleRemoveChoice = choice => {
     if (choice === 'All') {
       return
@@ -93,32 +125,43 @@ function ChoiceInputBar () {
 
   const eventTypes = [
     'Workout',
+    'Formal Events',
     'Meeting',
-    'Party',
-    'Dinner',
-    'Swimming',
-    'Interview'
+    'Outdoor',
+    'Night Out',
+    'Causal'
   ]
 
   return (
     <div className='closet'>
       <div className='top-row-frame'>
         <div className='my-closet-title'>My Closet</div>
-        <button className='add-button'>+ Add Clothes</button>
+        <button className='add-button' onClick={handleAddClothes}>
+          + Add Clothes
+        </button>
       </div>
       <div className='search-bar-frame'>
         <div className='input-bar'>
           <div className='input-bar-selection-part'>
-            {selectedChoices.map(choice => (
-              <button
-                key={choice}
-                className='selected-choice-button'
-                onClick={() => handleRemoveChoice(choice)}
-              >
-                {choice}
-                {delete_selected}
-              </button>
-            ))}
+            {(selectedChoices.length === 1) & (selectedChoices[0] === 'All') ? (
+              <div className='all-selected-placeholder'>Select...</div>
+            ) : (
+              selectedChoices.map(choice => {
+                if (choice === 'All') {
+                  return <></>
+                }
+                return (
+                  <button
+                    key={choice}
+                    className='selected-choice-button'
+                    onClick={() => handleRemoveChoice(choice)}
+                  >
+                    {choice}
+                    {delete_selected}
+                  </button>
+                )
+              })
+            )}
           </div>
         </div>
       </div>
@@ -144,32 +187,39 @@ function ChoiceInputBar () {
       <div className='selection-fields-container'>
         {displayEventButtons && (
           <div className='selection-fields'>
-            {eventTypes.map(eventType => (
-              <button
-                key={eventType}
-                className={`choice-button ${
-                  selectedChoices.includes(eventType) ? 'selected' : ''
-                }`}
-                onClick={() => handleChoiceClick(eventType)}
-              >
-                {eventType}
-              </button>
-            ))}
+            {eventTypes.map(eventType => {
+              return (
+                <button
+                  key={eventType}
+                  className={`choice-button ${
+                    selectedChoices.includes(eventType) ? 'selected' : ''
+                  }`}
+                  onClick={() => handleChoiceClick(eventType)}
+                >
+                  {eventType}
+                </button>
+              )
+            })}
           </div>
         )}
         {!displayEventButtons && (
           <div className='selection-fields'>
-            {clothType.map(choice => (
-              <button
-                key={choice}
-                className={`choice-button ${
-                  selectedChoices.includes(choice) ? 'selected' : ''
-                }`}
-                onClick={() => handleChoiceClick(choice)}
-              >
-                {choice}
-              </button>
-            ))}
+            {clothType.map(choice => {
+              if (choice === 'All') {
+                return <></>
+              }
+              return (
+                <button
+                  key={choice}
+                  className={`choice-button ${
+                    selectedChoices.includes(choice) ? 'selected' : ''
+                  }`}
+                  onClick={() => handleChoiceClick(choice)}
+                >
+                  {choice}
+                </button>
+              )
+            })}
           </div>
         )}
       </div>

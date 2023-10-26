@@ -1,5 +1,5 @@
 .closet {
-  padding-top: 54.75px;
+  /* padding-top: 54.75px; */
 }
 
 .search-bar-frame {
@@ -23,8 +23,6 @@
 }
 
 .input-bar-selection-part {
-  display: flex;
-  width: 74.492px;
   height: 30.964px;
   margin-left: 10px; /* Add a 10px left margin */
   display: flex;
