@@ -174,20 +174,21 @@
 .all-clothes-container {
   overflow-y: auto;
   white-space: nowrap;
-  scrollbar-width: none; /* Firefox */
-  max-height: 505px; /* Set a max height to enable scrolling */
+  scrollbar-width: none;
+  max-height: 580px;
   margin-left: 43.25px;
   /* margin-right: 37.25px; */
   display: flex;
-  align-items: center; /* Vertically center the content */
-  filter: drop-shadow(0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25));
+  align-items: center;
+  filter: drop-shadow(
+    0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25)
+  );
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
   margin-top: 20px;
   gap: 10px;
 }
-
 
 .cloth-container {
   position: relative;
@@ -206,7 +207,8 @@
 
 .cloth-to-outfit {
   position: absolute; /* Set the button as absolutely positioned */
-  top: 0; /* Position it at the top */
+  top: 7px; /* Position it at the top */
   right: 0; /* Position it at the right */
-  padding: 6.28px 8.44px 152.22px 123.14px;
+  border: none;
+  background: transparent;
 }

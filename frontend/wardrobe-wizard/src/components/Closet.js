@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import ClothContainer from './ClothContainer'
-import './ChoiceInputBar.css'
-import { delete_selected } from './icons.js'
-import { getClothByTypeEvent } from './api.js'
+import '../styles/Closet.css'
+import { delete_selected } from '../styles/icons.js'
+import { getClothByTypeEvent } from '../api/api.js'
+import AddToTodayPopUp from './ChooseEventType.js'
+import AddClothPopUp from './AddClothPopUp.js';
 
-function ChoiceInputBar () {
+function Closet() {
   const [selectedChoices, setSelectedChoices] = useState(['All'])
   const [displayEventButtons, setDisplayEventButtons] = useState(false)
   const clothType = ['All', 'Top', 'Bottom', 'Full Body']
   const [clothTypeUrls, setClothTypeUrls] = useState([])
   const [renderIndex, setRenderIndex] = useState(0)
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isAddClothPopUpOpen, setIsAddClothPopUpOpen] = useState(false);
 
   useEffect(() => {
     // Fetch image URLs based on selected choices
-    async function fetchClothUrls () {
+    async function fetchClothUrls() {
       // find the first event type in selectedChoices
       const selectedEvent = selectedChoices.find(choice =>
         eventTypes.includes(choice)
@@ -93,12 +97,18 @@ function ChoiceInputBar () {
       fileInput.addEventListener('change', event => {
         const selectedFile = event.target.files[0]
         if (selectedFile) {
-          // Handle the selected file (uploaded image) here
+          setSelectedImage(URL.createObjectURL(selectedFile)); // Set the selected image in the state
+          setIsAddClothPopUpOpen(true); // Open the AddClothPopUp
           console.log('Uploaded file:', selectedFile)
         }
       })
     }
   }
+
+  const closeAddClothPopUp = () => {
+    setIsAddClothPopUpOpen(false);
+  };
+
 
   const handleRemoveChoice = choice => {
     if (choice === 'All') {
@@ -116,9 +126,11 @@ function ChoiceInputBar () {
       setSelectedChoices(updatedChoices)
     }
   }
+
   const showEventButtons = () => {
     setDisplayEventButtons(true)
   }
+
   const showTypeButtons = () => {
     setDisplayEventButtons(false)
   }
@@ -132,6 +144,14 @@ function ChoiceInputBar () {
     'Causal'
   ]
 
+  const [showAddToToday, setshowAddToToday] = useState(false);
+
+  const handleAddToToday = () => {
+    setshowAddToToday(!showAddToToday);
+  }
+
+  const handleAddToOutfit = () => {
+  }
   return (
     <div className='closet'>
       <div className='top-row-frame'>
@@ -167,18 +187,16 @@ function ChoiceInputBar () {
       </div>
       <div className='type-event'>
         <button
-          className={`type-event-button ${
-            displayEventButtons ? 'fw-400' : 'fw-600'
-          }`}
+          className={`type-event-button ${displayEventButtons ? 'fw-400' : 'fw-600'
+            }`}
           onClick={showTypeButtons}
         >
           Type
         </button>
         <div className='type-event-button'> | </div>
         <button
-          className={`type-event-button ${
-            displayEventButtons ? 'fw-600' : 'fw-400'
-          }`}
+          className={`type-event-button ${displayEventButtons ? 'fw-600' : 'fw-400'
+            }`}
           onClick={showEventButtons}
         >
           Activity
@@ -191,9 +209,8 @@ function ChoiceInputBar () {
               return (
                 <button
                   key={eventType}
-                  className={`choice-button ${
-                    selectedChoices.includes(eventType) ? 'selected' : ''
-                  }`}
+                  className={`choice-button ${selectedChoices.includes(eventType) ? 'selected' : ''
+                    }`}
                   onClick={() => handleChoiceClick(eventType)}
                 >
                   {eventType}
@@ -211,9 +228,8 @@ function ChoiceInputBar () {
               return (
                 <button
                   key={choice}
-                  className={`choice-button ${
-                    selectedChoices.includes(choice) ? 'selected' : ''
-                  }`}
+                  className={`choice-button ${selectedChoices.includes(choice) ? 'selected' : ''
+                    }`}
                   onClick={() => handleChoiceClick(choice)}
                 >
                   {choice}
@@ -233,11 +249,18 @@ function ChoiceInputBar () {
             imageUrl={element.image_urls}
             type={element.type}
             mongoid={element._id}
+            handleAddToToday={handleAddToToday}
+            eventTypes={eventTypes}
           />
         ))}
       </div>
+
+      {showAddToToday && <AddToTodayPopUp handleAddToOutfit={handleAddToOutfit} handleClosePopUp={handleAddToToday} eventTypes={eventTypes} />}
+      {isAddClothPopUpOpen && (
+        <AddClothPopUp selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} forRecommendation={false} />
+      )}
     </div>
   )
 }
 
-export default ChoiceInputBar
+export default Closet
