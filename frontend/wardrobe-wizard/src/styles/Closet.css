@@ -1,5 +1,6 @@
 .closet {
   /* padding-top: 54.75px; */
+  background-color: white;
 }
 
 .search-bar-frame {
@@ -95,6 +96,9 @@
   display: flex;
   justify-content: space-between; /* Align items at each end of the container */
   align-items: center;
+  border-radius: 0px 0px 17.95px 17.95px;
+  background: var(--topbar, #ffe7df);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .my-closet-title {

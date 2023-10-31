@@ -14,7 +14,7 @@ function AddClothPopUp({ selectedImage, onClose, eventTypes, forRecommendation }
 
   return (
     <div className="add-cloth-popup">
-      <button onClick={onClose}>{go_back}</button>
+      <button className="add-cloth-pop-up-back" onClick={onClose}>{go_back}</button>
       <img className="uploaded-image" src={selectedImage} alt="Selected Cloth" />
       <form className="add-clot-attribute">
         <div className="add-cloth-attribute-container">
