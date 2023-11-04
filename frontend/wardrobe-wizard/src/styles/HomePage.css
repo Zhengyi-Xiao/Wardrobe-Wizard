@@ -1,7 +1,7 @@
 .weather {
   width: 100%;
   height: 87.954px;
-  background-color: aqua;
+  background-color: FFE7DF;
 }
 
 .bar-calendar-container {
@@ -86,4 +86,59 @@
   border-radius: 0px 0px 8.975px 8.975px;
   border: 1.346px solid #fcb;
   background: #fefefe;
+}
+
+.calendarIcon {
+  position: absolute;
+  left: 340px;
+  top: 44px;
+  width: 30px;
+  height: 30px;
+}
+
+.weatherIcon{
+  width: 36.1px;
+  height: 35.9px;
+}
+
+.weatherDateInfo{
+  display: flex;
+  width: 124.794px;
+  height: 69.59px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.dateInfo {
+  color: var(--WeatherColor, #454C4E);
+  font-family: Poppins;
+  font-size: 14.36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.temperature {
+  color: var(--WeatherColor, #454C4E);
+  font-family: Poppins;
+  font-size: 28.72px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.seperator {
+  width: 2.244px;
+  height: 31.412px;
+}
+
+.weatherInfo {
+  display: flex;
+  align-items: center;
+  gap: 13.014px;
+}
+
+.css-1q04gal-MuiDateCalendar-root {
+ background-color: white;
 }

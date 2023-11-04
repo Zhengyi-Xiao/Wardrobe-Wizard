@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/HomePage.css';
-import { workout, collapse } from '../styles/icons.js';
-function HomePage() {
+import { workout, collapse, calendar, weather} from '../styles/icons.js';
+import CalendarMonth from './CalendarMonth.js';
+
+function HomePage(eventTypes) {
+  const [openCalendar, setOpenCalendar] = useState(false);
+  const handleClickCalendar = () => {
+    setOpenCalendar(!openCalendar);
+  }
+
   return (
     <div className='home-page-container'>
-      <div className='weather'></div>
+      <div className='weather'>
+          <div>
+            <button className='calendarIcon' onClick={handleClickCalendar}>
+              {calendar}
+            </button>
+            {openCalendar && <CalendarMonth handleClosePopUp={handleClickCalendar}/>}
+          </div>
+          <div className='weatherDateInfo'>
+            <div className='dateInfo'>9 Oct, 2023</div>
+            <div className='weatherInfo'>
+              <div className='temperature'>65°F</div>
+              <div className='seperator'></div>
+              <div className='weatherIcon'>
+                {weather}
+              </div>
+            </div>
+          </div>
+      </div>
       <div className='bar-calendar-container'>
         <div className='bar-calendar'></div>
       </div>
