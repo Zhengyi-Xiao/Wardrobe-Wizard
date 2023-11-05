@@ -6,6 +6,7 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { InputAdornment } from '@mui/material';
 import MyCustomLayout from './MyCustomLayout.js';
+import { DateCalendar } from '@mui/x-date-pickers';
 
 function CalendarMonth({handleClosePopUp}) {
 
@@ -13,9 +14,6 @@ function CalendarMonth({handleClosePopUp}) {
     <div className='add-to-today-popup'>
       <div className='add-to-today-popup-content'>
         <div className='add-to-today-popup-action-buttons'>
-          {/* <button className='add-to-today-popup-button' onClick={handleAddToOutfit}>
-            Confirm
-          </button> */}
           <LocalizationProvider 
           dateAdapter={AdapterDayjs}
           >
@@ -44,15 +42,11 @@ function CalendarMonth({handleClosePopUp}) {
             slots={{
               layout: MyCustomLayout,
             }}
-            // sx={{
-            //   width: "100%",
-            //   "& .MuiInputLabel-root.Mui-focused": { color: "#979797" }, //styles the label
-            //   "& .MuiOutlinedInput-root": {
-            //   "&:hover > fieldset": { borderColor: "#C7C8CD" },
-            //   height: "48px",
-            //   borderRadius: "6px",
-            //   },
-            // }}
+            slotProps={{
+              actionBar: {
+                actions: ['today', 'accept', 'cancel'],
+              },
+            }}
             />
           </LocalizationProvider>
           <button className='add-to-today-popup-button' onClick={handleClosePopUp}>
