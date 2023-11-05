@@ -9,7 +9,9 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 function HomePage(eventTypes) {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [temp, setTemp] = useState(null);
-  const [weatherName, setweatherName] = useState(null);
+  const [weatherName, setWeatherName] = useState(null);
+  const [weatherIconUrl, setWeatherIconUrl] = useState(null);
+
 
   const currentDate = new Date();
   const day = currentDate.getDate();
@@ -40,11 +42,14 @@ function HomePage(eventTypes) {
 
   useEffect(() => {
     // Fetch the temperature and update the 'temp' state
-    getWeather().then((response) => {
+    getWeather().then(async(response) => {
       const temperature = response.main.temp;
-      const weather = response.weather[0].main;
+      // const weather = response.weather[0].main;
+      const weatherIconCode = response.weather[0].icon;
+      const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`
       setTemp(temperature);
-      setweatherName(weather);
+      // setWeatherName(weather);
+      setWeatherIconUrl(weatherIconUrl)
       // console.log('Weather:', weather);
     });
   }, []);
@@ -67,10 +72,13 @@ function HomePage(eventTypes) {
             <div className='weatherInfo'>
               <div className='temperature'>{Math.round(temp)}°F</div>
               <div className='seperator'></div>
-              <div className='weatherIcon'>
+              {weatherIconUrl && (
+                <img src={weatherIconUrl} alt='Weather Icon' className='weatherIcon' />
+              )}
+              {/* <div className='weatherIcon'>
                 {weather}
                 {weatherName}
-              </div>
+              </div> */}
             </div>
           </div>
       </div>
