@@ -10,9 +10,6 @@ function HomePage(eventTypes) {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [temp, setTemp] = useState(null);
   const [weatherName, setweatherName] = useState(null);
-  const handleClickCalendar = () => {
-    setOpenCalendar(!openCalendar);
-  }
 
   const currentDate = new Date();
   const day = currentDate.getDate();
@@ -20,9 +17,20 @@ function HomePage(eventTypes) {
   const monthIndex = currentDate.getMonth();
   const month = monthNames[monthIndex];
   const year = currentDate.getFullYear();
-
   const formattedDate = `${day} ${month}, ${year}`;
+
+  const [selectedDate, setSelectedDate] = useState(formattedDate);
   
+  const handleOpenCalendar = () => {
+    setOpenCalendar(true);
+  }
+  
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+    // Close the CalendarMonth popup
+    setOpenCalendar(false);
+  };
+
   const getWeather = async () => {
     const location = `http://api.openweathermap.org/data/2.5/weather?q=Philadelphia&appid=4d01dbe80c384ea20a6937f2aa98848d&units=imperial`
     const res = await fetch(location);
@@ -49,13 +57,13 @@ function HomePage(eventTypes) {
             {/* <button className='calendarIcon' onClick={handleClickCalendar}>
               {calendar}
             </button> */}
-            <IconButton className='calendarIcon' onClick={handleClickCalendar}>
+            <IconButton className='calendarIcon' onClick={handleOpenCalendar}>
               <CalendarMonthIcon />
             </IconButton>
-            {openCalendar && <CalendarMonth handleClosePopUp={handleClickCalendar}/>}
+            {openCalendar && <CalendarMonth handleDateChange={handleDateChange}/>}
           </div>
           <div className='weatherDateInfo'>
-            <div className='dateInfo'>{formattedDate}</div>
+            <div className='dateInfo'>{selectedDate}</div>
             <div className='weatherInfo'>
               <div className='temperature'>{Math.round(temp)}°F</div>
               <div className='seperator'></div>
