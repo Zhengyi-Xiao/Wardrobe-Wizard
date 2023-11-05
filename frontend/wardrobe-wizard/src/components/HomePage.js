@@ -49,7 +49,7 @@ function HomePage(eventTypes) {
             {/* <button className='calendarIcon' onClick={handleClickCalendar}>
               {calendar}
             </button> */}
-            <IconButton aria-label="delete" className='calendarIcon' onClick={handleClickCalendar}>
+            <IconButton className='calendarIcon' onClick={handleClickCalendar}>
               <CalendarMonthIcon />
             </IconButton>
             {openCalendar && <CalendarMonth handleClosePopUp={handleClickCalendar}/>}
