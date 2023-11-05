@@ -1,33 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../styles/ChooseEventType.css';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { MobileDatePicker, StaticDatePicker } from '@mui/x-date-pickers';
+import { StaticDatePicker } from '@mui/x-date-pickers';
 import MyCustomLayout from './MyCustomLayout.js';
-import { DateCalendar } from '@mui/x-date-pickers';
-import dayjs from "dayjs";
 
-function CalendarMonth({handleDateChange}) {
-  const currentDate = new Date();
-  const day = currentDate.getDate();
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const monthIndex = currentDate.getMonth();
-  const month = monthNames[monthIndex];
-  const year = currentDate.getFullYear();
-  const formattedDate = `${year}-${month}-${day}`;
-  
-  const [selectedDate, setSelectedDate] = useState(dayjs(formattedDate));
-  console.log(selectedDate['$d'])
+function CalendarMonth({ selectedDate, handleDateChange}) {  
+  const [currentSelectedDate, setCurrentSelectedDate] = useState(selectedDate);
   
   const handleOkClick = () => {
-    // Call the function from props to transfer the selected date back to the homepage
-    const selectedDay = selectedDate['$D']
-    const selectedYr = selectedDate['$y']
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const selectedMon = monthNames[selectedDate['$M']];
-    const formattedSelectedDate = `${selectedDay} ${selectedMon}, ${selectedYr}`;
-    handleDateChange(formattedSelectedDate);
+    // const formattedSelectedDate = selectedDate.format('D MMM, YYYY');
+    handleDateChange(currentSelectedDate);
   };
+
+  useEffect(() => {
+    setCurrentSelectedDate(selectedDate);
+  }, [selectedDate]);
 
   return (
     <div className='add-to-today-popup'>
@@ -37,8 +25,8 @@ function CalendarMonth({handleDateChange}) {
           dateAdapter={AdapterDayjs}
           >
             <StaticDatePicker
-            value={selectedDate} 
-            onChange={(newValue) => setSelectedDate(newValue)}
+            value={currentSelectedDate} 
+            onChange={(newValue) => setCurrentSelectedDate(newValue)}
             slots={{
               layout: MyCustomLayout,
             }}

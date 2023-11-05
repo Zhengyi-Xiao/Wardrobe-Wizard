@@ -1,6 +1,5 @@
 import React from 'react';
-import classes from './HomePage1.module.css';
-import '../styles/HomePage.css';
+import classes from '../styles/CalendarWeek.module.css';
 
 function CalendarWeek() {
 

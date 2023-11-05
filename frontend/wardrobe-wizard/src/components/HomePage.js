@@ -5,6 +5,7 @@ import CalendarMonth from './CalendarMonth.js';
 import CalendarWeek from './CalendarWeek.js';
 import { IconButton } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import dayjs from "dayjs";
 
 function HomePage(eventTypes) {
   const [openCalendar, setOpenCalendar] = useState(false);
@@ -12,17 +13,9 @@ function HomePage(eventTypes) {
   const [weatherName, setWeatherName] = useState(null);
   const [weatherIconUrl, setWeatherIconUrl] = useState(null);
 
+  const currentDate = dayjs();
+  const [selectedDate, setSelectedDate] = useState(currentDate);
 
-  const currentDate = new Date();
-  const day = currentDate.getDate();
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const monthIndex = currentDate.getMonth();
-  const month = monthNames[monthIndex];
-  const year = currentDate.getFullYear();
-  const formattedDate = `${day} ${month}, ${year}`;
-
-  const [selectedDate, setSelectedDate] = useState(formattedDate);
-  
   const handleOpenCalendar = () => {
     setOpenCalendar(true);
   }
@@ -50,7 +43,7 @@ function HomePage(eventTypes) {
       setTemp(temperature);
       // setWeatherName(weather);
       setWeatherIconUrl(weatherIconUrl)
-      // console.log('Weather:', weather);
+      // console.log('Weather:', weather)
     });
   }, []);
   
@@ -65,10 +58,14 @@ function HomePage(eventTypes) {
             <IconButton className='calendarIcon' onClick={handleOpenCalendar}>
               <CalendarMonthIcon />
             </IconButton>
-            {openCalendar && <CalendarMonth handleDateChange={handleDateChange}/>}
+            {openCalendar && 
+            <CalendarMonth 
+              selectedDate={selectedDate}
+              handleDateChange={handleDateChange}
+            />}
           </div>
           <div className='weatherDateInfo'>
-            <div className='dateInfo'>{selectedDate}</div>
+            <div className='dateInfo'>{selectedDate.format('D MMM, YYYY')}</div>
             <div className='weatherInfo'>
               <div className='temperature'>{Math.round(temp)}°F</div>
               <div className='seperator'></div>
