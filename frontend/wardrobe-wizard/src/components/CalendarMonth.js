@@ -3,13 +3,11 @@ import '../styles/ChooseEventType.css';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MobileDatePicker, StaticDatePicker } from '@mui/x-date-pickers';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { InputAdornment } from '@mui/material';
 import MyCustomLayout from './MyCustomLayout.js';
 import { DateCalendar } from '@mui/x-date-pickers';
 import dayjs from "dayjs";
 
-function CalendarMonth({handleClosePopUp}) {
+function CalendarMonth({handleDateChange}) {
   const currentDate = new Date();
   const day = currentDate.getDate();
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -18,9 +16,19 @@ function CalendarMonth({handleClosePopUp}) {
   const year = currentDate.getFullYear();
   const formattedDate = `${year}-${month}-${day}`;
   
-  const [Day, setDay] = useState(dayjs(formattedDate));
-  // console.log(Day)
+  const [selectedDate, setSelectedDate] = useState(dayjs(formattedDate));
+  console.log(selectedDate['$d'])
   
+  const handleOkClick = () => {
+    // Call the function from props to transfer the selected date back to the homepage
+    const selectedDay = selectedDate['$D']
+    const selectedYr = selectedDate['$y']
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const selectedMon = monthNames[selectedDate['$M']];
+    const formattedSelectedDate = `${selectedDay} ${selectedMon}, ${selectedYr}`;
+    handleDateChange(formattedSelectedDate);
+  };
+
   return (
     <div className='add-to-today-popup'>
       <div className='add-to-today-popup-content'>
@@ -28,30 +36,9 @@ function CalendarMonth({handleClosePopUp}) {
           <LocalizationProvider 
           dateAdapter={AdapterDayjs}
           >
-            {/* <MobileDatePicker
-            label="*Date of birth"
-            slotProps={{
-              textField: {
-              InputProps: {
-                endAdornment: (
-                <InputAdornment
-                  sx={{
-                  color: "#979797",
-                  }}
-                  position="end"
-                >
-                  <CalendarMonthIcon />
-                </InputAdornment>
-                ),
-              },
-              },
-            }}
-            /> */}
             <StaticDatePicker
-            // label="*Date of birth"
-            // disableUnderline
-            value={Day} 
-            onChange={(newValue) => setDay(newValue)}
+            value={selectedDate} 
+            onChange={(newValue) => setSelectedDate(newValue)}
             slots={{
               layout: MyCustomLayout,
             }}
@@ -63,7 +50,7 @@ function CalendarMonth({handleClosePopUp}) {
             }}
             />
           </LocalizationProvider>
-          <button className='add-to-today-popup-button' onClick={handleClosePopUp}>
+          <button className='add-to-today-popup-button' onClick={handleOkClick}>
             OK
           </button>
         </div>
