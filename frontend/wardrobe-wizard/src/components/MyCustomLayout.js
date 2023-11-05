@@ -13,6 +13,7 @@ function MyCustomLayout(props) {
   const customizedDate = useRef(value);
   const [, setNewDate] = useState(value);
   const { toolbar, content, actionBar } = usePickerLayout(props);
+  // console.log(NewDate)
   return (
     <PickersLayoutRoot
     className={pickersLayoutClasses.root}
@@ -21,6 +22,7 @@ function MyCustomLayout(props) {
       [`.${pickersLayoutClasses.toolbar}`]: {
       color: "white",
       backgroundColor: "#FEAD91",
+      // borderRadius: '9px 9px 0 0',
       "& .MuiTypography-root ": {
         color: "white",
       },
