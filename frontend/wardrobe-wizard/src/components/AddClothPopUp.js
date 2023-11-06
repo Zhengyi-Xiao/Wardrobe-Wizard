@@ -20,7 +20,7 @@ function AddClothPopUp({ selectedImage, onClose, eventTypes, clothType, forEdit,
   }
 
   const handleUploadImage = () => {
-    
+
   }
 
   const handleChangeType = () => {
@@ -32,41 +32,42 @@ function AddClothPopUp({ selectedImage, onClose, eventTypes, clothType, forEdit,
   }
 
   return (
-    <div className="add-cloth-popup">
-      <div className="add-cloth-pop-up-back">
-        <h3>Add to Closet</h3>
-        <button className="back-arrow" onClick={onClose}>back</button>
-      </div>
-      <div className = "image-block">
-        <img className="uploaded-image" src={selectedImage} alt="Selected Cloth" />
-      </div>
-      <div className="add-cloth-attribute-container">
-        <div className="add-cloth-attribute">
-          <div className="add-cloth-attribute-label">Type</div>
-          <div className="add-cloth-attribute-input">
-            <div className='tags'>
-              <button className="tag">Top</button>
+    <div className="add-cloth-popup-flame">
+      <div className="add-cloth-popup">
+        <div className="add-cloth-pop-up-back">
+          <h3>Add to Closet</h3>
+          <button className="back-arrow" onClick={onClose}>back</button>
+        </div>
+        <div className="image-block">
+          <img className="uploaded-image" src={selectedImage} alt="Selected Cloth" />
+        </div>
+        <div className="add-cloth-attribute-container">
+          <div className="add-cloth-attribute">
+            <div className="add-cloth-attribute-label">Type</div>
+            <div className="add-cloth-attribute-input">
+              <div className='tags'>
+                <button className="tag">Top</button>
+              </div>
+              <button className="edit" onClick={handleSelectClothType}>{edit_add_today}</button>
             </div>
-            <button className="edit" onClick={handleSelectClothType}>{edit_add_today}</button>
+          </div>
+          <div className="add-cloth-attribute">
+            <div className="add-cloth-attribute-label">Activity</div>
+            <div className="add-cloth-attribute-input">
+              <div className='tags'>
+                <button className="tag">Casual</button>
+              </div>
+              <button className="edit" onClick={handleSelectActivity}>{edit_add_today}</button>
+            </div>
           </div>
         </div>
-        <div className="add-cloth-attribute">
-          <div className="add-cloth-attribute-label">Activity</div>
-          <div className="add-cloth-attribute-input">
-            <div className='tags'>
-              <button className="tag">Casual</button>
-            </div>
-            <button className="edit" onClick={handleSelectActivity}>{edit_add_today}</button>
-          </div>
+        <div className="btns">
+          {forEdit ? <button className="btn-add">Save</button> : <button className="btn-add">Add to Closet</button>}
+          {forEdit ? <button className="btn-cancel">Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button>}
         </div>
+        {isChooseEventTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeActivity} handleClosePopUp={handleSelectActivity} eventTypes={eventTypes} type={'activity'} />}
+        {isChooseClothTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeType} handleClosePopUp={handleSelectClothType} eventTypes={clothType} type={'clothes'} />}
       </div>
-      <div className = "btns">
-        {forEdit ? <button className="btn-add">Save</button> : <button className="btn-add">Add to Closet</button> }
-        {forEdit ? <button className="btn-cancel">Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button> }
-
-        </div>
-      {isChooseEventTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeActivity} handleClosePopUp={handleSelectActivity} eventTypes={eventTypes} type={'activity'}/>}
-      {isChooseClothTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeType} handleClosePopUp={handleSelectClothType} eventTypes={clothType} type={'clothes'}/> }
     </div>
   );
 }

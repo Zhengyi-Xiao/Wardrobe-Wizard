@@ -1,82 +1,96 @@
 .recommend {
-    /* padding-top: 54.75px; */
-    background-color: white;
+  /* padding-top: 54.75px; */
+  background-color: white;
 }
 
 .recommend .top-row-frame {
-    /* border-bottom: 1.346px solid var(--colors-font, #454c4e); */
-    border: none;
-    padding: 0px 37.25px 0px 37.25px;
-    display: flex;
-    justify-content: space-between; /* Align items at each end of the container */
-    align-items: center;
-    border-radius: 0px 0px 17.95px 17.95px;
-    background: var(--topbar, #ffe7df);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    height: 60px;
+  /* border-bottom: 1.346px solid var(--colors-font, #454c4e); */
+  border: none;
+  padding: 0px 37.25px 0px 37.25px;
+  display: flex;
+  justify-content: space-between; /* Align items at each end of the container */
+  align-items: center;
+  border-radius: 0px 0px 17.95px 17.95px;
+  background: var(--topbar, #ffe7df);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  height: 60px;
 }
-  
+
 .recommend .recommend-page-title {
-    color: var(--colors-font, #454c4e);
-    font-family: Poppins;
-    font-size: 28.72px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 28.72px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .recommend .all-activity-container {
-    overflow-y: auto;
-    margin-left: 43.25px;
-    margin-right: 37.25px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    margin-top: 20px;
-    gap: 10px;
+  overflow-y: auto;
+  margin-left: 43.25px;
+  margin-right: 37.25px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  margin-top: 20px;
+  gap: 10px;
+  height: 700px;
+  width: 310px;
 }
 
 .recommend .all-activity-container .single-activity-container {
-    align-content: flex-start;
-    display: flex;
-    flex-direction: column;
-    vertical-align: auto;
-    height: 350px;
-    position: relative;
-    flex:auto;
-    gap: 10px; 
+  align-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  vertical-align: auto;
+  height: 350px;
+  width: 310px;
+  position: relative;
+  flex: auto;
+  gap: 10px;
 }
 
-.recommend .all-activity-container .single-activity-container .single-activity-title {
-    color: var(--colors-font, #454c4e);
-    font-family: Poppins;
-    font-size: 24;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    position: relative;
-    flex: auto;
+.recommend
+  .all-activity-container
+  .single-activity-container
+  .single-activity-title {
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 24;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: relative;
+  flex: auto;
 }
 
-.recommend .all-activity-container .single-activity-container .single-activity-clothes-row {
-    position: relative;
-    padding: 0px;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    filter: drop-shadow(
-      0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25)
-    );
-    flex:auto;
-    gap: 0px 15px;
+.recommend
+  .all-activity-container
+  .single-activity-container
+  .single-activity-clothes-row {
+  position: relative;
+  padding: 0px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  filter: drop-shadow(
+    0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25)
+  );
+  flex: auto;
+  gap: 0px 15px;
+  height: 312px;
 }
 
-.recommend .all-activity-container .single-activity-container .single-activity-clothes-row .recommend-cloth-image {
-    height: 300px;
-    flex:auto;
-    padding: 5px;
-    border-radius: 30px;
+.recommend
+  .all-activity-container
+  .single-activity-container
+  .single-activity-clothes-row
+  .recommend-cloth-image {
+  height: 300px;
+  flex: auto;
+  padding: 5px;
+  border-radius: 30px;
 }
