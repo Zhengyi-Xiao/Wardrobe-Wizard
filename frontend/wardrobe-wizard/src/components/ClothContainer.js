@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { add_to_todays_outfit } from '../styles/icons.js';
 import AddClothPopUp from './AddClothPopUp.js';
 
-function ClothContainer({ imageUrl, handleAddToToday, eventTypes }) {
+function ClothContainer({ imageUrl, handleAddToToday, eventTypes, clothType }) {
   const [openProfile, setOpenProfile] = useState(false);
   const [selectedImage,] = useState(imageUrl);
   const handleOpenProfile = () => {
@@ -15,7 +15,7 @@ function ClothContainer({ imageUrl, handleAddToToday, eventTypes }) {
       <button className='cloth-to-outfit' onClick={handleAddToToday}>
         {add_to_todays_outfit}
       </button>
-      {openProfile && <AddClothPopUp selectedImage={selectedImage} onClose={handleOpenProfile} eventTypes={eventTypes} forRecommendation={false} />
+      {openProfile && <AddClothPopUp selectedImage={selectedImage} onClose={handleOpenProfile} eventTypes={eventTypes} clothType={clothType} forEdit={false} />
       }
     </div>
   );

@@ -5,15 +5,34 @@ import { delete_selected } from '../styles/icons.js'
 import { getClothByTypeEvent } from '../api/api.js'
 import AddToTodayPopUp from './ChooseEventType.js'
 import AddClothPopUp from './AddClothPopUp.js';
+import ChooseEventType from './ChooseEventType.js'
 
 function Closet() {
   const [selectedChoices, setSelectedChoices] = useState(['All'])
   const [displayEventButtons, setDisplayEventButtons] = useState(false)
-  const clothType = ['All', 'Top', 'Bottom', 'Full Body']
   const [clothTypeUrls, setClothTypeUrls] = useState([])
   const [renderIndex, setRenderIndex] = useState(0)
   const [selectedImage, setSelectedImage] = useState(null);
   const [isAddClothPopUpOpen, setIsAddClothPopUpOpen] = useState(false);
+
+  const eventTypes = [
+    'Workout',
+    'Formal Events',
+    'Meeting',
+    'Outdoor',
+    'Night Out',
+    'Causal'
+  ]
+
+  const clothType = [
+    'All',
+    'Top', 
+    'Bottom', 
+    'Full Body',
+    'Outwear',
+    'Shoes',
+    'Accessory'
+  ]
 
   useEffect(() => {
     // Fetch image URLs based on selected choices
@@ -32,7 +51,6 @@ function Closet() {
       )
       setClothTypeUrls(urls)
     }
-
     fetchClothUrls()
   }, [selectedChoices])
 
@@ -135,14 +153,6 @@ function Closet() {
     setDisplayEventButtons(false)
   }
 
-  const eventTypes = [
-    'Workout',
-    'Formal Events',
-    'Meeting',
-    'Outdoor',
-    'Night Out',
-    'Causal'
-  ]
 
   const [showAddToToday, setshowAddToToday] = useState(false);
 
@@ -205,15 +215,15 @@ function Closet() {
       <div className='selection-fields-container'>
         {displayEventButtons && (
           <div className='selection-fields'>
-            {eventTypes.map(eventType => {
+            {eventTypes.map(choice => {
               return (
                 <button
-                  key={eventType}
-                  className={`choice-button ${selectedChoices.includes(eventType) ? 'selected' : ''
-                    }`}
-                  onClick={() => handleChoiceClick(eventType)}
+                  key={choice}
+                  className={`${selectedChoices.includes(choice) ? 'selected' : 'unselected'
+                    }-choice-button`}
+                  onClick={() => handleChoiceClick(choice)}
                 >
-                  {eventType}
+                  {choice}
                 </button>
               )
             })}
@@ -228,8 +238,8 @@ function Closet() {
               return (
                 <button
                   key={choice}
-                  className={`choice-button ${selectedChoices.includes(choice) ? 'selected' : ''
-                    }`}
+                  className={`${selectedChoices.includes(choice) ? 'selected' : 'unselected'
+                    }-choice-button`}
                   onClick={() => handleChoiceClick(choice)}
                 >
                   {choice}
@@ -251,13 +261,14 @@ function Closet() {
             mongoid={element._id}
             handleAddToToday={handleAddToToday}
             eventTypes={eventTypes}
+            clothType={clothType}
           />
         ))}
       </div>
 
-      {showAddToToday && <AddToTodayPopUp handleAddToOutfit={handleAddToOutfit} handleClosePopUp={handleAddToToday} eventTypes={eventTypes} />}
+      {showAddToToday && <AddToTodayPopUp handleAddToOutfit={handleAddToOutfit} handleClosePopUp={handleAddToToday} eventTypes={eventTypes} type={'activity'} />}
       {isAddClothPopUpOpen && (
-        <AddClothPopUp selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} forRecommendation={false} />
+        <AddClothPopUp selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />
       )}
     </div>
   )
