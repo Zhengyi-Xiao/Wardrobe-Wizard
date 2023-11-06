@@ -9,7 +9,8 @@ export const delete_selected = (
     <path
       d='M8.80138 16.912C12.9149 16.912 16.2805 13.5464 16.2805 9.43285C16.2805 5.31934 12.9149 1.95374 8.80138 1.95374C4.68787 1.95374 1.32227 5.31934 1.32227 9.43285C1.32227 13.5464 4.68787 16.912 8.80138 16.912Z'
       stroke='#454C4E'
-      strokeWidth='2.24374'
+      // strokeWidth='2.24374'
+      strokeWidth='1.5'
       strokeLinecap='round'
       strokeLinejoin='round'
     />
@@ -76,7 +77,7 @@ export const go_back = (
   </svg>
 )
 export const edit_add_today = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 40 40" fill="none">
     <path d="M30 0L25 5L35 15L40 10L30 0ZM20 10L0 30V40H10L30 20L20 10Z" fill="#454C4E" />
   </svg>
 )
