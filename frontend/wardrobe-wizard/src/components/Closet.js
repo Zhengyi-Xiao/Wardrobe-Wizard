@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom';
 import ClothContainer from './ClothContainer'
 import '../styles/Closet.css'
 import { delete_selected } from '../styles/icons.js'
@@ -26,8 +27,8 @@ function Closet() {
 
   const clothType = [
     'All',
-    'Top', 
-    'Bottom', 
+    'Top',
+    'Bottom',
     'Full Body',
     'Outwear',
     'Shoes',
@@ -160,8 +161,15 @@ function Closet() {
     setshowAddToToday(!showAddToToday);
   }
 
-  const handleAddToOutfit = () => {
+  if (isAddClothPopUpOpen) {
+    console.log('HERE')
+    return ReactDOM.createPortal(
+      <AddClothPopUp selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
+      document.getElementById('root-portal')
+    );
   }
+
+
   return (
     <div className='closet'>
       <div className='top-row-frame'>
@@ -232,12 +240,9 @@ function Closet() {
         {!displayEventButtons && (
           <div className='selection-fields'>
             {clothType.map(choice => {
-              if (choice === 'All') {
-                return <></>
-              }
               return (
                 <button
-                  key={choice}
+                  key={choice + '1'}
                   className={`${selectedChoices.includes(choice) ? 'selected' : 'unselected'
                     }-choice-button`}
                   onClick={() => handleChoiceClick(choice)}
@@ -266,10 +271,7 @@ function Closet() {
         ))}
       </div>
 
-      {showAddToToday && <AddToTodayPopUp handleAddToOutfit={handleAddToOutfit} handleClosePopUp={handleAddToToday} eventTypes={eventTypes} type={'activity'} />}
-      {isAddClothPopUpOpen && (
-        <AddClothPopUp selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />
-      )}
+
     </div>
   )
 }

@@ -1,3 +1,16 @@
+.add-cloth-popup-flame {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
 .add-cloth-popup {
   display: flex;
   width: 329.829px;
@@ -10,10 +23,6 @@
   border: 4px solid var(--ComponentAndTab, #fff3ef);
   background: var(--Pink-background, #fffcfb);
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: #fffcfb; /* Semi-transparent background */
   z-index: 999; /* Ensure it appears on top of other content */
 }
@@ -27,8 +36,8 @@
   align-items: center;
   border-radius: 30px;
   filter: drop-shadow(
-      0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25)
-    );
+    0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25)
+  );
   background-color: #fffcfb;
   flex: auto;
 }
@@ -40,9 +49,8 @@
   /* transform: translateY(5px); */
 }
 
-
 .add-cloth-popup .add-cloth-pop-up-back {
-  height:60px;
+  height: 60px;
   width: 329.829px;
   background: none;
   display: flex;
@@ -62,14 +70,13 @@
   flex: auto;
 }
 
-.add-cloth-popup .add-cloth-pop-up-back h3{
+.add-cloth-popup .add-cloth-pop-up-back h3 {
   font-size: 18px;
   flex: auto;
   line-height: 60px;
   margin-left: 18px;
   margin-top: 5px;
 }
-
 
 .add-cloth-popup .add-cloth-attribute-container {
   margin-top: 25px;
@@ -80,10 +87,10 @@
   justify-content: center;
   height: 108px;
   width: 280px;
-  flex:auto;
+  flex: auto;
 }
 
-.add-cloth-popup .add-cloth-attribute-container .add-cloth-attribute  {
+.add-cloth-popup .add-cloth-attribute-container .add-cloth-attribute {
   width: 280px;
   flex: auto;
   height: 40px;
@@ -93,7 +100,10 @@
   align-items: flex-start;
 }
 
-.add-cloth-popup .add-cloth-attribute-container .add-cloth-attribute .add-cloth-attribute-label {
+.add-cloth-popup
+  .add-cloth-attribute-container
+  .add-cloth-attribute
+  .add-cloth-attribute-label {
   font-size: 16px;
   text-align: center;
   flex: auto;
@@ -101,21 +111,28 @@
   line-height: 40px;
 }
 
-.add-cloth-popup .add-cloth-attribute-container .add-cloth-attribute .add-cloth-attribute-input {
+.add-cloth-popup
+  .add-cloth-attribute-container
+  .add-cloth-attribute
+  .add-cloth-attribute-input {
   display: flex;
   height: 40px;
   width: 200px;
   border-style: solid;
   border-width: 1px;
-  border-color: #96A9AF;
+  border-color: #96a9af;
   border-radius: 15px;
   justify-content: center;
   flex: auto;
-  background: #FFFDFD;
+  background: #fffdfd;
   align-items: flex-start;
 }
 
-.add-cloth-popup .add-cloth-attribute-container .add-cloth-attribute .add-cloth-attribute-input .tags {
+.add-cloth-popup
+  .add-cloth-attribute-container
+  .add-cloth-attribute
+  .add-cloth-attribute-input
+  .tags {
   display: flex;
   flex: auto;
   width: 160px;
@@ -125,7 +142,12 @@
   left: 8px;
 }
 
-.add-cloth-popup .add-cloth-attribute-container .add-cloth-attribute .add-cloth-attribute-input .tags .tag {
+.add-cloth-popup
+  .add-cloth-attribute-container
+  .add-cloth-attribute
+  .add-cloth-attribute-input
+  .tags
+  .tag {
   border-radius: 12px;
   /* border: 1.795px solid var(--colors-font, #454c4e); */
   border: none;
@@ -144,31 +166,35 @@
   padding: 5px 15px 5px 15px;
   width: fit-content;
 
-  flex:auto;
+  flex: auto;
   filter: drop-shadow(
     0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25)
   );
 }
 
-.add-cloth-popup .add-cloth-attribute-container .add-cloth-attribute .add-cloth-attribute-input .edit {
+.add-cloth-popup
+  .add-cloth-attribute-container
+  .add-cloth-attribute
+  .add-cloth-attribute-input
+  .edit {
   height: 40px;
   background: none;
   border: none;
-  flex:auto;
+  flex: auto;
   width: 40px;
 }
 
 .add-cloth-popup .btns {
   display: flex;
   flex-direction: column;
-  flex:auto;
+  flex: auto;
   align-items: center;
   padding: 10px;
 }
 
 .add-cloth-popup .btns .btn-add {
   width: 300px;
-  flex:auto;
+  flex: auto;
   border: none;
   background-color: #ffbda5;
   color: #454c4e;
@@ -182,11 +208,11 @@
 
 .add-cloth-popup .btns .btn-cancel {
   width: 200px;
-  flex:auto;
+  flex: auto;
   border: none;
   color: #454c4e;
   padding: 10px;
-  font-size:14px;
+  font-size: 14px;
   background: none;
   text-decoration: underline;
   border-radius: 10px;

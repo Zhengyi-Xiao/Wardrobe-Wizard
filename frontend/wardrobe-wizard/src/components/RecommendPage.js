@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom';
 import { getClothByTypeEvent } from '../api/api.js'
 import AddClothPopUp from './AddClothPopUp.js';
 import '../styles/Recommend.css'
 
-function SingleRecommendBlock({type, eventTypes, clothType}){
+function SingleRecommendBlock({ type, eventTypes, clothType }) {
   const recommendSize = 3 // can be changed later
   const [clothTypeUrls, setClothTypeUrls] = useState([])
   const [openProfile, setOpenProfile] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
-  
+
   const closeAddClothPopUp = () => {
     setOpenProfile(false);
   }
@@ -17,6 +18,7 @@ function SingleRecommendBlock({type, eventTypes, clothType}){
     setSelectedElement(e)
     setOpenProfile(!openProfile)
   }
+
   useEffect(() => {
     // Fetch image URLs based on selected choices
     async function fetchClothUrls() {
@@ -29,23 +31,27 @@ function SingleRecommendBlock({type, eventTypes, clothType}){
     fetchClothUrls()
   }, [type])
 
+  if (openProfile) {
+    return ReactDOM.createPortal(
+      <AddClothPopUp selectedImage={selectedElement.image_urls} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
+      document.getElementById('root-portal')
+    );
+  }
+
   return (
     <div className='single-activity-container'>
       <div className='single-activity-title'>
-        {clothTypeUrls.length>0 && type + ' Essentials'}
+        {clothTypeUrls.length > 0 && type + ' Essentials'}
       </div>
       <div className='single-activity-clothes-row'>
         {clothTypeUrls
           .filter((imageUrl, index) => (index > clothTypeUrls.length - recommendSize - 1))
-          .map( (element, index) => {
+          .map((element, index) => {
             return (
-              <img className='recommend-cloth-image' src={element.image_urls} alt = 'cloth' onClick={() => handleClick(element)} />
+              <img className='recommend-cloth-image' src={element.image_urls} alt='cloth' onClick={() => handleClick(element)} />
             )
-        })}
+          })}
       </div>
-      {openProfile && (
-        <AddClothPopUp selectedImage={selectedElement.image_urls} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />
-      )}
     </div>
   );
 }
@@ -62,8 +68,8 @@ function RecommendPage() {
   ]
 
   const clothType = [
-    'Top', 
-    'Bottom', 
+    'Top',
+    'Bottom',
     'Full Body',
     'Outwear',
     'Shoes',
@@ -73,11 +79,11 @@ function RecommendPage() {
   return (
     <div className='recommend'>
       <div className='top-row-frame'>
-          <div className='recommend-page-title'>Recommend</div>
+        <div className='recommend-page-title'>Recommend</div>
       </div>
-      <div className = 'all-activity-container'>
+      <div className='all-activity-container'>
         {eventTypes.map(type => {
-          return (<SingleRecommendBlock key={type} type={type} eventTypes = {eventTypes} clothType = {clothType}/>)
+          return (<SingleRecommendBlock key={type} type={type} eventTypes={eventTypes} clothType={clothType} />)
         })}
       </div>
     </div>
