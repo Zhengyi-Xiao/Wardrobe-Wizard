@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import ClothContainer from './ClothContainer'
 import '../styles/Closet.css'
 import { delete_selected } from '../styles/icons.js'
 import { getClothByTypeEvent } from '../api/api.js'
-import AddToTodayPopUp from './ChooseEventType.js'
 import AddClothPopUp from './AddClothPopUp.js';
-import ChooseEventType from './ChooseEventType.js'
+
 
 function Closet() {
-  const [selectedChoices, setSelectedChoices] = useState(['All'])
-  const [displayEventButtons, setDisplayEventButtons] = useState(false)
+  function capitalizeFirstLetterOfEachWord(sentence) {
+    const words = sentence.split(' ');
+    const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    return capitalizedWords.join(' ');
+  }
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const activity = queryParams.get('activity');
+  const initialSelectedChoices = activity ? ['All', capitalizeFirstLetterOfEachWord(activity)] : ['All'];
+
+  const [selectedChoices, setSelectedChoices] = useState(initialSelectedChoices)
+  const [displayEventButtons, setDisplayEventButtons] = useState(activity !== null)
   const [clothTypeUrls, setClothTypeUrls] = useState([])
   const [renderIndex, setRenderIndex] = useState(0)
   const [selectedImage, setSelectedImage] = useState(null);
@@ -154,13 +165,6 @@ function Closet() {
     setDisplayEventButtons(false)
   }
 
-
-  const [showAddToToday, setshowAddToToday] = useState(false);
-
-  const handleAddToToday = () => {
-    setshowAddToToday(!showAddToToday);
-  }
-
   if (isAddClothPopUpOpen) {
     console.log('HERE')
     return ReactDOM.createPortal(
@@ -263,10 +267,10 @@ function Closet() {
             event={element.event}
             imageUrl={element.image_urls}
             type={element.type}
-            mongoid={element._id}
-            handleAddToToday={handleAddToToday}
+            mongoID={element._id}
             eventTypes={eventTypes}
             clothType={clothType}
+            activity={activity}
           />
         ))}
       </div>
