@@ -43,7 +43,22 @@ in which, (whole) and (top and bottom) are exclusive.
 
 ![image](https://github.com/Zhengyi-Xiao/Wardrobe-Wizard/assets/34410439/156ac861-0e88-43c8-9c42-83710671d18f)
 
-
 # Miscellaneous
 
 - Assignment3: https://docs.google.com/document/d/1Jrjn6EVj6dP0nCZDBQOu_XbIs0tUYZUnJ-Z7Bomk11c/edit
+
+zxiao
+npm --version 8.15.0
+node --version v16.17.0
+
+jyh
+npm --version 9.8.1
+node --version v20.6.1
+
+xr
+npm --version 9.4.0
+node --version v19.6.0
+
+zz
+npm --version 8.19.2
+node --version 16.18.0
