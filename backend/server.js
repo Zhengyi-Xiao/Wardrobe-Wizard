@@ -115,6 +115,7 @@ webapp.get('/outfit/date/:date', async (req, res) => {
   const date = new Date(
     `${dateString.substr(0, 4)}-${dateString.substr(4, 2)}-${dateString.substr(6, 2)}`
   );
+  console.log(date)
   // Connect to MongoDB
   const client = new MongoClient(urlService);
 
@@ -129,7 +130,7 @@ webapp.get('/outfit/date/:date', async (req, res) => {
       .find({
         date: {
           $gte: date,
-          $lt: new Date(date.getTime() + 24 * 60 * 60 * 1000), // End of the specified date
+          $lt: new Date(date.getTime() + 36 * 60 * 60 * 1000), // End of the specified date
         },
       })
       .toArray();
@@ -286,6 +287,65 @@ webapp.get('/outfits/remove/event/:event/id/:id', async (req, res) => {
 });
 
 
+webapp.get('/outfits/regenerate/event/:event/id/:id', async (req, res) => {
+  const event = req.params.event;
+  const clothingId = req.params.id;
+
+  // Connect to MongoDB
+  const client = new MongoClient(urlService);
+
+  try {
+    await client.connect();
+
+    // Access the 'outfits' and 'clothes' collections in the database
+    const outfitsCollection = client.db('Wardrobe-Wizard').collection('outfits'); // Replace with your collection name.
+    const clothesCollection = client.db('Wardrobe-Wizard').collection('clothes'); // Replace with your collection name.
+
+    // Find the document with the specified event
+    const outfitDocument = await outfitsCollection.findOne({ event: event });
+
+    if (outfitDocument) {
+      // Find the clothing item to replace
+      const clothingToReplace = outfitDocument.outfits.indexOf(clothingId);
+
+      if (clothingToReplace !== -1) {
+        // Find clothing items of the same event and clothing type
+        const clothingItem = await clothesCollection.aggregate([
+          { $match: { type: outfitDocument.type, event: event } },
+          { $sample: { size: 1 } }
+        ]).toArray();
+        console.log(clothingItem);
+        if (clothingItem.length === 1) {
+          // Replace the clothing item
+          outfitDocument.outfits.splice(clothingToReplace, 1, clothingItem[0]._id);
+
+          // Update the document in the collection
+          const result = await outfitsCollection.updateOne(
+            { event: event },
+            { $set: { outfits: outfitDocument.outfits } }
+          );
+
+          if (result.modifiedCount === 1) {
+            res.json({ message: 'Clothing item regenerated successfully' });
+          } else {
+            res.status(500).json({ message: 'Failed to update the outfit' });
+          }
+        } else {
+          res.status(404).json({ message: 'No matching clothing item found to replace' });
+        }
+      } else {
+        res.status(404).json({ message: 'Clothing item to replace not found in the outfit' });
+      }
+    } else {
+      res.status(404).json({ message: 'Event not found' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+    client.close();
+  }
+});
 
 
 webapp.listen(port, () => {
