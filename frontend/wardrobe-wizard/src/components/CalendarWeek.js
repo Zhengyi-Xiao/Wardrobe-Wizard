@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import classes from '../styles/CalendarWeek.module.css';
+import React, { useState, useEffect } from "react";
+import classes from "../styles/CalendarWeek.module.css";
 import dayjs from "dayjs";
 
-function CalendarWeek(selectedDate, clickWeekChange) {
+function CalendarWeek({ selectedDate, clickWeekChange }) {
   const [currentSelectedDate, setCurrentSelectedDate] = useState(selectedDate);
   const [days, setDays] = useState([]); // Initialize days as an empty array
-
-  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
   useEffect(() => {
     // Update the days array whenever selectedDate changes
     const newDays = [];
     for (let i = -3; i <= 3; i++) {
-      const currentDate = dayjs(currentSelectedDate.selectedDate);
-      const newDate = currentDate.add(i, 'day'); // Create a new dayjs instance
+      const currentDate = dayjs(currentSelectedDate);
+      const newDate = currentDate.add(i, "day"); // Create a new dayjs instance
       newDays.push(newDate);
     }
     setDays(newDays);
   }, [currentSelectedDate]);
 
   const handleDateClick = (day) => {
-    setCurrentSelectedDate({ selectedDate: day }); // Update currentSelectedDate
-    // clickWeekChange(currentSelectedDate);
+    setCurrentSelectedDate(day); // Update currentSelectedDate
+    clickWeekChange(day);
   };
 
   // Update currentSelectedDate when selectedDate changes
@@ -42,12 +41,26 @@ function CalendarWeek(selectedDate, clickWeekChange) {
               }}
             >
               <div className={classes.titleDay}>
-                <div className={index === 3 ? classes.weekNameCenter : classes.weekName }>
+                <div
+                  className={
+                    index === 3 ? classes.weekNameCenter : classes.weekName
+                  }
+                >
                   {daysOfWeek[day.day()]}
                 </div>
               </div>
-              <div className= {index === 3 ? classes.dateDefaultCenter : classes.dateDefaultRegular }>
-                <div className={index === 3 ? classes.weekNumCenter : classes.weekNum }>
+              <div
+                className={
+                  index === 3
+                    ? classes.dateDefaultCenter
+                    : classes.dateDefaultRegular
+                }
+              >
+                <div
+                  className={
+                    index === 3 ? classes.weekNumCenter : classes.weekNum
+                  }
+                >
                   {day.date()}
                 </div>
               </div>
