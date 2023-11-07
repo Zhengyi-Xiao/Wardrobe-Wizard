@@ -42,19 +42,19 @@ function HomePage(eventTypes) {
       setWeatherIconUrl(weatherIconUrl);
     });
   }, [selectedDate]);
-  useEffect(() => {}, []);
-  console.log(
-    "current selected date",
-    selectedDate.$y +
-      "" +
-      (selectedDate.$M + 1 < 10
-        ? "0" + (selectedDate.$M + 1)
-        : selectedDate.$M + 1) +
-      "" +
-      (selectedDate.$D < 10
-        ? "0" + (selectedDate.$D)
-        : selectedDate.$D)
-  );
+  // useEffect(() => {}, []);
+  // console.log(
+  //   "current selected date",
+  //   selectedDate.$y +
+  //     "" +
+  //     (selectedDate.$M + 1 < 10
+  //       ? "0" + (selectedDate.$M + 1)
+  //       : selectedDate.$M + 1) +
+  //     "" +
+  //     (selectedDate.$D < 10
+  //       ? "0" + (selectedDate.$D)
+  //       : selectedDate.$D)
+  // );
 
   return (
     <div className="home-page-container">
