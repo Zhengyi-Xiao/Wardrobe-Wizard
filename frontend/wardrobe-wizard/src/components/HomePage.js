@@ -17,6 +17,9 @@ function HomePage(eventTypes) {
   const currentDate = dayjs();
   const [selectedDate, setSelectedDate] = useState(currentDate);
 
+  // add apiKey here
+  const apiKey = ""
+
   const handleOpenCalendar = () => {
     setOpenCalendar(true);
   };
@@ -26,35 +29,55 @@ function HomePage(eventTypes) {
     setOpenCalendar(false);
   };
 
+  // console.log(currentDate.subtract(1, 'day').unix())
   const getWeather = async () => {
-    const location = `http://api.openweathermap.org/data/2.5/weather?q=Philadelphia&appid=4d01dbe80c384ea20a6937f2aa98848d&units=imperial`;
+    const location = `http://pro.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&appid=${apiKey}`;
     const res = await fetch(location);
     const res1 = res.json();
     return res1;
   };
 
+  const getWeatherForDate = async (date) => {
+    const dateCode = date.unix();
+    const location = `https://history.openweathermap.org/data/2.5/history/city?q=Philadelphia&appid=${apiKey}&units=imperial&dt=${dateCode}`;
+    console.log(location)
+    const res = await fetch(location);
+    const res1 = res.json();
+    return res1;
+  };
+
+  // useEffect(() => {
+  //   getWeather().then(async (response) => {
+  //     const temperature = response.main.temp;
+  //     const weatherIconCode = response.weather[0].icon;
+  //     const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+  //     setTemp(temperature);
+  //     setWeatherIconUrl(weatherIconUrl);
+  //   });
+  // }, [selectedDate]);
+
   useEffect(() => {
-    getWeather().then(async (response) => {
-      const temperature = response.main.temp;
-      const weatherIconCode = response.weather[0].icon;
-      const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
-      setTemp(temperature);
-      setWeatherIconUrl(weatherIconUrl);
-    });
+    if (selectedDate.isSame(dayjs(), 'day') || selectedDate.isAfter(dayjs(), 'day')) {
+      // Fetch current weather when selectedDate is the current date
+      getWeather().then(async (response) => {
+        const temperature = response.main.temp;
+        const weatherIconCode = response.weather[0].icon;
+        const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+        setTemp(temperature);
+        setWeatherIconUrl(weatherIconUrl);
+      });
+    } else {
+      // Fetch weather for a specific date (e.g., yesterday)
+      getWeatherForDate(selectedDate).then(async (response) => {
+        // Process the response for the specific date
+        const temperature = response.list[0].main.temp;
+        const weatherIconCode = response.list[0].weather[0].icon;
+        const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+        setTemp(temperature);
+        setWeatherIconUrl(weatherIconUrl);
+      });
+    }
   }, [selectedDate]);
-  // useEffect(() => {}, []);
-  // console.log(
-  //   "current selected date",
-  //   selectedDate.$y +
-  //     "" +
-  //     (selectedDate.$M + 1 < 10
-  //       ? "0" + (selectedDate.$M + 1)
-  //       : selectedDate.$M + 1) +
-  //     "" +
-  //     (selectedDate.$D < 10
-  //       ? "0" + (selectedDate.$D)
-  //       : selectedDate.$D)
-  // );
 
   return (
     <div className="home-page-container">
