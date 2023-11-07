@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "aws-sdk": "^2.1489.0",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "mongodb": "^6.1.0"
-  }
-}
