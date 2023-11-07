@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useHistory } from 'react-router-dom';
 import { add_to_todays_outfit } from '../styles/icons.js';
 import AddClothPopUp from './AddClothPopUp.js';
+import { addNewCloth } from '../api/api.js'
 
-function ClothContainer({ imageUrl, handleAddToToday, eventTypes, clothType }) {
+function ClothContainer({ imageUrl, activity, eventTypes, clothType, mongoID }) {
+  const history = useHistory();
+
   const [openProfile, setOpenProfile] = useState(false);
   const [selectedImage,] = useState(imageUrl);
   const handleOpenProfile = () => {
     setOpenProfile(!openProfile);
+  }
+  const handleAddToToday = async () => {
+    console.log('HERE', mongoID, activity)
+    await addNewCloth(mongoID, activity)
+    history.push('/'); // Navigate to the new URL    
   }
 
   if (openProfile) {
@@ -16,6 +25,7 @@ function ClothContainer({ imageUrl, handleAddToToday, eventTypes, clothType }) {
       document.getElementById('root-portal')
     );
   }
+
 
   return (
     <div className='cloth-container'>

@@ -94,18 +94,25 @@ export const collapse = (
     <path d="M18.8755 11.8801L11.0324 2.90518L3.18929 11.8801" stroke="#454C4E" strokeWidth="1.79499" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
+
+export const open = (
+  <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.19922 7.35754L11.0423 16.3325L18.8854 7.35754" stroke="#454C4E" strokeWidth="1.79499" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
 export const calendar = (
   <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
-    <path d="M10.1201 1.67834V6.12095" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M23.2837 1.67834V6.12095" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M2.71582 12.1774H30.6877" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M31.5104 11.3039V23.8913C31.5104 28.3339 29.0423 31.2956 23.2833 31.2956H10.1201C4.36118 31.2956 1.89307 28.3339 1.89307 23.8913V11.3039C1.89307 6.86128 4.36118 3.89954 10.1201 3.89954H23.2833C29.0423 3.89954 31.5104 6.86128 31.5104 11.3039Z" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M22.7812 19.0044H22.7977" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M22.7812 23.447H22.7977" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M16.6943 19.0044H16.7108" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M16.6943 23.447H16.7108" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M10.6045 19.0043H10.6209" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M10.6045 23.447H10.6209" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M10.1201 1.67834V6.12095" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M23.2837 1.67834V6.12095" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M2.71582 12.1774H30.6877" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M31.5104 11.3039V23.8913C31.5104 28.3339 29.0423 31.2956 23.2833 31.2956H10.1201C4.36118 31.2956 1.89307 28.3339 1.89307 23.8913V11.3039C1.89307 6.86128 4.36118 3.89954 10.1201 3.89954H23.2833C29.0423 3.89954 31.5104 6.86128 31.5104 11.3039Z" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M22.7812 19.0044H22.7977" stroke="#454C4E" strokeWidth="2.69248" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M22.7812 23.447H22.7977" stroke="#454C4E" strokeWidth="2.69248" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M16.6943 19.0044H16.7108" stroke="#454C4E" strokeWidth="2.69248" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M16.6943 23.447H16.7108" stroke="#454C4E" strokeWidth="2.69248" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M10.6045 19.0043H10.6209" stroke="#454C4E" strokeWidth="2.69248" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M10.6045 23.447H10.6209" stroke="#454C4E" strokeWidth="2.69248" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
@@ -116,4 +123,29 @@ export const weather = (
       fill='#454C4E'
     />
   </svg>
+)
+
+export const remove_todays_outfit = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+    <path d="M10.2083 19.5374C15.1446 19.5374 19.1833 15.4987 19.1833 10.5625C19.1833 5.62625 15.1446 1.58752 10.2083 1.58752C5.27212 1.58752 1.2334 5.62625 1.2334 10.5625C1.2334 15.4987 5.27212 19.5374 10.2083 19.5374Z" stroke="#6A7376" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M7.51562 12.9498L12.8747 7.87" stroke="#6A7376" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M12.8747 12.9498L7.51562 7.87" stroke="#6A7376" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+export const refresh_todays_outfit = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+    <path d="M16.3772 6.19696C15.1285 3.4234 12.2771 1.48511 8.95905 1.48511C4.76345 1.48511 1.31367 4.58447 0.907715 8.55289" stroke="#6A7376" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M13.0049 6.19705H16.5651C16.8332 6.19705 17.0505 5.9861 17.0505 5.72587V2.27051" stroke="#6A7376" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M1.58105 12.4795C2.82964 15.253 5.68115 17.1913 8.99913 17.1913C13.1947 17.1913 16.6445 14.0919 17.0505 10.1235" stroke="#6A7376" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M4.95338 12.4794H1.39319C1.12507 12.4794 0.907715 12.6903 0.907715 12.9506V16.4059" stroke="#6A7376" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
+export const add_new_cloth = (
+  <svg width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M27.5151 3.15552L27.4512 51.9436" stroke="#96A9AF" strokeWidth="4.48747" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M3.01611 27.5496H51.8042" stroke="#96A9AF" strokeWidth="4.48747" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+
 )
