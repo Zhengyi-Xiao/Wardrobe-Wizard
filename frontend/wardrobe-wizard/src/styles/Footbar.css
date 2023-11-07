@@ -11,9 +11,28 @@
   background: var(--ComponentAndTab, #fff3ef);
 }
 
-.button-container {
+.footbar .button-container {
   display: inline-flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   gap: 59.235px;
+}
+
+.footbar .button-container .icon {
+  width: 72px;
+  height: 58.157px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footbar .button-container .selected-bar {
+  width: 72px;
+  height: 6px;
+  left: 118px;
+  top: 0.36px;
+
+  background: #FFA485;
+  box-shadow: 0px 3.85517px 12.4552px #FFCCBB;
+  border-radius: 0px 0px 5.33793px 5.33793px;
 }
