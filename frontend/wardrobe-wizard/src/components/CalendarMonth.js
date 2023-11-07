@@ -8,10 +8,10 @@ import MyCustomLayout from './MyCustomLayout.js';
 function CalendarMonth({ selectedDate, handleDateChange}) {  
   const [currentSelectedDate, setCurrentSelectedDate] = useState(selectedDate);
   
-  const handleOkClick = () => {
-    // const formattedSelectedDate = selectedDate.format('D MMM, YYYY');
-    handleDateChange(currentSelectedDate);
-  };
+  // const handleOkClick = () => {
+  //   // const formattedSelectedDate = selectedDate.format('D MMM, YYYY');
+  //   handleDateChange(currentSelectedDate);
+  // };
 
   useEffect(() => {
     setCurrentSelectedDate(selectedDate);
@@ -26,7 +26,10 @@ function CalendarMonth({ selectedDate, handleDateChange}) {
           >
             <StaticDatePicker
             value={currentSelectedDate} 
-            onChange={(newValue) => setCurrentSelectedDate(newValue)}
+            onChange={(newValue) => {
+              setCurrentSelectedDate(newValue)
+              handleDateChange(newValue);
+            }}
             slots={{
               layout: MyCustomLayout,
             }}
@@ -38,9 +41,9 @@ function CalendarMonth({ selectedDate, handleDateChange}) {
             }}
             />
           </LocalizationProvider>
-          <button className='add-to-today-popup-button' onClick={handleOkClick}>
+          {/* <button className='add-to-today-popup-button' onClick={handleOkClick}>
             OK
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

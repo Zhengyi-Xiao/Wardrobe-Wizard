@@ -106,5 +106,6 @@
 }
 
 .css-1q04gal-MuiDateCalendar-root {
-  background-color: white;
+  background-color: #FFFF;
+  border-radius: 9px 9px 0 0;
 }
