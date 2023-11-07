@@ -1,19 +1,39 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom';
 import ClothContainer from './ClothContainer'
 import '../styles/Closet.css'
 import { delete_selected } from '../styles/icons.js'
 import { getClothByTypeEvent } from '../api/api.js'
 import AddToTodayPopUp from './ChooseEventType.js'
 import AddClothPopUp from './AddClothPopUp.js';
+import ChooseEventType from './ChooseEventType.js'
 
 function Closet() {
   const [selectedChoices, setSelectedChoices] = useState(['All'])
   const [displayEventButtons, setDisplayEventButtons] = useState(false)
-  const clothType = ['All', 'Top', 'Bottom', 'Full Body']
   const [clothTypeUrls, setClothTypeUrls] = useState([])
   const [renderIndex, setRenderIndex] = useState(0)
   const [selectedImage, setSelectedImage] = useState(null);
   const [isAddClothPopUpOpen, setIsAddClothPopUpOpen] = useState(false);
+
+  const eventTypes = [
+    'Workout',
+    'Formal Events',
+    'Meeting',
+    'Outdoor',
+    'Night Out',
+    'Causal'
+  ]
+
+  const clothType = [
+    'All',
+    'Top',
+    'Bottom',
+    'Full Body',
+    'Outwear',
+    'Shoes',
+    'Accessory'
+  ]
 
   useEffect(() => {
     // Fetch image URLs based on selected choices
@@ -32,7 +52,6 @@ function Closet() {
       )
       setClothTypeUrls(urls)
     }
-
     fetchClothUrls()
   }, [selectedChoices])
 
@@ -135,14 +154,6 @@ function Closet() {
     setDisplayEventButtons(false)
   }
 
-  const eventTypes = [
-    'Workout',
-    'Formal Events',
-    'Meeting',
-    'Outdoor',
-    'Night Out',
-    'Causal'
-  ]
 
   const [showAddToToday, setshowAddToToday] = useState(false);
 
@@ -150,8 +161,15 @@ function Closet() {
     setshowAddToToday(!showAddToToday);
   }
 
-  const handleAddToOutfit = () => {
+  if (isAddClothPopUpOpen) {
+    console.log('HERE')
+    return ReactDOM.createPortal(
+      <AddClothPopUp selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
+      document.getElementById('root-portal')
+    );
   }
+
+
   return (
     <div className='closet'>
       <div className='top-row-frame'>
@@ -205,15 +223,15 @@ function Closet() {
       <div className='selection-fields-container'>
         {displayEventButtons && (
           <div className='selection-fields'>
-            {eventTypes.map(eventType => {
+            {eventTypes.map(choice => {
               return (
                 <button
-                  key={eventType}
-                  className={`choice-button ${selectedChoices.includes(eventType) ? 'selected' : ''
-                    }`}
-                  onClick={() => handleChoiceClick(eventType)}
+                  key={choice}
+                  className={`${selectedChoices.includes(choice) ? 'selected' : 'unselected'
+                    }-choice-button`}
+                  onClick={() => handleChoiceClick(choice)}
                 >
-                  {eventType}
+                  {choice}
                 </button>
               )
             })}
@@ -222,14 +240,11 @@ function Closet() {
         {!displayEventButtons && (
           <div className='selection-fields'>
             {clothType.map(choice => {
-              if (choice === 'All') {
-                return <></>
-              }
               return (
                 <button
-                  key={choice}
-                  className={`choice-button ${selectedChoices.includes(choice) ? 'selected' : ''
-                    }`}
+                  key={choice + '1'}
+                  className={`${selectedChoices.includes(choice) ? 'selected' : 'unselected'
+                    }-choice-button`}
                   onClick={() => handleChoiceClick(choice)}
                 >
                   {choice}
@@ -251,14 +266,12 @@ function Closet() {
             mongoid={element._id}
             handleAddToToday={handleAddToToday}
             eventTypes={eventTypes}
+            clothType={clothType}
           />
         ))}
       </div>
 
-      {showAddToToday && <AddToTodayPopUp handleAddToOutfit={handleAddToOutfit} handleClosePopUp={handleAddToToday} eventTypes={eventTypes} />}
-      {isAddClothPopUpOpen && (
-        <AddClothPopUp selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} forRecommendation={false} />
-      )}
+
     </div>
   )
 }

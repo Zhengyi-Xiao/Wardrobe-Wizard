@@ -1,12 +1,132 @@
 .add-to-today-popup {
   position: fixed;
-  top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  left: 0;
+  top: 0;
   background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   z-index: 999; /* Ensure it appears on top of other content */
+}
+
+.add-to-today-popup .popup-frame{
+  width: 300px; /* Set the desired width of the notification */
+  text-align: center; /* Center-align text */
+  padding: 10px; /* Add some padding to the notification */
+  position: absolute;
+  top: 50%; /* Position the top edge at the vertical center */
+  left: 50%; /* Position the left edge at the horizontal center */
+  transform: translate(-50%, -50%); /* Center the block precisely */
+  border: 4px solid #fff3ef; /* Add a border */
+  border-radius: 5px; /* Add rounded corners */
+  background: #fffcfb; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.add-to-today-popup .popup-frame .add-to-today-popup-heading{
+  width:300px;
+  text-align: left;
+  font-size: 18px;
+  flex: auto;
+  line-height: 60px;
+  margin-bottom: 10px;
+}
+
+.add-to-today-popup .popup-frame .add-to-today-popup-buttons {
+  width: 300px;
+  height: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
+.add-to-today-popup .popup-frame .add-to-today-popup-buttons .clothes-choice-button{
+  width: fit-content;
+  align-items: center;
+  border: none;
+  border-radius: 12px;
+  text-align: center;
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 14.36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: row;
+  padding: 5px 15px 5px 15px;
+  width:fit-content;
+  height:fit-content;
+}
+
+.add-to-today-popup .popup-frame .add-to-today-popup-buttons .activity-choice-button{
+  width: fit-content;
+  align-items: center;
+  border: none;
+  border-radius: 12px;
+  text-align: center;
+  color: var(--colors-font, #454c4e);
+  font-family: Poppins;
+  font-size: 14.36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: row;
+  padding: 5px 10px 5px 10px;
+
+}
+
+.add-to-today-popup .popup-frame .add-to-today-popup-buttons .selected{
+  background: #ffbda5;
+  box-shadow: inset 0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25);
+}
+
+.add-to-today-popup .popup-frame .add-to-today-popup-buttons .unselected{
+  background: #fffefe;
+  filter: drop-shadow(
+      0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25)
+    );
+}
+
+
+
+.add-to-today-popup .popup-frame .btns {
+  display: flex;
+  flex-direction: column;
+  flex:auto;
+  align-items: center;
+  padding: 10px;
+}
+
+.add-to-today-popup .popup-frame .btns .cancel-btn {
+  width: 200px;
+  flex:auto;
+  border: none;
+  color: #454c4e;
+  font-size:14px;
+  background: none;
+  text-decoration: underline;
+  border-radius: 10px;
+  line-height: 40px;
+}
+
+.add-to-today-popup .popup-frame .btns .confirm-btn {
+  width: 300px;
+  flex:auto;
+  border: none;
+  background-color: #ffbda5;
+  color: #454c4e;
+  border-radius: 10px;
+  font-size: 18px;
+  filter: drop-shadow(
+    0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25)
+  );
+  padding: 5px;
+  height: 40px;
 }

@@ -9,7 +9,8 @@ export const delete_selected = (
     <path
       d='M8.80138 16.912C12.9149 16.912 16.2805 13.5464 16.2805 9.43285C16.2805 5.31934 12.9149 1.95374 8.80138 1.95374C4.68787 1.95374 1.32227 5.31934 1.32227 9.43285C1.32227 13.5464 4.68787 16.912 8.80138 16.912Z'
       stroke='#454C4E'
-      strokeWidth='2.24374'
+      // strokeWidth='2.24374'
+      strokeWidth='1.5'
       strokeLinecap='round'
       strokeLinejoin='round'
     />
@@ -76,35 +77,35 @@ export const go_back = (
   </svg>
 )
 export const edit_add_today = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 40 40" fill="none">
     <path d="M30 0L25 5L35 15L40 10L30 0ZM20 10L0 30V40H10L30 20L20 10Z" fill="#454C4E" />
   </svg>
 )
 export const workout = (
   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="27" viewBox="0 0 28 27" fill="none">
-    <path d="M17.0728 17.6117L18.2588 20.1206C18.2588 20.1206 23.5953 21.2346 23.5953 23.8842C23.5953 25.7659 21.2235 25.7659 21.2235 25.7659H14.8987L11.7856 24.0661" stroke="#454C4E" stroke-width="1.34624" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M9.95755 17.6117L8.77165 20.1206C8.77165 20.1206 3.43506 21.2346 3.43506 23.8842C3.43506 25.7659 5.80687 25.7659 5.80687 25.7659H8.67282L11.7859 24.0661L15.5907 21.6864" stroke="#454C4E" stroke-width="1.34624" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M1.06299 18.8664C1.06299 18.8664 4.02777 18.2392 5.80662 17.6119C7.58549 8.83043 12.922 9.45768 13.515 9.45768C14.108 9.45768 19.4446 8.83043 21.2234 17.6119C23.0022 18.2392 25.9671 18.8664 25.9671 18.8664" stroke="#454C4E" stroke-width="1.34624" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M13.5152 6.72812C15.0434 6.72812 16.2823 5.51046 16.2823 4.00841C16.2823 2.50635 15.0434 1.2887 13.5152 1.2887C11.9869 1.2887 10.748 2.50635 10.748 4.00841C10.748 5.51046 11.9869 6.72812 13.5152 6.72812Z" stroke="#454C4E" stroke-width="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M17.0728 17.6117L18.2588 20.1206C18.2588 20.1206 23.5953 21.2346 23.5953 23.8842C23.5953 25.7659 21.2235 25.7659 21.2235 25.7659H14.8987L11.7856 24.0661" stroke="#454C4E" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9.95755 17.6117L8.77165 20.1206C8.77165 20.1206 3.43506 21.2346 3.43506 23.8842C3.43506 25.7659 5.80687 25.7659 5.80687 25.7659H8.67282L11.7859 24.0661L15.5907 21.6864" stroke="#454C4E" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M1.06299 18.8664C1.06299 18.8664 4.02777 18.2392 5.80662 17.6119C7.58549 8.83043 12.922 9.45768 13.515 9.45768C14.108 9.45768 19.4446 8.83043 21.2234 17.6119C23.0022 18.2392 25.9671 18.8664 25.9671 18.8664" stroke="#454C4E" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M13.5152 6.72812C15.0434 6.72812 16.2823 5.51046 16.2823 4.00841C16.2823 2.50635 15.0434 1.2887 13.5152 1.2887C11.9869 1.2887 10.748 2.50635 10.748 4.00841C10.748 5.51046 11.9869 6.72812 13.5152 6.72812Z" stroke="#454C4E" strokeWidth="1.34624" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 export const collapse = (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="23" viewBox="0 0 24 23" fill="none">
-    <path d="M18.8755 11.8801L11.0324 2.90518L3.18929 11.8801" stroke="#454C4E" stroke-width="1.79499" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M18.8755 11.8801L11.0324 2.90518L3.18929 11.8801" stroke="#454C4E" strokeWidth="1.79499" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 export const calendar = (
   <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
-    <path d="M10.1201 1.67834V6.12095" stroke="#454C4E" stroke-width="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M23.2837 1.67834V6.12095" stroke="#454C4E" stroke-width="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M2.71582 12.1774H30.6877" stroke="#454C4E" stroke-width="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M31.5104 11.3039V23.8913C31.5104 28.3339 29.0423 31.2956 23.2833 31.2956H10.1201C4.36118 31.2956 1.89307 28.3339 1.89307 23.8913V11.3039C1.89307 6.86128 4.36118 3.89954 10.1201 3.89954H23.2833C29.0423 3.89954 31.5104 6.86128 31.5104 11.3039Z" stroke="#454C4E" stroke-width="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M22.7812 19.0044H22.7977" stroke="#454C4E" stroke-width="2.69248" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M22.7812 23.447H22.7977" stroke="#454C4E" stroke-width="2.69248" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M16.6943 19.0044H16.7108" stroke="#454C4E" stroke-width="2.69248" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M16.6943 23.447H16.7108" stroke="#454C4E" stroke-width="2.69248" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M10.6045 19.0043H10.6209" stroke="#454C4E" stroke-width="2.69248" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M10.6045 23.447H10.6209" stroke="#454C4E" stroke-width="2.69248" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M10.1201 1.67834V6.12095" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M23.2837 1.67834V6.12095" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M2.71582 12.1774H30.6877" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M31.5104 11.3039V23.8913C31.5104 28.3339 29.0423 31.2956 23.2833 31.2956H10.1201C4.36118 31.2956 1.89307 28.3339 1.89307 23.8913V11.3039C1.89307 6.86128 4.36118 3.89954 10.1201 3.89954H23.2833C29.0423 3.89954 31.5104 6.86128 31.5104 11.3039Z" stroke="#454C4E" strokeWidth="2.69248" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M22.7812 19.0044H22.7977" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M22.7812 23.447H22.7977" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M16.6943 19.0044H16.7108" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M16.6943 23.447H16.7108" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M10.6045 19.0043H10.6209" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M10.6045 23.447H10.6209" stroke="#454C4E" strokeWidth="2.69248" stroke-linecap="round" stroke-linejoin="round" />
   </svg>
 )
 
