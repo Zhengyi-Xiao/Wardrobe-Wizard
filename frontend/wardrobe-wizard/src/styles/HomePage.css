@@ -43,15 +43,18 @@
 
 .calendarIcon {
   position: absolute;
-  left: 340px;
-  top: 44px;
-  width: 30px;
-  height: 30px;
+  left: 330px;
+  top: 40px;
+  width: 60px;
+  height: 60px;
 }
 
 .weatherIcon {
-  width: 36.1px;
-  height: 35.9px;
+  position: absolute;
+  left: 85px;
+  top: 40px;
+  width: 60px;
+  height: 60px;
 }
 
 .weatherDateInfo {
@@ -64,6 +67,9 @@
 }
 
 .dateInfo {
+  position: absolute;
+  left: 15px;
+  top: 30px;
   color: var(--WeatherColor, #454c4e);
   font-family: Poppins;
   font-size: 14.36px;
@@ -73,7 +79,10 @@
 }
 
 .temperature {
-  color: var(--WeatherColor, #454c4e);
+  position: absolute;
+  left: 15px;
+  top: 50px;
+  color: #454c4e;
   font-family: Poppins;
   font-size: 28.72px;
   font-style: normal;
@@ -82,8 +91,12 @@
 }
 
 .seperator {
+  position: absolute;
+  left: 30px;
+  top: 50px;
   width: 2.244px;
   height: 31.412px;
+  background: #454C4E;
 }
 
 .weatherInfo {

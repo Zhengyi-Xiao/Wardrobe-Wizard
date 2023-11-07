@@ -1,5 +1,5 @@
 
-.frame10231 {
+.frameWeekBg {
   position: absolute;
   left: 0px;
   top: 87.9544px;
@@ -22,13 +22,14 @@
   border-radius: 10.7699px;
   background-color: #fff;
 }
-.frame2608151 {
+.frameWeekFlex {
   position: absolute;
   height: 85px;
   left: 30px;
   display: inline-flex;
   align-items: center;
   gap: 9px;
+  flex-direction: row;
 }
 .dayGroup {
   position: relative;

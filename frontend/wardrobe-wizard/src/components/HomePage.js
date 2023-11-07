@@ -3,6 +3,7 @@ import '../styles/HomePage.css';
 import CalendarMonth from './CalendarMonth.js';
 import CalendarWeek from './CalendarWeek.js';
 import { IconButton } from '@mui/material';
+import Divider from '@mui/material/Divider';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import dayjs from "dayjs";
 import MyOutFit from './MyOutFit.js';
@@ -25,6 +26,10 @@ function HomePage(eventTypes) {
     setSelectedDate(newDate);
     // Close the CalendarMonth popup
     setOpenCalendar(false);
+  };
+
+  const clickWeekChange = (newDate) => {
+    setSelectedDate(newDate);
   };
 
   const getWeather = async () => {
@@ -53,7 +58,7 @@ function HomePage(eventTypes) {
       <div className='weather'>
         <div>
           <IconButton className='calendarIcon' onClick={handleOpenCalendar}>
-            <CalendarMonthIcon />
+            <CalendarMonthIcon fontSize='large'/>
           </IconButton>
           {openCalendar &&
             <CalendarMonth
@@ -65,14 +70,17 @@ function HomePage(eventTypes) {
           <div className='dateInfo'>{selectedDate.format('D MMM, YYYY')}</div>
           <div className='weatherInfo'>
             <div className='temperature'>{Math.round(temp)}°F</div>
-            <div className='seperator'></div>
+            {/* <div className='seperator'></div> */}
             {weatherIconUrl && (
               <img src={weatherIconUrl} alt='Weather Icon' className='weatherIcon' />
             )}
           </div>
         </div>
       </div>
-      <CalendarWeek />
+      <CalendarWeek 
+        selectedDate={selectedDate} 
+        clickWeekChange = {clickWeekChange}
+      />
       <MyOutFit selectedDate={selectedDate} />
     </div>
   )
