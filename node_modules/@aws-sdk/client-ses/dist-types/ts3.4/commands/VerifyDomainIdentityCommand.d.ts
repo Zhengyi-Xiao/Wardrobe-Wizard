@@ -1,0 +1,42 @@
+import { EndpointParameterInstructions } from "@smithy/middleware-endpoint";
+import { Command as $Command } from "@smithy/smithy-client";
+import {
+  Handler,
+  HttpHandlerOptions as __HttpHandlerOptions,
+  MetadataBearer as __MetadataBearer,
+  MiddlewareStack,
+} from "@smithy/types";
+import {
+  VerifyDomainIdentityRequest,
+  VerifyDomainIdentityResponse,
+} from "../models/models_0";
+import {
+  ServiceInputTypes,
+  ServiceOutputTypes,
+  SESClientResolvedConfig,
+} from "../SESClient";
+export { __MetadataBearer, $Command };
+export interface VerifyDomainIdentityCommandInput
+  extends VerifyDomainIdentityRequest {}
+export interface VerifyDomainIdentityCommandOutput
+  extends VerifyDomainIdentityResponse,
+    __MetadataBearer {}
+export declare class VerifyDomainIdentityCommand extends $Command<
+  VerifyDomainIdentityCommandInput,
+  VerifyDomainIdentityCommandOutput,
+  SESClientResolvedConfig
+> {
+  readonly input: VerifyDomainIdentityCommandInput;
+  static getEndpointParameterInstructions(): EndpointParameterInstructions;
+  constructor(input: VerifyDomainIdentityCommandInput);
+  resolveMiddleware(
+    clientStack: MiddlewareStack<ServiceInputTypes, ServiceOutputTypes>,
+    configuration: SESClientResolvedConfig,
+    options?: __HttpHandlerOptions
+  ): Handler<
+    VerifyDomainIdentityCommandInput,
+    VerifyDomainIdentityCommandOutput
+  >;
+  private serialize;
+  private deserialize;
+}

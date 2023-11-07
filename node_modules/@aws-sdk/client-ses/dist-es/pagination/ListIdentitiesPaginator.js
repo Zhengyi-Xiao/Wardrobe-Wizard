@@ -1,0 +1,25 @@
+import { ListIdentitiesCommand, } from "../commands/ListIdentitiesCommand";
+import { SESClient } from "../SESClient";
+const makePagedClientRequest = async (client, input, ...args) => {
+    return await client.send(new ListIdentitiesCommand(input), ...args);
+};
+export async function* paginateListIdentities(config, input, ...additionalArguments) {
+    let token = config.startingToken || undefined;
+    let hasNext = true;
+    let page;
+    while (hasNext) {
+        input.NextToken = token;
+        input["MaxItems"] = config.pageSize;
+        if (config.client instanceof SESClient) {
+            page = await makePagedClientRequest(config.client, input, ...additionalArguments);
+        }
+        else {
+            throw new Error("Invalid client, expected SES | SESClient");
+        }
+        yield page;
+        const prevToken = token;
+        token = page.NextToken;
+        hasNext = !!(token && (!config.stopOnSameToken || token !== prevToken));
+    }
+    return undefined;
+}

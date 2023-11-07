@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ClothContainer from './ClothContainer'
 import '../styles/Closet.css'
 import { delete_selected } from '../styles/icons.js'
-import { getClothByTypeEvent } from '../api/api.js'
+import { getClothByTypeEvent, uploadPhotoAPI } from '../api/api.js'
 import AddToTodayPopUp from './ChooseEventType.js'
 import AddClothPopUp from './AddClothPopUp.js';
 
@@ -94,11 +94,14 @@ function Closet() {
       fileInput.accept = 'image/*'
       fileInput.click()
 
-      fileInput.addEventListener('change', event => {
+      fileInput.addEventListener('change', async event => {
         const selectedFile = event.target.files[0]
         if (selectedFile) {
           setSelectedImage(URL.createObjectURL(selectedFile)); // Set the selected image in the state
           setIsAddClothPopUpOpen(true); // Open the AddClothPopUp
+          //let randomPostID = Math.random();
+          await uploadPhotoAPI(selectedFile);
+          setRenderIndex(0);
           console.log('Uploaded file:', selectedFile)
         }
       })

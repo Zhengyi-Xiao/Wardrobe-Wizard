@@ -1,0 +1,29 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.paginateListIdentities = void 0;
+const ListIdentitiesCommand_1 = require("../commands/ListIdentitiesCommand");
+const SESClient_1 = require("../SESClient");
+const makePagedClientRequest = async (client, input, ...args) => {
+    return await client.send(new ListIdentitiesCommand_1.ListIdentitiesCommand(input), ...args);
+};
+async function* paginateListIdentities(config, input, ...additionalArguments) {
+    let token = config.startingToken || undefined;
+    let hasNext = true;
+    let page;
+    while (hasNext) {
+        input.NextToken = token;
+        input["MaxItems"] = config.pageSize;
+        if (config.client instanceof SESClient_1.SESClient) {
+            page = await makePagedClientRequest(config.client, input, ...additionalArguments);
+        }
+        else {
+            throw new Error("Invalid client, expected SES | SESClient");
+        }
+        yield page;
+        const prevToken = token;
+        token = page.NextToken;
+        hasNext = !!(token && (!config.stopOnSameToken || token !== prevToken));
+    }
+    return undefined;
+}
+exports.paginateListIdentities = paginateListIdentities;

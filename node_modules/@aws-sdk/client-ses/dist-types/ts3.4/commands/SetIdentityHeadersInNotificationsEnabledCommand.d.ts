@@ -1,0 +1,42 @@
+import { EndpointParameterInstructions } from "@smithy/middleware-endpoint";
+import { Command as $Command } from "@smithy/smithy-client";
+import {
+  Handler,
+  HttpHandlerOptions as __HttpHandlerOptions,
+  MetadataBearer as __MetadataBearer,
+  MiddlewareStack,
+} from "@smithy/types";
+import {
+  SetIdentityHeadersInNotificationsEnabledRequest,
+  SetIdentityHeadersInNotificationsEnabledResponse,
+} from "../models/models_0";
+import {
+  ServiceInputTypes,
+  ServiceOutputTypes,
+  SESClientResolvedConfig,
+} from "../SESClient";
+export { __MetadataBearer, $Command };
+export interface SetIdentityHeadersInNotificationsEnabledCommandInput
+  extends SetIdentityHeadersInNotificationsEnabledRequest {}
+export interface SetIdentityHeadersInNotificationsEnabledCommandOutput
+  extends SetIdentityHeadersInNotificationsEnabledResponse,
+    __MetadataBearer {}
+export declare class SetIdentityHeadersInNotificationsEnabledCommand extends $Command<
+  SetIdentityHeadersInNotificationsEnabledCommandInput,
+  SetIdentityHeadersInNotificationsEnabledCommandOutput,
+  SESClientResolvedConfig
+> {
+  readonly input: SetIdentityHeadersInNotificationsEnabledCommandInput;
+  static getEndpointParameterInstructions(): EndpointParameterInstructions;
+  constructor(input: SetIdentityHeadersInNotificationsEnabledCommandInput);
+  resolveMiddleware(
+    clientStack: MiddlewareStack<ServiceInputTypes, ServiceOutputTypes>,
+    configuration: SESClientResolvedConfig,
+    options?: __HttpHandlerOptions
+  ): Handler<
+    SetIdentityHeadersInNotificationsEnabledCommandInput,
+    SetIdentityHeadersInNotificationsEnabledCommandOutput
+  >;
+  private serialize;
+  private deserialize;
+}

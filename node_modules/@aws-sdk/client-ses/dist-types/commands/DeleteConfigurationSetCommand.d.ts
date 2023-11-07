@@ -1,0 +1,77 @@
+import { EndpointParameterInstructions } from "@smithy/middleware-endpoint";
+import { Command as $Command } from "@smithy/smithy-client";
+import { Handler, HttpHandlerOptions as __HttpHandlerOptions, MetadataBearer as __MetadataBearer, MiddlewareStack } from "@smithy/types";
+import { DeleteConfigurationSetRequest, DeleteConfigurationSetResponse } from "../models/models_0";
+import { ServiceInputTypes, ServiceOutputTypes, SESClientResolvedConfig } from "../SESClient";
+/**
+ * @public
+ */
+export { __MetadataBearer, $Command };
+/**
+ * @public
+ *
+ * The input for {@link DeleteConfigurationSetCommand}.
+ */
+export interface DeleteConfigurationSetCommandInput extends DeleteConfigurationSetRequest {
+}
+/**
+ * @public
+ *
+ * The output of {@link DeleteConfigurationSetCommand}.
+ */
+export interface DeleteConfigurationSetCommandOutput extends DeleteConfigurationSetResponse, __MetadataBearer {
+}
+/**
+ * @public
+ * <p>Deletes a configuration set. Configuration sets enable you to publish email sending
+ *             events. For information about using configuration sets, see the <a href="https://docs.aws.amazon.com/ses/latest/dg/monitor-sending-activity.html">Amazon SES
+ *                 Developer Guide</a>.</p>
+ *          <p>You can execute this operation no more than once per second.</p>
+ * @example
+ * Use a bare-bones client and the command you need to make an API call.
+ * ```javascript
+ * import { SESClient, DeleteConfigurationSetCommand } from "@aws-sdk/client-ses"; // ES Modules import
+ * // const { SESClient, DeleteConfigurationSetCommand } = require("@aws-sdk/client-ses"); // CommonJS import
+ * const client = new SESClient(config);
+ * const input = { // DeleteConfigurationSetRequest
+ *   ConfigurationSetName: "STRING_VALUE", // required
+ * };
+ * const command = new DeleteConfigurationSetCommand(input);
+ * const response = await client.send(command);
+ * // {};
+ *
+ * ```
+ *
+ * @param DeleteConfigurationSetCommandInput - {@link DeleteConfigurationSetCommandInput}
+ * @returns {@link DeleteConfigurationSetCommandOutput}
+ * @see {@link DeleteConfigurationSetCommandInput} for command's `input` shape.
+ * @see {@link DeleteConfigurationSetCommandOutput} for command's `response` shape.
+ * @see {@link SESClientResolvedConfig | config} for SESClient's `config` shape.
+ *
+ * @throws {@link ConfigurationSetDoesNotExistException} (client fault)
+ *  <p>Indicates that the configuration set does not exist.</p>
+ *
+ * @throws {@link SESServiceException}
+ * <p>Base exception class for all service exceptions from SES service.</p>
+ *
+ */
+export declare class DeleteConfigurationSetCommand extends $Command<DeleteConfigurationSetCommandInput, DeleteConfigurationSetCommandOutput, SESClientResolvedConfig> {
+    readonly input: DeleteConfigurationSetCommandInput;
+    static getEndpointParameterInstructions(): EndpointParameterInstructions;
+    /**
+     * @public
+     */
+    constructor(input: DeleteConfigurationSetCommandInput);
+    /**
+     * @internal
+     */
+    resolveMiddleware(clientStack: MiddlewareStack<ServiceInputTypes, ServiceOutputTypes>, configuration: SESClientResolvedConfig, options?: __HttpHandlerOptions): Handler<DeleteConfigurationSetCommandInput, DeleteConfigurationSetCommandOutput>;
+    /**
+     * @internal
+     */
+    private serialize;
+    /**
+     * @internal
+     */
+    private deserialize;
+}

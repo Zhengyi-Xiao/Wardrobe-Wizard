@@ -1,0 +1,42 @@
+import { EndpointParameterInstructions } from "@smithy/middleware-endpoint";
+import { Command as $Command } from "@smithy/smithy-client";
+import {
+  Handler,
+  HttpHandlerOptions as __HttpHandlerOptions,
+  MetadataBearer as __MetadataBearer,
+  MiddlewareStack,
+} from "@smithy/types";
+import {
+  UpdateConfigurationSetEventDestinationRequest,
+  UpdateConfigurationSetEventDestinationResponse,
+} from "../models/models_0";
+import {
+  ServiceInputTypes,
+  ServiceOutputTypes,
+  SESClientResolvedConfig,
+} from "../SESClient";
+export { __MetadataBearer, $Command };
+export interface UpdateConfigurationSetEventDestinationCommandInput
+  extends UpdateConfigurationSetEventDestinationRequest {}
+export interface UpdateConfigurationSetEventDestinationCommandOutput
+  extends UpdateConfigurationSetEventDestinationResponse,
+    __MetadataBearer {}
+export declare class UpdateConfigurationSetEventDestinationCommand extends $Command<
+  UpdateConfigurationSetEventDestinationCommandInput,
+  UpdateConfigurationSetEventDestinationCommandOutput,
+  SESClientResolvedConfig
+> {
+  readonly input: UpdateConfigurationSetEventDestinationCommandInput;
+  static getEndpointParameterInstructions(): EndpointParameterInstructions;
+  constructor(input: UpdateConfigurationSetEventDestinationCommandInput);
+  resolveMiddleware(
+    clientStack: MiddlewareStack<ServiceInputTypes, ServiceOutputTypes>,
+    configuration: SESClientResolvedConfig,
+    options?: __HttpHandlerOptions
+  ): Handler<
+    UpdateConfigurationSetEventDestinationCommandInput,
+    UpdateConfigurationSetEventDestinationCommandOutput
+  >;
+  private serialize;
+  private deserialize;
+}

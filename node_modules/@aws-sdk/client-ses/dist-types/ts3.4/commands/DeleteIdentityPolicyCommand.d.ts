@@ -1,0 +1,42 @@
+import { EndpointParameterInstructions } from "@smithy/middleware-endpoint";
+import { Command as $Command } from "@smithy/smithy-client";
+import {
+  Handler,
+  HttpHandlerOptions as __HttpHandlerOptions,
+  MetadataBearer as __MetadataBearer,
+  MiddlewareStack,
+} from "@smithy/types";
+import {
+  DeleteIdentityPolicyRequest,
+  DeleteIdentityPolicyResponse,
+} from "../models/models_0";
+import {
+  ServiceInputTypes,
+  ServiceOutputTypes,
+  SESClientResolvedConfig,
+} from "../SESClient";
+export { __MetadataBearer, $Command };
+export interface DeleteIdentityPolicyCommandInput
+  extends DeleteIdentityPolicyRequest {}
+export interface DeleteIdentityPolicyCommandOutput
+  extends DeleteIdentityPolicyResponse,
+    __MetadataBearer {}
+export declare class DeleteIdentityPolicyCommand extends $Command<
+  DeleteIdentityPolicyCommandInput,
+  DeleteIdentityPolicyCommandOutput,
+  SESClientResolvedConfig
+> {
+  readonly input: DeleteIdentityPolicyCommandInput;
+  static getEndpointParameterInstructions(): EndpointParameterInstructions;
+  constructor(input: DeleteIdentityPolicyCommandInput);
+  resolveMiddleware(
+    clientStack: MiddlewareStack<ServiceInputTypes, ServiceOutputTypes>,
+    configuration: SESClientResolvedConfig,
+    options?: __HttpHandlerOptions
+  ): Handler<
+    DeleteIdentityPolicyCommandInput,
+    DeleteIdentityPolicyCommandOutput
+  >;
+  private serialize;
+  private deserialize;
+}

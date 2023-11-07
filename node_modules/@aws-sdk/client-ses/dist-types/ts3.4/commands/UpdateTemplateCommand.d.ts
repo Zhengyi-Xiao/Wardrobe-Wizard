@@ -1,0 +1,38 @@
+import { EndpointParameterInstructions } from "@smithy/middleware-endpoint";
+import { Command as $Command } from "@smithy/smithy-client";
+import {
+  Handler,
+  HttpHandlerOptions as __HttpHandlerOptions,
+  MetadataBearer as __MetadataBearer,
+  MiddlewareStack,
+} from "@smithy/types";
+import {
+  UpdateTemplateRequest,
+  UpdateTemplateResponse,
+} from "../models/models_0";
+import {
+  ServiceInputTypes,
+  ServiceOutputTypes,
+  SESClientResolvedConfig,
+} from "../SESClient";
+export { __MetadataBearer, $Command };
+export interface UpdateTemplateCommandInput extends UpdateTemplateRequest {}
+export interface UpdateTemplateCommandOutput
+  extends UpdateTemplateResponse,
+    __MetadataBearer {}
+export declare class UpdateTemplateCommand extends $Command<
+  UpdateTemplateCommandInput,
+  UpdateTemplateCommandOutput,
+  SESClientResolvedConfig
+> {
+  readonly input: UpdateTemplateCommandInput;
+  static getEndpointParameterInstructions(): EndpointParameterInstructions;
+  constructor(input: UpdateTemplateCommandInput);
+  resolveMiddleware(
+    clientStack: MiddlewareStack<ServiceInputTypes, ServiceOutputTypes>,
+    configuration: SESClientResolvedConfig,
+    options?: __HttpHandlerOptions
+  ): Handler<UpdateTemplateCommandInput, UpdateTemplateCommandOutput>;
+  private serialize;
+  private deserialize;
+}

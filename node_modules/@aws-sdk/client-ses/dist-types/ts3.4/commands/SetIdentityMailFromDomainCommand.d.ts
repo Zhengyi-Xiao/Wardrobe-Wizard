@@ -1,0 +1,42 @@
+import { EndpointParameterInstructions } from "@smithy/middleware-endpoint";
+import { Command as $Command } from "@smithy/smithy-client";
+import {
+  Handler,
+  HttpHandlerOptions as __HttpHandlerOptions,
+  MetadataBearer as __MetadataBearer,
+  MiddlewareStack,
+} from "@smithy/types";
+import {
+  SetIdentityMailFromDomainRequest,
+  SetIdentityMailFromDomainResponse,
+} from "../models/models_0";
+import {
+  ServiceInputTypes,
+  ServiceOutputTypes,
+  SESClientResolvedConfig,
+} from "../SESClient";
+export { __MetadataBearer, $Command };
+export interface SetIdentityMailFromDomainCommandInput
+  extends SetIdentityMailFromDomainRequest {}
+export interface SetIdentityMailFromDomainCommandOutput
+  extends SetIdentityMailFromDomainResponse,
+    __MetadataBearer {}
+export declare class SetIdentityMailFromDomainCommand extends $Command<
+  SetIdentityMailFromDomainCommandInput,
+  SetIdentityMailFromDomainCommandOutput,
+  SESClientResolvedConfig
+> {
+  readonly input: SetIdentityMailFromDomainCommandInput;
+  static getEndpointParameterInstructions(): EndpointParameterInstructions;
+  constructor(input: SetIdentityMailFromDomainCommandInput);
+  resolveMiddleware(
+    clientStack: MiddlewareStack<ServiceInputTypes, ServiceOutputTypes>,
+    configuration: SESClientResolvedConfig,
+    options?: __HttpHandlerOptions
+  ): Handler<
+    SetIdentityMailFromDomainCommandInput,
+    SetIdentityMailFromDomainCommandOutput
+  >;
+  private serialize;
+  private deserialize;
+}

@@ -228,6 +228,62 @@ webapp.get('/generate/todays-outfit/:event', async (req, res) => {
   }
 })
 
+
+const cloudinary = require("cloudinary").v2
+
+const cloudinaryConfig = cloudinary.config({
+  cloud_name: "dldiferrn",
+  api_key: "554946298277143",
+  api_secret: "4XcD9tilQTTVe-Vc8a1vKS8HwnE",
+  secure: true
+})
+
+webapp.get("/get-signature", (req, res) => {
+  const timestamp = Math.round(new Date().getTime() / 1000)
+  const signature = cloudinary.utils.api_sign_request(
+    {
+      timestamp: timestamp
+    },
+    cloudinaryConfig.api_secret
+  )
+  res.json({ timestamp, signature })
+})
+
+// how to correctly use mongodbAPI
+// the postID, how to correct it
+// 前端有image id； 把前端的id发到后端 后端第一步是s3 filename; 知道了filename 所以知道了url的地址; 把地址发到mongodb上去
+// webapp.post('/uploadImage',async (req,res)=>{
+  
+// })
+
+webapp.post('/uploadImage', async (req, res) => {
+  const client = new MongoClient(urlService);
+  try {
+    console.log("Already in the backend uploadImage")
+    // create the new student
+    await client.connect()
+    const collection = client.db('Wardrobe-Wizard').collection('clothes')
+    const newImage = {
+      imageUrl : req.body.imageUrl,
+      brand_names: req.body.brand_names,
+      descriptions: req.body.descriptions,
+      event: req.body.event,
+      type: req.body.type,
+    };
+    // const newImage = {
+    //   imageUrl : "fdas",
+    //   brand_names: "fda",
+    //   descriptions: "fda",
+    //   event: "fda",
+    //   type: "fda",
+    // };
+    await collection.insertOne(newImage)
+    res.json(newImage);
+  } catch (err) {
+    res.status(409).json({ message: 'there was error' });
+  }
+})
+
 webapp.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
