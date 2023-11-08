@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/HomePage.css';
-import CalendarMonth from './CalendarMonth.js';
-import CalendarWeek from './CalendarWeek.js';
-import { IconButton } from '@mui/material';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import React, { useState, useEffect } from "react";
+import "../styles/HomePage.css";
+import CalendarMonth from "./CalendarMonth.js";
+import CalendarWeek from "./CalendarWeek.js";
+import { IconButton } from "@mui/material";
+import Divider from "@mui/material/Divider";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import dayjs from "dayjs";
-import MyOutFit from './MyOutFit.js';
-
+import MyOutFit from "./MyOutFit.js";
 
 function HomePage(eventTypes) {
   const [openCalendar, setOpenCalendar] = useState(false);
@@ -17,65 +17,111 @@ function HomePage(eventTypes) {
   const currentDate = dayjs();
   const [selectedDate, setSelectedDate] = useState(currentDate);
 
+  // add apiKey here
+  const apiKey = ""
+
   const handleOpenCalendar = () => {
     setOpenCalendar(true);
-  }
+  };
 
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
-    // Close the CalendarMonth popup
     setOpenCalendar(false);
   };
 
+  // console.log(currentDate.subtract(1, 'day').unix())
   const getWeather = async () => {
-    const location = `http://api.openweathermap.org/data/2.5/weather?q=Philadelphia&appid=4d01dbe80c384ea20a6937f2aa98848d&units=imperial`
+    const location = `http://pro.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&appid=${apiKey}`;
     const res = await fetch(location);
     const res1 = res.json();
     return res1;
   };
 
+  const getWeatherForDate = async (date) => {
+    const dateCode = date.unix();
+    const location = `https://history.openweathermap.org/data/2.5/history/city?q=Philadelphia&appid=${apiKey}&units=imperial&dt=${dateCode}`;
+    console.log(location)
+    const res = await fetch(location);
+    const res1 = res.json();
+    return res1;
+  };
+
+  // useEffect(() => {
+  //   getWeather().then(async (response) => {
+  //     const temperature = response.main.temp;
+  //     const weatherIconCode = response.weather[0].icon;
+  //     const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+  //     setTemp(temperature);
+  //     setWeatherIconUrl(weatherIconUrl);
+  //   });
+  // }, [selectedDate]);
+
   useEffect(() => {
-    // Fetch the temperature and update the 'temp' state
-    getWeather().then(async (response) => {
-      const temperature = response.main.temp;
-      // const weather = response.weather[0].main;
-      const weatherIconCode = response.weather[0].icon;
-      const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`
-      setTemp(temperature);
-      // setWeatherName(weather);
-      setWeatherIconUrl(weatherIconUrl)
-      // console.log('Weather:', weather)
-    });
-  }, []);
+    if (selectedDate.isSame(dayjs(), 'day') || selectedDate.isAfter(dayjs(), 'day')) {
+      // Fetch current weather when selectedDate is the current date
+      getWeather().then(async (response) => {
+        const temperature = response.main.temp;
+        const weatherIconCode = response.weather[0].icon;
+        const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+        setTemp(temperature);
+        setWeatherIconUrl(weatherIconUrl);
+      });
+    } else {
+      // Fetch weather for a specific date (e.g., yesterday)
+      getWeatherForDate(selectedDate).then(async (response) => {
+        // Process the response for the specific date
+        const temperature = response.list[0].main.temp;
+        const weatherIconCode = response.list[0].weather[0].icon;
+        const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+        setTemp(temperature);
+        setWeatherIconUrl(weatherIconUrl);
+      });
+    }
+  }, [selectedDate]);
 
   return (
-    <div className='home-page-container'>
-      <div className='weather'>
+    <div className="home-page-container">
+      <div className="weather">
         <div>
-          <IconButton className='calendarIcon' onClick={handleOpenCalendar}>
-            <CalendarMonthIcon />
+          <IconButton className="calendarIcon" onClick={handleOpenCalendar}>
+            <CalendarMonthIcon fontSize="large" />
           </IconButton>
-          {openCalendar &&
+          {openCalendar && (
             <CalendarMonth
               selectedDate={selectedDate}
               handleDateChange={handleDateChange}
-            />}
+            />
+          )}
         </div>
-        <div className='weatherDateInfo'>
-          <div className='dateInfo'>{selectedDate.format('D MMM, YYYY')}</div>
-          <div className='weatherInfo'>
-            <div className='temperature'>{Math.round(temp)}°F</div>
-            <div className='seperator'></div>
+        <div className="weatherDateInfo">
+          <div className="dateInfo">{selectedDate.format("D MMM, YYYY")}</div>
+          <div className="weatherInfo">
+            <div className="temperature">{Math.round(temp)}°F</div>
+            {/* <div className='seperator'></div> */}
             {weatherIconUrl && (
-              <img src={weatherIconUrl} alt='Weather Icon' className='weatherIcon' />
+              <img
+                src={weatherIconUrl}
+                alt="Weather Icon"
+                className="weatherIcon"
+              />
             )}
           </div>
         </div>
       </div>
-      <CalendarWeek />
+      {openCalendar ? (
+        <CalendarWeek
+          selectedDate={selectedDate}
+          clickWeekChange={setSelectedDate}
+        />
+      ) : (
+        <CalendarWeek
+          selectedDate={selectedDate}
+          clickWeekChange={setSelectedDate}
+        />
+      )}
       <MyOutFit selectedDate={selectedDate} />
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

@@ -28,8 +28,11 @@ function MyCustomLayout(props) {
       },
       },
       [`.${pickersLayoutClasses.actionBar}`]: {
+        backgroundColor: "#FFFCFB",
+        borderRadius: '0 0 9px 9px',
       "& .MuiButton-text ": {
         color: "#FEAD91",
+        // borderColor: "#96A9AF",
         // F95D44
       },
       },
@@ -49,7 +52,7 @@ function MyCustomLayout(props) {
       },
     }}
     >
-    {toolbar}
+    {/* {toolbar} */}
     <PickersLayoutContentWrapper
       className={pickersLayoutClasses.contentWrapper}
     >
