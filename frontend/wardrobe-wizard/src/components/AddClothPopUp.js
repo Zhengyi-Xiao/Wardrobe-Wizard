@@ -21,7 +21,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   }
 
   const handleUploadImage = async () => {
-    await uploadPhotoAPI(selectedFile);
+    await uploadPhotoAPI(selectedFile)
   }
 
   const handleChangeType = () => {
@@ -63,6 +63,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
           </div>
         </div>
         <div className="btns">
+          {/* {forEdit ? <button className="btn-add">Save</button> : <button className="btn-add" onClick={handleUploadImage}>Add to Closet</button>} */}
           {forEdit ? <button className="btn-add">Save</button> : <button className="btn-add" onClick={handleUploadImage}>Add to Closet</button>}
           {forEdit ? <button className="btn-cancel">Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button>}
         </div>

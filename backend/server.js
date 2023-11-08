@@ -352,7 +352,7 @@ const cloudinary = require("cloudinary").v2
 const cloudinaryConfig = cloudinary.config({
   cloud_name: "dldiferrn",
   api_key: "554946298277143",
-  api_secret: "4XcD9tilQTTVe-Vc8a1vKS8HwnE",
+  api_secret: "",
   secure: true
 })
 
