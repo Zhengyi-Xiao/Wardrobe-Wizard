@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import '../styles/AddClothPopUp.css';
 import { go_back, edit_add_today } from '../styles/icons.js';
+import { uploadPhotoAPI } from '../api/api.js'
 import ChooseEventType from './ChooseEventType.js';
 
-function AddClothPopUp({ selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities }) {
+function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities }) {
   // whether or not click on to select desired event
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
   // whether or not click on to select desired activities
@@ -19,8 +20,8 @@ function AddClothPopUp({ selectedImage, onClose, eventTypes, clothType, forEdit,
     setIsChooseClothTypeOpen(!isChooseClothTypeOpen);
   }
 
-  const handleUploadImage = () => {
-
+  const handleUploadImage = async () => {
+    await uploadPhotoAPI(selectedFile);
   }
 
   const handleChangeType = () => {
@@ -62,7 +63,7 @@ function AddClothPopUp({ selectedImage, onClose, eventTypes, clothType, forEdit,
           </div>
         </div>
         <div className="btns">
-          {forEdit ? <button className="btn-add">Save</button> : <button className="btn-add">Add to Closet</button>}
+          {forEdit ? <button className="btn-add">Save</button> : <button className="btn-add" onClick={handleUploadImage}>Add to Closet</button>}
           {forEdit ? <button className="btn-cancel">Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button>}
         </div>
         {isChooseEventTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeActivity} handleClosePopUp={handleSelectActivity} eventTypes={eventTypes} type={'activity'} />}

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import ClothContainer from './ClothContainer'
 import '../styles/Closet.css'
 import { delete_selected } from '../styles/icons.js'
-import { getClothByTypeEvent } from '../api/api.js'
+import { getClothByTypeEvent, uploadPhotoAPI } from '../api/api.js'
 import AddClothPopUp from './AddClothPopUp.js';
 
 
@@ -26,6 +26,7 @@ function Closet() {
   const [renderIndex, setRenderIndex] = useState(0)
   const [selectedImage, setSelectedImage] = useState(null);
   const [isAddClothPopUpOpen, setIsAddClothPopUpOpen] = useState(false);
+  const [selectedFileImage, setselectedFileImage] = useState(false);
 
   const eventTypes = [
     'Workout',
@@ -124,11 +125,14 @@ function Closet() {
       fileInput.accept = 'image/*'
       fileInput.click()
 
-      fileInput.addEventListener('change', event => {
+      fileInput.addEventListener('change', async event => {
         const selectedFile = event.target.files[0]
         if (selectedFile) {
           setSelectedImage(URL.createObjectURL(selectedFile)); // Set the selected image in the state
           setIsAddClothPopUpOpen(true); // Open the AddClothPopUp
+          setselectedFileImage(selectedFile);
+          // await uploadPhotoAPI(selectedFile);
+          // setRenderIndex(0);
           console.log('Uploaded file:', selectedFile)
         }
       })
@@ -168,7 +172,7 @@ function Closet() {
   if (isAddClothPopUpOpen) {
     console.log('HERE')
     return ReactDOM.createPortal(
-      <AddClothPopUp selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
+      <AddClothPopUp selectedFile={selectedFileImage} selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
       document.getElementById('root-portal')
     );
   }
@@ -274,8 +278,6 @@ function Closet() {
           />
         ))}
       </div>
-
-
     </div>
   )
 }
