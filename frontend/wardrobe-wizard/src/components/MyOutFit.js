@@ -10,7 +10,7 @@ import { addNewActivity, getOutfitByDate, deleteActivity, fetchCloth, removeClot
 function MyOutFit({ selectedDate }) {
   const selectedDateStr = selectedDate.$y + '' +
     (selectedDate.$M + 1 < 10 ? '0' + selectedDate.$M + 1 : selectedDate.$M + 1) + '' +
-    (selectedDate.$D + 1 < 10 ? '0' + selectedDate.$D + 1 : selectedDate.$D + 1);
+    (selectedDate.$D < 10 ? '0' + selectedDate.$D : selectedDate.$D);
 
   const [todaysOutfit, setTodaysOutfit] = useState([])
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
@@ -20,7 +20,20 @@ function MyOutFit({ selectedDate }) {
     getOutfitByDate(selectedDateStr).then(async (response) => {
       setTodaysOutfit(response)
     });
-  }, [isChooseEventTypeOpen])
+  }, [selectedDate, isChooseEventTypeOpen])
+
+    console.log(
+    "current selected date",
+    selectedDate.$y +
+      "" +
+      (selectedDate.$M + 1 < 10
+        ? "0" + (selectedDate.$M + 1)
+        : selectedDate.$M + 1) +
+      "" +
+      (selectedDate.$D < 10
+        ? "0" + (selectedDate.$D)
+        : selectedDate.$D)
+  );
 
   const eventTypes = [
     'Workout',
