@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/AddClothPopUp.css';
 import { go_back, edit_add_today } from '../styles/icons.js';
 import { uploadPhotoAPI } from '../api/api.js'
@@ -22,6 +22,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
 
   const handleUploadImage = async () => {
     await uploadPhotoAPI(selectedFile)
+    window.location.reload();
   }
 
   const handleChangeType = () => {
