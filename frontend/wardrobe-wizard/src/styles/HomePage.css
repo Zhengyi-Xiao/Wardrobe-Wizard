@@ -24,7 +24,7 @@
 } */
 
 .add-activity-button {
-  width: 148.793px;
+  width: 160.793px;
   height: 34.105px;
   flex-shrink: 0;
   border-radius: 8.975px;
@@ -96,7 +96,7 @@
   top: 50px;
   width: 2.244px;
   height: 31.412px;
-  background: #454C4E;
+  background: #454c4e;
 }
 
 .weatherInfo {
@@ -106,6 +106,6 @@
 }
 
 .css-1q04gal-MuiDateCalendar-root {
-  background-color: #FFFF;
+  background-color: #ffff;
   border-radius: 9px 9px 0 0;
 }
