@@ -29,7 +29,7 @@ webapp.get('/clothes', async (req, res) => {
     const collection = client.db('Wardrobe-Wizard').collection('clothes') // Replace with your collection name.
 
     // Query for all clothing items in the collection
-    const allClothingItems = await collection.find({}).toArray()
+    const allClothingItems = await collection.find({}).sort({"time":-1}).toArray()
 
     if (allClothingItems.length > 0) {
       res.json(allClothingItems)
@@ -69,7 +69,7 @@ webapp.get('/clothes/type/:type/activity/:activity', async (req, res) => {
     }
 
     // Query for clothing items matching the type and activity
-    const matchingClothes = await collection.find(query).toArray()
+    const matchingClothes = await collection.find(query).sort({"time":-1}).toArray()
     res.json({ data: matchingClothes })
   } catch (error) {
     console.error('Error:', error)
@@ -352,7 +352,7 @@ const cloudinary = require("cloudinary").v2
 const cloudinaryConfig = cloudinary.config({
   cloud_name: "dldiferrn",
   api_key: "554946298277143",
-  api_secret: "4XcD9tilQTTVe-Vc8a1vKS8HwnE",
+  api_secret: "",
   secure: true
 })
 
@@ -375,11 +375,12 @@ webapp.post('/uploadImage', async (req, res) => {
     await client.connect()
     const collection = client.db('Wardrobe-Wizard').collection('clothes')
     const newImage = {
-      imageUrl : req.body.imageUrl,
+      image_urls : req.body.imageUrl,
       brand_names: req.body.brand_names,
       descriptions: req.body.descriptions,
       event: req.body.event,
       type: req.body.type,
+      time: req.body.time,
     };
     await collection.insertOne(newImage)
     res.json(newImage);

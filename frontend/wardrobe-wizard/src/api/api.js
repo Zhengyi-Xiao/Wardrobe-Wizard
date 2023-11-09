@@ -1,4 +1,5 @@
 import axios from './axios'
+import moment from "moment"
 
 const eventMap = {
   Workout: 'workout',
@@ -137,7 +138,8 @@ export const createImage = async (request) => {
         brand_names: request.brand_names,
         descriptions: request.descriptions,
         event: request.event,
-        type: request.type
+        type: request.type,
+        time: request.time,
       },
     );
     return response;
@@ -171,14 +173,17 @@ export const uploadPhotoAPI = async (imageFile) => {
   imageUrl = cloudinaryResponse.data.secure_url
   let brand_names = "Self-taken"
   let descriptions = "A cloth taken"
-  let event = "DOG"
-  let type = "DOG"
+  let event = "causal"
+  let type = "top"
+  let time = moment().format("MM/DD/YYYY, HH:mm:ss");
+  //11/08/2023, 21:03:25
   const dbData = {
     imageUrl,
     brand_names,
     descriptions,
     event,
     type,
+    time,
   };
   console.log("dbData printout",dbData)
   console.log("url",dbData.imageUrl)
