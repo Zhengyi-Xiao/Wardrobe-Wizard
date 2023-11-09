@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
-import { workout, collapse, remove_todays_outfit, refresh_todays_outfit, add_new_cloth, open } from '../styles/icons.js';
+import {
+  collapse, remove_todays_outfit, refresh_todays_outfit, add_new_cloth, open,
+  workout, meeting, party, formal_event, outdoor, causal
+} from '../styles/icons.js';
 import ReactDOM from 'react-dom';
 import '../styles/MyOutFit.css'
 import ChooseEventType from './ChooseEventType.js';
 
-import { addNewActivity, getOutfitByDate, deleteActivity, fetchCloth, removeClothFromOutfit } from '../api/api.js'
+import { addNewActivity, getOutfitByDate, deleteActivity, fetchCloth, removeClothFromOutfit, randomGenerateClothByTypeEvent } from '../api/api.js'
 
 function MyOutFit({ selectedDate }) {
   const selectedDateStr = selectedDate.$y + '' +
@@ -22,17 +25,17 @@ function MyOutFit({ selectedDate }) {
     });
   }, [selectedDate, isChooseEventTypeOpen])
 
-    console.log(
+  console.log(
     "current selected date",
     selectedDate.$y +
-      "" +
-      (selectedDate.$M + 1 < 10
-        ? "0" + (selectedDate.$M + 1)
-        : selectedDate.$M + 1) +
-      "" +
-      (selectedDate.$D < 10
-        ? "0" + (selectedDate.$D)
-        : selectedDate.$D)
+    "" +
+    (selectedDate.$M + 1 < 10
+      ? "0" + (selectedDate.$M + 1)
+      : selectedDate.$M + 1) +
+    "" +
+    (selectedDate.$D < 10
+      ? "0" + (selectedDate.$D)
+      : selectedDate.$D)
   );
 
   const eventTypes = [
@@ -67,6 +70,7 @@ function MyOutFit({ selectedDate }) {
         )
       })}
       <button className='add-activity-button' onClick={handleSelectActivity}>+ Add Activity</button>
+      <div className='spacer-outfit'></div>
       {isChooseEventTypeOpen && <ChooseEventType
         handleAddToOutfit={handleChangeActivity}
         handleClosePopUp={handleSelectActivity}
@@ -130,9 +134,18 @@ function TodaysOutfit({ mongoID, index, event, outfits }) {
   const handleJump = (event) => {
     const queryParam = `?activity=${event}`;
     const path = '/closet' + queryParam;
-
     history.push(path); // Navigate to the new URL
   }
+
+  const event2icon = {
+    "outdoor": outdoor,
+    "formal events": formal_event,
+    "meeting": meeting,
+    "night out": party,
+    "causal": causal,
+    "workout": workout
+  }
+
   return (
     <div className='todays-outfit-container'>
       <div className='outfit-option'>
@@ -143,7 +156,7 @@ function TodaysOutfit({ mongoID, index, event, outfits }) {
           onTouchEnd={onTouchEnd}
         >
           <div className='outfit-option-header-icon'>
-            {workout}
+            {event2icon[event]}
           </div>
           <p className='outfit-option-title' onClick={handleFoldContent}>{capitalizeFirstLetterOfEachWord(event)}</p>
           <div className='outfit-option-header-open' onClick={handleFoldContent} >
@@ -174,28 +187,35 @@ function TodaysOutfit({ mongoID, index, event, outfits }) {
 }
 
 function OutfitOptions({ mongoID, handleOpenProfile, event }) {
-
   const [openProfile, setOpenProfile] = useState({});
   const [removed, setRemoved] = useState(false);
+  const [refreshed, setRefreshed] = useState(false);
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
-    // Fetch the temperature and update the 'temp' state
+    // Fetch the cloth data when the component mounts or refreshed state changes
     fetchCloth(mongoID).then(async (response) => {
-      setOpenProfile(response)
+      setOpenProfile(response);
     });
-  }, [])
+  }, [mongoID, refreshed]);
 
   const handleRemove = async () => {
-    await removeClothFromOutfit(mongoID, event)
-    setRemoved(true)
-  }
+    await removeClothFromOutfit(mongoID, event);
+    setRemoved(true);
+  };
 
-  const handleRefresh = () => {
-    console.log('refresh')
-  }
+  const handleRefresh = async () => {
+    await randomGenerateClothByTypeEvent(event, mongoID);
+    // Update the refreshed state to trigger a re-render
+    setRefreshed((prevRefreshed) => !prevRefreshed);
+    window.location.reload(true)
+  };
+
   if (removed) {
     return null;
   }
+
   return (
     <div className='outfit-option-clothes-item-container'>
       <div className='outfit-option-clothes-item'>
@@ -212,6 +232,7 @@ function OutfitOptions({ mongoID, handleOpenProfile, event }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
+
 export default MyOutFit

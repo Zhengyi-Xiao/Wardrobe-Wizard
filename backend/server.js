@@ -190,8 +190,10 @@ webapp.get('/outfit/addCloth/:id/event/:event', async (req, res) => {
     const outfitDocument = await collection.findOne({ event: event });
 
     if (outfitDocument) {
+      //const string id to mongddb id 
+      const clothingIdMogo = new ObjectId(clothingId);
       // Append the clothingId to the 'outfits' array
-      outfitDocument.outfits.push(clothingId);
+      outfitDocument.outfits.push(clothingIdMogo);
 
       // Update the document in the collection
       const result = await collection.updateOne(
@@ -289,7 +291,16 @@ webapp.get('/outfits/remove/event/:event/id/:id', async (req, res) => {
 
 webapp.get('/outfits/regenerate/event/:event/id/:id', async (req, res) => {
   const event = req.params.event;
-  const clothingId = req.params.id;
+  const clothingId = new ObjectId(req.params.id);
+
+  const event2dbevernt = {
+    "workout": "workout",
+    "meeting": "meeting",
+    "formal events": "formal",
+    "outdoor": "workout",
+    "night out": "night-out",
+    "causal": "causal"
+  }
 
   // Connect to MongoDB
   const client = new MongoClient(urlService);
@@ -305,16 +316,15 @@ webapp.get('/outfits/regenerate/event/:event/id/:id', async (req, res) => {
     const outfitDocument = await outfitsCollection.findOne({ event: event });
 
     if (outfitDocument) {
-      // Find the clothing item to replace
-      const clothingToReplace = outfitDocument.outfits.indexOf(clothingId);
+      const clothingToReplace = outfitDocument.outfits.findIndex((element) => element.equals(clothingId));
 
       if (clothingToReplace !== -1) {
         // Find clothing items of the same event and clothing type
         const clothingItem = await clothesCollection.aggregate([
-          { $match: { type: outfitDocument.type, event: event } },
+          { $match: { event: event2dbevernt[event] } },
           { $sample: { size: 1 } }
         ]).toArray();
-        console.log(clothingItem);
+
         if (clothingItem.length === 1) {
           // Replace the clothing item
           outfitDocument.outfits.splice(clothingToReplace, 1, clothingItem[0]._id);
