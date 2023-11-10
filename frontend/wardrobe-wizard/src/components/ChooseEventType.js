@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import '../styles/ChooseEventType.css';
 
-function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type }) {
+function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type, chosen }) {
 
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedType, setSelectedType] = useState(chosen);
   const handleAddChoice = choice => {
-    if (type.includes('clothes')) {
-      setSelectedTypes([choice])
-    } else {
-      setSelectedTypes([choice, ...selectedTypes])
-    }
+    // if (type.includes('clothes')) {
+    //   setselected([choice])
+    // } else {
+    //   setselectedType([choice, ...selectedType])
+    // }
+    setSelectedType(choice)
   }
   const handleRemoveChoice = choice => {
-    const updatedChoices = selectedTypes.filter(c => c !== choice)
-    if (updatedChoices.length === 0 && type === 'clothes') {
-      setSelectedTypes(['All', ...updatedChoices]);
-    } else {
-      setSelectedTypes([]);
-    }
-    setSelectedTypes(updatedChoices);
+    // const updatedChoices = selectedType.filter(c => c !== choice)
+    // if (updatedChoices.length === 0 && type === 'clothes') {
+    //   setselectedType(['All', ...updatedChoices]);
+    // } else {
+    //   setselectedType([]);
+    // }
+    // setselectedType(updatedChoices);
+    if(choice === selectedType) // secure
+      setSelectedType(null);
   }
   return (
     <div className='add-to-today-popup'>
@@ -28,7 +31,7 @@ function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type
         </div>
         <div className='add-to-today-popup-buttons'>
           {eventTypes.filter((choice) => !(choice === 'All')).map((choice, index) => {
-            if (selectedTypes.includes(choice)) {
+            if (selectedType && selectedType.toUpperCase() === choice.toUpperCase()) {
               return (
                 <button key={index} className={`${type}-choice-button selected `} onClick={() => handleRemoveChoice(choice)}>{choice}</button>
               )
@@ -40,7 +43,7 @@ function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type
           })}
         </div>
         <div className='btns'>
-          <button className='confirm-btn' onClick={(event) => handleAddToOutfit(event, selectedTypes)}>
+          <button className='confirm-btn' onClick={() => handleAddToOutfit(selectedType)}>
             Confirm
           </button>
           <button className='cancel-btn' onClick={handleClosePopUp}>

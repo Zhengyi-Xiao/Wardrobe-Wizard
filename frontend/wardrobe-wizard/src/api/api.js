@@ -106,13 +106,13 @@ export const removeClothFromOutfit = async (id, event) => {
   }
 }
 
-export const randomGenerateClothByTypeEvent = async (type, event) => {
+export const randomGenerateClothByTypeEvent = async (event, id) => {
   try {
     // make type and evnnt to lower case
     const response = await axios.get(
-      `/generate/clothes/type/${typeMap[type]}/activity/${eventMap[event]}`
+      `/outfits/regenerate/event/${event}/id/${id}`
     )
-    return response.data.data
+    return response.data
   } catch (error) {
     console.error('Error:', error)
     return []

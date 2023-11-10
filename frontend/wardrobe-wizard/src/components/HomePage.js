@@ -18,7 +18,7 @@ function HomePage(eventTypes) {
   const [selectedDate, setSelectedDate] = useState(currentDate);
 
   // add apiKey here
-  const apiKey = ""
+  const apiKey = "b24c1096033e1df3773df155f7d64400"
 
   const handleOpenCalendar = () => {
     setOpenCalendar(true);
@@ -60,8 +60,8 @@ function HomePage(eventTypes) {
     if (selectedDate.isSame(dayjs(), 'day') || selectedDate.isAfter(dayjs(), 'day')) {
       // Fetch current weather when selectedDate is the current date
       getWeather().then(async (response) => {
-        const temperature = response.main.temp;
-        const weatherIconCode = response.weather[0].icon;
+        const temperature = response?.main?.temp;
+        const weatherIconCode = response?.weather[0]?.icon;
         const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
         setTemp(temperature);
         setWeatherIconUrl(weatherIconUrl);

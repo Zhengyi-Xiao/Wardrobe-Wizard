@@ -68,26 +68,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-1:
-找到一个根据日期获取 philly 天气的 API，显示在 bar-calendar-container 里
-找个 calendar 的 react component，然后把这个 component 的样子颜色改成我们 figma 的样子，并显示在 bar-calendar-container 里
-根据当前日期正确显示 bar-calendar 的内容
-
-ps 可能需要在 HomePage 这个 component 存一个日期的 state
-
-2:
-
-整个 S3 bucket 上传照片，我现在前端已经有一个 camera 的口了，现在需要把这个文件传到 s3 上，然后重新下载下来展示到前端，同时把 url 发到 mongodb，再点击 save 之后，reload 整个 page，然后这个要在最新的所以要 sort by created time，如果 everything works 就可以在 closet 能看见， 可以用电脑的 upload image 测试
-
-3:
-
-推荐页面比较独立是可以现在单独做完的, 可以先管 static，然后改成 dynamic，后面已经写好了一个 express 的 fetch function，然后数据也在 mongo 上了
-
-ps imageProfile 直接 call AddClothPopUp 让 forRecommendation={true} (react, express.js, mongo)
-3.1: 在 imageProfile 里，类似于 ChooseEventType，写一个 ChooseClothType
-3.2: Closet.css, AddClothPopUp.css, ChooseEventType.css 的 css 需要完成
-
-4:
-
-Closet 上面好像变了，是不是要改一下 css
