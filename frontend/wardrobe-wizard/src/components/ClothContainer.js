@@ -5,7 +5,7 @@ import { add_to_todays_outfit } from '../styles/icons.js';
 import AddClothPopUp from './AddClothPopUp.js';
 import { addNewCloth } from '../api/api.js'
 
-function ClothContainer({ imageUrl, activity, eventTypes, clothType, mongoID }) {
+function ClothContainer({ imageUrl, activity, eventTypes, clothType, mongoID, type, event }) {
   const history = useHistory();
 
   const [openProfile, setOpenProfile] = useState(false);
@@ -21,7 +21,7 @@ function ClothContainer({ imageUrl, activity, eventTypes, clothType, mongoID }) 
 
   if (openProfile) {
     return ReactDOM.createPortal(
-      <AddClothPopUp selectedImage={selectedImage} onClose={handleOpenProfile} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
+      <AddClothPopUp selectedImage={selectedImage} onClose={handleOpenProfile} eventTypes={eventTypes} clothType={clothType} forEdit={false} clothesType={type} clothesActivities={event} mongoID={mongoID}/>,
       document.getElementById('root-portal')
     );
   }
