@@ -75,7 +75,8 @@ function MyOutFit({ selectedDate }) {
         handleAddToOutfit={handleChangeActivity}
         handleClosePopUp={handleSelectActivity}
         eventTypes={eventTypes}
-        type={'activity'} />}
+        type={'activity'} 
+        multiple={true}/>}
     </div>
   )
 }
