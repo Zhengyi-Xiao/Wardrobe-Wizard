@@ -31,10 +31,12 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
 
   const handleChangeType = (e) => {
     setClothType(e);
+    console.log(type);
   }
 
   const handleChangeActivity = (e) => {
     setEventType(e);
+    console.log(eventType)
   }
 
   const handleUpload = async () => {
