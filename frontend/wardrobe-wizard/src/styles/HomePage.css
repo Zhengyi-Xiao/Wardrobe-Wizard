@@ -57,6 +57,14 @@
   height: 60px;
 }
 
+.weatherIconNew {
+  position: absolute;
+  left: 90px;
+  top: 55px;
+  width: 35px;
+  height: 35px;
+}
+
 .weatherDateInfo {
   display: flex;
   width: 124.794px;
