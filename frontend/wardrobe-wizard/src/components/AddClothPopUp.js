@@ -3,14 +3,15 @@ import '../styles/AddClothPopUp.css';
 import { go_back, edit_add_today } from '../styles/icons.js';
 import { uploadPhotoAPI } from '../api/api.js'
 import ChooseEventType from './ChooseEventType.js';
+import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
 function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID}) {
   // whether or not click on to select desired event
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
   // whether or not click on to select desired activities
   const [isChooseClothTypeOpen, setIsChooseClothTypeOpen] = useState(false);
-  const [eventType, setEventType] = useState(clothesActivities);
-  const [type, setClothType] = useState(clothesType);
+  const [eventType, setEventType] = useState(clothesActivities ? dbobj2obj[clothesActivities]: "Casual");
+  const [type, setClothType] = useState(clothesType ?dbobj2obj[clothesType] : "Top");
 
   const handleSelectActivity = (e) => {
     e.preventDefault();
@@ -29,18 +30,33 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
     window.location.reload();
   }
 
-  const handleChangeType = (e) => {
-    setClothType(e);
+  const handleChangeType = async (event, selectedTypes) => {
+    event.preventDefault();
+    if(selectedTypes){
+      const activity = selectedTypes[0];
+      setClothType(activity);
+      handleSelectClothType(event);
+    }
     console.log(type);
   }
 
-  const handleChangeActivity = (e) => {
-    setEventType(e);
+  const handleChangeActivity = async (event, selectedTypes) => {
+    event.preventDefault();
+    // console.log(event)
+    if(selectedTypes){
+      const activity = selectedTypes[0];
+      setEventType(activity);
+      handleSelectActivity(event);
+    }
     console.log(eventType)
   }
 
   const handleUpload = async () => {
     handleUploadImage();
+  }
+
+  const handleDelete = async () => {
+
   }
 
   return (
@@ -58,7 +74,8 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
             <div className="add-cloth-attribute-label">Type</div>
             <div className="add-cloth-attribute-input">
               <div className='tags'>
-                {forEdit ? <button className="tag">{type}</button> : <></>}
+                {/* {forEdit ? <button className="tag">{type.charAt(0).toUpperCase() + type.slice(1)}</button> : <button className="tag">{"Top"}</button>} */}
+                {forEdit ? <button className="tag">{type}</button> : <button className="tag">{"Top"}</button>}
               </div>
               <button className="edit" onClick={handleSelectClothType}>{edit_add_today}</button>
             </div>
@@ -67,7 +84,8 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
             <div className="add-cloth-attribute-label">Activity</div>
             <div className="add-cloth-attribute-input">
               <div className='tags'>
-                {forEdit ? <button className="tag">{eventType}</button> : <></>}
+                {/* {forEdit ? <button className="tag">{eventType.charAt(0).toUpperCase() + eventType.slice(1)}</button> : <button className="tag">{"Casual"}</button>} */}
+                {forEdit ? <button className="tag">{eventType}</button> : <button className="tag">{"Casual"}</button>}
               </div>
               <button className="edit" onClick={handleSelectActivity}>{edit_add_today}</button>
             </div>
@@ -76,7 +94,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
         <div className="btns">
           {/* {forEdit ? <button className="btn-add">Save</button> : <button className="btn-add" onClick={handleUploadImage}>Add to Closet</button>} */}
           {forEdit ? <button className="btn-add" onClick={handleUpload}>Save</button> : <button className="btn-add" onClick={handleUpload}>Add to Closet</button>}
-          {forEdit ? <button className="btn-cancel">Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button>}
+          {forEdit ? <button className="btn-cancel" onClick={handleDelete}>Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button>}
         </div>
         {isChooseEventTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeActivity} handleClosePopUp={handleSelectActivity} eventTypes={eventTypes} type={'activity'} chosen={clothesActivities} />}
         {isChooseClothTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeType} handleClosePopUp={handleSelectClothType} eventTypes={clothType} type={'clothes'} chosen={clothesType}/>}

@@ -21,6 +21,63 @@ const typeMap = {
   null: 'null'
 }
 
+export const obj2dbobj = {
+  Top: 'top',
+  Bottom: 'bottom',
+  'Full Body': 'full-body',
+  Shoes: 'shoes',
+  Accessories: 'accessories',
+  All: 'all',
+  null: 'null',
+  Workout: 'workout',
+  'Formal Events': 'formal',
+  Meeting: 'meeting',
+  Outdoor: 'workout',
+  'Night Out': 'night-out',
+  Causal: 'causal'
+}
+
+export const dbobj2obj = {
+  'top': 'Top',
+  'bottom': 'Bottom',
+  'full-body': 'Full Body',
+  'shoes': 'Shoes',
+  'accessories': 'Accessories',
+  'all': 'All',
+  'null': 'null',
+  "workout": "Workout",
+  "meeting": "Meeting",
+  "formal": "Formal Events",
+  "night-out": "Night Out",
+  "causal": "Causal",
+  "null": "null"
+}
+
+export const event2dbevent = {
+  "workout": "workout",
+  "meeting": "meeting",
+  "formal events": "formal",
+  "outdoor": "workout",
+  "night out": "night-out",
+  "causal": "causal",
+  'Workout': 'workout',
+  'Formal Events': 'formal',
+  'Meeting': 'meeting',
+  'Outdoor': 'workout',
+  'Night Out': 'night-out',
+  'Causal': 'causal',
+  "null": "null"
+}
+
+export const dbevent2event = {
+  "workout": "Workout",
+  "meeting": "Meeting",
+  "formal": "Formal Events",
+  "night-out": "Night Out",
+  "causal": "Causal",
+  "null": "null"
+}
+
 export const getClothByTypeEvent = async (type, event) => {
   try {
     // make type and evnnt to lower case
@@ -190,3 +247,5 @@ export const uploadPhotoAPI = async (imageFile) => {
   createImage(dbData)
 
 };
+
+// export const deleteObject = async (imageFile) => {}
