@@ -21,7 +21,7 @@ function ClothContainer({ imageUrl, activity, eventTypes, clothType, mongoID, ty
 
   if (openProfile) {
     return ReactDOM.createPortal(
-      <AddClothPopUp selectedImage={selectedImage} onClose={handleOpenProfile} eventTypes={eventTypes} clothType={clothType} forEdit={false} clothesType={type} clothesActivities={event} mongoID={mongoID}/>,
+      <AddClothPopUp selectedImage={selectedImage} onClose={handleOpenProfile} eventTypes={eventTypes} clothType={clothType} forEdit={true} clothesType={type} clothesActivities={event} mongoID={mongoID}/>,
       document.getElementById('root-portal')
     );
   }
