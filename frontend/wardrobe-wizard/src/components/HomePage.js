@@ -7,6 +7,7 @@ import Divider from "@mui/material/Divider";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import dayjs from "dayjs";
 import MyOutFit from "./MyOutFit.js";
+import {weatherDayRain, weatherCloud, weatherCloudRain} from '../styles/icons.js';
 
 function HomePage(eventTypes) {
   const [openCalendar, setOpenCalendar] = useState(false);
@@ -18,7 +19,7 @@ function HomePage(eventTypes) {
   const [selectedDate, setSelectedDate] = useState(currentDate);
 
   // add apiKey here
-  const apiKey = "b24c1096033e1df3773df155f7d64400"
+  const apiKey = ""
 
   const handleOpenCalendar = () => {
     setOpenCalendar(true);
@@ -105,6 +106,9 @@ function HomePage(eventTypes) {
                 className="weatherIcon"
               />
             )}
+              {/* <div className='weatherIconNew'>
+                {weatherCloudRain}
+              </div> */}
           </div>
         </div>
       </div>
