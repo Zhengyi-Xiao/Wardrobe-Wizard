@@ -4,21 +4,17 @@ import ReactDOM from 'react-dom';
 import ClothContainer from './ClothContainer'
 import '../styles/Closet.css'
 import { delete_selected } from '../styles/icons.js'
-import { getClothByTypeEvent, uploadPhotoAPI } from '../api/api.js'
+import { getClothByTypeEvent, uploadPhotoAPI, dbobj2obj } from '../api/api.js'
 import AddClothPopUp from './AddClothPopUp.js';
 
 
 function Closet() {
-  function capitalizeFirstLetterOfEachWord(sentence) {
-    const words = sentence.split(' ');
-    const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
-    return capitalizedWords.join(' ');
-  }
-
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const activity = queryParams.get('activity');
-  const initialSelectedChoices = activity ? ['All', capitalizeFirstLetterOfEachWord(activity)] : ['All'];
+  const selectedDate = queryParams.get('selectedDate');
+
+  const initialSelectedChoices = activity ? ['All', dbobj2obj[activity]] : ['All'];
 
   const [selectedChoices, setSelectedChoices] = useState(initialSelectedChoices)
   const [displayEventButtons, setDisplayEventButtons] = useState(activity !== null)
@@ -275,6 +271,8 @@ function Closet() {
             eventTypes={eventTypes}
             clothType={clothType}
             activity={activity}
+            selectedDate={selectedDate}
+            selectedChoices={selectedChoices}
           />
         ))}
       </div>
