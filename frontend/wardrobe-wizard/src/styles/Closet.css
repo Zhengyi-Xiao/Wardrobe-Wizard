@@ -159,6 +159,10 @@
   }
 }
 
+.closet .selection-fields-container::-webkit-scrollbar {
+  display: none;
+}
+
 .closet .selection-fields-container .selection-fields {
   display: flex;
   justify-content: flex-start;
@@ -236,6 +240,10 @@
   align-content: flex-start;
   margin-top: 20px;
   gap: 10px;
+}
+
+.closet .all-clothes-container::-webkit-scrollbar {
+  display: none;
 }
 
 .closet .all-clothes-container .cloth-container {
