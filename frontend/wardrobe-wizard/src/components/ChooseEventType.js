@@ -4,7 +4,7 @@ import { dbobj2obj } from '../api/api.js'
 
 function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type, chosen, multiple }) {
   const [selectedType, setSelectedType] = useState(chosen ? dbobj2obj[chosen] : []);
-  console.log(dbobj2obj[chosen])
+
   const handleAddChoice = choice => {
     if (multiple) {
       setSelectedType([choice, ...selectedType])
@@ -13,8 +13,9 @@ function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type
     }
     // setSelectedType(choice)
   }
+
   const handleRemoveChoice = choice => {
-    if(multiple){
+    if (multiple) {
       const updatedChoices = selectedType.filter(c => c !== choice)
       setSelectedType(updatedChoices);
     } else {

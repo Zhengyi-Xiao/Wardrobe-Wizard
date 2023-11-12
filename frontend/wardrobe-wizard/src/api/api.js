@@ -1,6 +1,8 @@
 import axios from './axios'
 import moment from "moment"
 
+export const weatherAPIiKey = "b24c1096033e1df3773df155f7d64400"
+
 const eventMap = {
   Workout: 'workout',
   'Formal Events': 'formal',
@@ -57,6 +59,7 @@ export const event2dbevent = {
   "workout": "workout",
   "meeting": "meeting",
   "formal events": "formal",
+  "formal": "formal",
   "outdoor": "workout",
   "night out": "night-out",
   "causal": "causal",
@@ -66,7 +69,8 @@ export const event2dbevent = {
   'Outdoor': 'workout',
   'Night Out': 'night-out',
   'Causal': 'causal',
-  "null": "null"
+  "null": "null",
+  "night-out": "night-out",
 }
 
 export const dbevent2event = {
@@ -103,10 +107,10 @@ export const getOutfitByDate = async (date) => {
   }
 }
 
-export const addNewActivity = async (activity) => {
+export const addNewActivity = async (activity, date) => {
   try {
     const response = await axios.get(
-      `/outfit/activity/${activity}`
+      `/outfit/activity/${event2dbevent[activity]}/date/${date}`
     )
     return response.data.message
   } catch (error) {
@@ -127,10 +131,10 @@ export const deleteActivity = async (id) => {
   }
 }
 
-export const addNewCloth = async (id, event) => {
+export const addNewCloth = async (id, event, date) => {
   try {
     const response = await axios.get(
-      `/outfit/addCloth/${id}/event/${event}`
+      `/outfit/addCloth/${id}/event/${event2dbevent[event] || "null"}/date/${date || "null"}`
     )
     return response.data.message
   } catch (error) {
@@ -151,10 +155,10 @@ export const fetchCloth = async (id) => {
   }
 }
 
-export const removeClothFromOutfit = async (id, event) => {
+export const removeClothFromOutfit = async (id, event, date) => {
   try {
     const response = await axios.get(
-      `/outfits/remove/event/${event}/id/${id}`
+      `/outfits/remove/event/${event}/id/${id}/date/${date || "null"}`
     )
     return response.data.message
   } catch (error) {
@@ -163,26 +167,51 @@ export const removeClothFromOutfit = async (id, event) => {
   }
 }
 
-export const randomGenerateClothByTypeEvent = async (event, id) => {
+export const randomGenerateClothByTypeEvent = async (event, id, selectedDate) => {
   try {
     // make type and evnnt to lower case
     const response = await axios.get(
-      `/outfits/regenerate/event/${event}/id/${id}`
+      `/outfits/regenerate/event/${event2dbevent[event]}/id/${id}/date/${selectedDate}`
     )
-    return response.data
+    return response.data.data
   } catch (error) {
     console.error('Error:', error)
     return []
   }
 }
 
+export const getWeatherAPI = async () => {
+  try {
+    // make type and evnnt to lower case
+    const response = await axios.get(
+      `/getWeather`
+    )
+    return response.data.data
+  } catch (error) {
+    console.error('Error:', error)
+    return []
+  }
+};
+
+export const getWeatherForDateAPI = async (date) => {
+  try {
+    const response = await axios.get(
+      `/getWeatherForDate/date/${date}`
+    )
+    return response.data.data
+  } catch (error) {
+    console.error('Error:', error)
+    return []
+  }
+};
+
 export const createImage = async (request) => {
-  console.log("CreateImage request",request)
-  console.log("CreateImage URL",request.imageUrl)
-  console.log("CreateImage brand_names",request.brand_names)
-  console.log("CreateImage descriptions",request.descriptions)
-  console.log("CreateImage event",request.event)
-  console.log("CreateImage type",request.type)
+  console.log("CreateImage request", request)
+  console.log("CreateImage URL", request.imageUrl)
+  console.log("CreateImage brand_names", request.brand_names)
+  console.log("CreateImage descriptions", request.descriptions)
+  console.log("CreateImage event", request.event)
+  console.log("CreateImage type", request.type)
   try {
     // const response = await axios.post(
     //   '/uploadImage',
@@ -200,7 +229,7 @@ export const createImage = async (request) => {
       },
     );
     return response;
-  } 
+  }
   catch (err) {
     console.log("The creatImage is breaking")
     console.log(err.response.data)
@@ -224,7 +253,7 @@ export const uploadPhotoAPI = async (imageFile) => {
       console.log(e.loaded / e.total)
     }
   })
-  console.log("URL",cloudinaryResponse.data.secure_url)
+  console.log("URL", cloudinaryResponse.data.secure_url)
 
 
   imageUrl = cloudinaryResponse.data.secure_url
@@ -242,8 +271,8 @@ export const uploadPhotoAPI = async (imageFile) => {
     type,
     time,
   };
-  console.log("dbData printout",dbData)
-  console.log("url",dbData.imageUrl)
+  console.log("dbData printout", dbData)
+  console.log("url", dbData.imageUrl)
   createImage(dbData)
 
 };

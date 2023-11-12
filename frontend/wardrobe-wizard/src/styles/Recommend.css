@@ -40,6 +40,10 @@
   width: 310px;
 }
 
+.recommend .all-activity-container::-webkit-scrollbar {
+  display: none;
+}
+
 .recommend .all-activity-container .single-activity-container {
   align-content: flex-start;
   display: flex;
@@ -50,6 +54,12 @@
   position: relative;
   flex: auto;
   gap: 10px;
+}
+
+.recommend
+  .all-activity-container
+  .single-activity-container::-webkit-scrollbar {
+  display: none;
 }
 
 .recommend
@@ -82,6 +92,13 @@
   flex: auto;
   gap: 0px 15px;
   height: 312px;
+}
+
+.recommend
+  .all-activity-container
+  .single-activity-container
+  .single-activity-clothes-row::-webkit-scrollbar {
+  display: none;
 }
 
 .recommend

@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
-const { urlService, DATA_PATH } = require('./secrete')
+const axios = require('axios');
+const { urlService, WEATHER_API_KEY, IMAGE_SECRETE } = require('./secrete')
 const { MongoClient, ObjectId } = require('mongodb')
 
 const webapp = express()
@@ -29,7 +30,7 @@ webapp.get('/clothes', async (req, res) => {
     const collection = client.db('Wardrobe-Wizard').collection('clothes') // Replace with your collection name.
 
     // Query for all clothing items in the collection
-    const allClothingItems = await collection.find({}).sort({"time":-1}).toArray()
+    const allClothingItems = await collection.find({}).sort({ "time": -1 }).toArray()
 
     if (allClothingItems.length > 0) {
       res.json(allClothingItems)
@@ -47,7 +48,6 @@ webapp.get('/clothes', async (req, res) => {
 webapp.get('/clothes/type/:type/activity/:activity', async (req, res) => {
   const clothingType = req.params.type.toLowerCase()
   const activity = req.params.activity.toLowerCase()
-
   // Connect to MongoDB
   const client = new MongoClient(urlService)
 
@@ -69,7 +69,7 @@ webapp.get('/clothes/type/:type/activity/:activity', async (req, res) => {
     }
 
     // Query for clothing items matching the type and activity
-    const matchingClothes = await collection.find(query).sort({"time":-1}).toArray()
+    const matchingClothes = await collection.find(query).sort({ "time": -1 }).toArray()
     res.json({ data: matchingClothes })
   } catch (error) {
     console.error('Error:', error)
@@ -79,8 +79,13 @@ webapp.get('/clothes/type/:type/activity/:activity', async (req, res) => {
   }
 })
 
-webapp.get('/outfit/activity/:activity', async (req, res) => {
-  const currentDate = new Date();
+webapp.get('/outfit/activity/:activity/date/:date', async (req, res) => {
+  // Extract year, month, and day from the string
+  const year = req.params.date.slice(0, 4);
+  const month = req.params.date.slice(4, 6) - 1; // Adjust month (0-11)
+  const day = req.params.date.slice(6, 8);
+  // Create a new Date object
+  const currentDate = new Date(year, month, day);
   const eventType = req.params.activity.toLowerCase();
 
   const activityData = {
@@ -111,11 +116,18 @@ webapp.get('/outfit/activity/:activity', async (req, res) => {
 });
 
 webapp.get('/outfit/date/:date', async (req, res) => {
-  const dateString = req.params.date;
-  const date = new Date(
-    `${dateString.substr(0, 4)}-${dateString.substr(4, 2)}-${dateString.substr(6, 2)}`
-  );
-  console.log(date)
+  // Extract year, month, and day from the string
+  const year = req.params.date.slice(0, 4);
+  const month = req.params.date.slice(4, 6) - 1; // Adjust month (0-11)
+  const day = req.params.date.slice(6, 8);
+  // Create a new Date object
+  const date = new Date(year, month, day);
+  // Define the time range for the specified date
+  const begin = new Date(date);
+  begin.setHours(0, 0, 0, 0); // Start of the specified date
+  const end = new Date(date);
+  end.setHours(23, 59, 59, 999); // End of the specified date
+  console.log('getting outfit on date', begin, end)
   // Connect to MongoDB
   const client = new MongoClient(urlService);
 
@@ -129,17 +141,12 @@ webapp.get('/outfit/date/:date', async (req, res) => {
     const outfitsForDate = await collection
       .find({
         date: {
-          $gte: date,
-          $lt: new Date(date.getTime() + 36 * 60 * 60 * 1000), // End of the specified date
+          $gte: begin,
+          $lt: end,
         },
       })
       .toArray();
-
-    if (outfitsForDate.length > 0) {
-      res.json({ data: outfitsForDate });
-    } else {
-      res.status(404).json({ message: 'No outfits found for the specified date.' });
-    }
+    res.json({ data: outfitsForDate });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -173,9 +180,31 @@ webapp.get('/outfit/delete/:id', async (req, res) => {
   }
 });
 
-webapp.get('/outfit/addCloth/:id/event/:event', async (req, res) => {
+// done
+webapp.get('/outfit/addCloth/:id/event/:event/date/:date', async (req, res) => {
   const clothingId = req.params.id;
-  const event = req.params.event;
+  let event;
+  if (req.params.event === 'null') {
+    event = 'causal';
+  } else {
+    event = req.params.event;
+  }
+  let date;
+  if (req.params.date === 'null') {
+    date = new Date()
+  }
+  else {  // Extract year, month, and day from the string
+    const year = req.params.date.slice(0, 4);
+    const month = req.params.date.slice(4, 6) - 1; // Adjust month (0-11)
+    const day = req.params.date.slice(6, 8);
+    // Create a new Date object
+    date = new Date(year, month, day);
+  }
+  // Define the time range for the specified date
+  const begin = new Date(date);
+  begin.setHours(0, 0, 0, 0); // Start of the specified date
+  const end = new Date(date);
+  end.setHours(23, 59, 59, 999); // End of the specified date
 
   // Connect to MongoDB
   const client = new MongoClient(urlService);
@@ -187,8 +216,10 @@ webapp.get('/outfit/addCloth/:id/event/:event', async (req, res) => {
     const collection = client.db('Wardrobe-Wizard').collection('outfits'); // Replace with your collection name.
 
     // Find the document with the specified event
-    const outfitDocument = await collection.findOne({ event: event });
-
+    const outfitDocument = await collection.findOne({
+      event: event,
+      date: { $gte: begin, $lte: end }
+    });
     if (outfitDocument) {
       //const string id to mongddb id 
       const clothingIdMogo = new ObjectId(clothingId);
@@ -197,7 +228,7 @@ webapp.get('/outfit/addCloth/:id/event/:event', async (req, res) => {
 
       // Update the document in the collection
       const result = await collection.updateOne(
-        { event: event },
+        { _id: outfitDocument._id }, // Update based on the retrieved document's _id
         { $set: { outfits: outfitDocument.outfits } }
       );
 
@@ -246,10 +277,28 @@ webapp.get('/clothes/:id', async (req, res) => {
   }
 });
 
-webapp.get('/outfits/remove/event/:event/id/:id', async (req, res) => {
+// done
+webapp.get('/outfits/remove/event/:event/id/:id/date/:date', async (req, res) => {
+  let date;
+  if (req.params.date === 'null') {
+    date = new Date()
+  }
+  else {  // Extract year, month, and day from the string
+    const year = req.params.date.slice(0, 4);
+    const month = req.params.date.slice(4, 6) - 1; // Adjust month (0-11)
+    const day = req.params.date.slice(6, 8);
+    // Create a new Date object
+    date = new Date(year, month, day);
+  }
+  // Define the time range for the specified date
+  const begin = new Date(date);
+  begin.setHours(0, 0, 0, 0); // Start of the specified date
+  const end = new Date(date);
+  end.setHours(23, 59, 59, 999); // End of the specified date
+
+
   const event = req.params.event;
   const clothingId = req.params.id;
-
   // Connect to MongoDB
   const client = new MongoClient(urlService);
 
@@ -260,15 +309,18 @@ webapp.get('/outfits/remove/event/:event/id/:id', async (req, res) => {
     const collection = client.db('Wardrobe-Wizard').collection('outfits'); // Replace with your collection name.
 
     // Find the document with the specified event
-    const outfitDocument = await collection.findOne({ event: event });
+    const outfitDocument = await collection.findOne({
+      event: event,
+      date: { $gte: begin, $lte: end }
+    });
 
     if (outfitDocument) {
       // Remove the specified clothingId from the 'outfits' array
-      const updatedOutfits = outfitDocument.outfits.filter(id => id !== clothingId);
+      const updatedOutfits = outfitDocument.outfits.filter(id => id.toString() !== clothingId);
 
       // Update the document in the collection
       const result = await collection.updateOne(
-        { event: event },
+        { _id: outfitDocument._id },
         { $set: { outfits: updatedOutfits } }
       );
 
@@ -288,40 +340,43 @@ webapp.get('/outfits/remove/event/:event/id/:id', async (req, res) => {
   }
 });
 
+// done
+webapp.get('/outfits/regenerate/event/:event/id/:id/date/:date', async (req, res) => {
+  // Extract year, month, and day from the string
+  const year = req.params.date.slice(0, 4);
+  const month = req.params.date.slice(4, 6) - 1; // Adjust month (0-11)
+  const day = req.params.date.slice(6, 8);
+  // Create a new Date object
+  const date = new Date(year, month, day);
+  // Define the time range for the specified date
+  const begin = new Date(date);
+  begin.setHours(0, 0, 0, 0); // Start of the specified date
+  const end = new Date(date);
+  end.setHours(23, 59, 59, 999); // End of the specified date
 
-webapp.get('/outfits/regenerate/event/:event/id/:id', async (req, res) => {
   const event = req.params.event;
   const clothingId = new ObjectId(req.params.id);
-
-  const event2dbevernt = {
-    "workout": "workout",
-    "meeting": "meeting",
-    "formal events": "formal",
-    "outdoor": "workout",
-    "night out": "night-out",
-    "causal": "causal"
-  }
-
   // Connect to MongoDB
   const client = new MongoClient(urlService);
 
   try {
     await client.connect();
 
-    // Access the 'outfits' and 'clothes' collections in the database
-    const outfitsCollection = client.db('Wardrobe-Wizard').collection('outfits'); // Replace with your collection name.
-    const clothesCollection = client.db('Wardrobe-Wizard').collection('clothes'); // Replace with your collection name.
+    const outfitsCollection = client.db('Wardrobe-Wizard').collection('outfits');
+    const clothesCollection = client.db('Wardrobe-Wizard').collection('clothes');
 
     // Find the document with the specified event
-    const outfitDocument = await outfitsCollection.findOne({ event: event });
-
+    const outfitDocument = await outfitsCollection.findOne({
+      event: event,
+      date: { $gte: begin, $lte: end }
+    });
     if (outfitDocument) {
       const clothingToReplace = outfitDocument.outfits.findIndex((element) => element.equals(clothingId));
 
       if (clothingToReplace !== -1) {
         // Find clothing items of the same event and clothing type
         const clothingItem = await clothesCollection.aggregate([
-          { $match: { event: event2dbevernt[event] } },
+          { $match: { event: event } },
           { $sample: { size: 1 } }
         ]).toArray();
 
@@ -331,12 +386,11 @@ webapp.get('/outfits/regenerate/event/:event/id/:id', async (req, res) => {
 
           // Update the document in the collection
           const result = await outfitsCollection.updateOne(
-            { event: event },
+            { _id: outfitDocument._id }, // Update based on the retrieved document's _id
             { $set: { outfits: outfitDocument.outfits } }
           );
-
           if (result.modifiedCount === 1) {
-            res.json({ message: 'Clothing item regenerated successfully' });
+            res.json({ message: 'Clothing item regenerated successfully', data: outfitDocument.outfits[0] });
           } else {
             res.status(500).json({ message: 'Failed to update the outfit' });
           }
@@ -350,19 +404,41 @@ webapp.get('/outfits/regenerate/event/:event/id/:id', async (req, res) => {
       res.status(404).json({ message: 'Event not found' });
     }
   } catch (error) {
-    console.error('Error:', error);
     res.status(500).json({ message: 'Internal Server Error' });
   } finally {
     client.close();
   }
 });
 
+
+webapp.get('/getWeather', async (req, res) => {
+  try {
+    const location = `http://pro.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&appid=${WEATHER_API_KEY}`;
+    const result = await axios.get(location);
+    res.json({ data: result.data });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+webapp.get('/getWeatherForDate/date/:date', async (req, res) => {
+  try {
+    const dateCode = req.params.date;
+    const location = `https://history.openweathermap.org/data/2.5/history/city?q=Philadelphia&appid=${WEATHER_API_KEY}&units=imperial&dt=${dateCode}`;
+    const result = await axios.get(location);
+    res.json({ data: result.data });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 const cloudinary = require("cloudinary").v2
 
 const cloudinaryConfig = cloudinary.config({
   cloud_name: "dldiferrn",
   api_key: "554946298277143",
-  api_secret: "",
+  api_secret: IMAGE_SECRETE,
   secure: true
 })
 
@@ -388,7 +464,7 @@ webapp.post('/uploadImage', async (req, res) => {
     // edit the given object
     // otherwise, create new
     const newImage = {
-      image_urls : req.body.imageUrl,
+      image_urls: req.body.imageUrl,
       brand_names: req.body.brand_names,
       descriptions: req.body.descriptions,
       event: req.body.event,

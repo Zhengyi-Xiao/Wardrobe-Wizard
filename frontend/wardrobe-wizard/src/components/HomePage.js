@@ -3,23 +3,18 @@ import "../styles/HomePage.css";
 import CalendarMonth from "./CalendarMonth.js";
 import CalendarWeek from "./CalendarWeek.js";
 import { IconButton } from "@mui/material";
-import Divider from "@mui/material/Divider";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import dayjs from "dayjs";
 import MyOutFit from "./MyOutFit.js";
-import {weatherDayRain, weatherCloud, weatherCloudRain} from '../styles/icons.js';
+import { weatherAPIiKey, getWeatherAPI, getWeatherForDateAPI } from '../api/api.js'
 
 function HomePage(eventTypes) {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [temp, setTemp] = useState(null);
-  const [weatherName, setWeatherName] = useState(null);
   const [weatherIconUrl, setWeatherIconUrl] = useState(null);
 
   const currentDate = dayjs();
   const [selectedDate, setSelectedDate] = useState(currentDate);
-
-  // add apiKey here
-  const apiKey = ""
 
   const handleOpenCalendar = () => {
     setOpenCalendar(true);
@@ -32,30 +27,14 @@ function HomePage(eventTypes) {
 
   // console.log(currentDate.subtract(1, 'day').unix())
   const getWeather = async () => {
-    const location = `http://pro.openweathermap.org/data/2.5/weather?q=Philadelphia&units=imperial&appid=${apiKey}`;
-    const res = await fetch(location);
-    const res1 = res.json();
+    const res1 = await getWeatherAPI();
     return res1;
   };
 
   const getWeatherForDate = async (date) => {
-    const dateCode = date.unix();
-    const location = `https://history.openweathermap.org/data/2.5/history/city?q=Philadelphia&appid=${apiKey}&units=imperial&dt=${dateCode}`;
-    console.log(location)
-    const res = await fetch(location);
-    const res1 = res.json();
+    const res1 = await getWeatherForDateAPI(date.unix());
     return res1;
   };
-
-  // useEffect(() => {
-  //   getWeather().then(async (response) => {
-  //     const temperature = response.main.temp;
-  //     const weatherIconCode = response.weather[0].icon;
-  //     const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
-  //     setTemp(temperature);
-  //     setWeatherIconUrl(weatherIconUrl);
-  //   });
-  // }, [selectedDate]);
 
   useEffect(() => {
     if (selectedDate.isSame(dayjs(), 'day') || selectedDate.isAfter(dayjs(), 'day')) {
@@ -98,7 +77,6 @@ function HomePage(eventTypes) {
           <div className="dateInfo">{selectedDate.format("D MMM, YYYY")}</div>
           <div className="weatherInfo">
             <div className="temperature">{Math.round(temp)}°F</div>
-            {/* <div className='seperator'></div> */}
             {weatherIconUrl && (
               <img
                 src={weatherIconUrl}
@@ -106,9 +84,6 @@ function HomePage(eventTypes) {
                 className="weatherIcon"
               />
             )}
-              {/* <div className='weatherIconNew'>
-                {weatherCloudRain}
-              </div> */}
           </div>
         </div>
       </div>
