@@ -1,23 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/ChooseEventType.css';
+import { dbobj2obj } from '../api/api.js'
 
-function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes }) {
+function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type, chosen, multiple }) {
+  const [selectedType, setSelectedType] = useState(chosen ? dbobj2obj[chosen] : []);
+
+  const handleAddChoice = choice => {
+    if (multiple) {
+      setSelectedType([choice, ...selectedType])
+    } else {
+      setSelectedType([choice])
+    }
+    // setSelectedType(choice)
+  }
+
+  const handleRemoveChoice = choice => {
+    if (multiple) {
+      const updatedChoices = selectedType.filter(c => c !== choice)
+      setSelectedType(updatedChoices);
+    } else {
+      setSelectedType([]);
+    }
+  }
 
   return (
     <div className='add-to-today-popup'>
-      <div className='add-to-today-popup-content'>
+      <div className='popup-frame'>
+        <div className='add-to-today-popup-heading'>
+          {type === 'clothes' ? 'Select A Clothes Type' : 'Select Activities'}
+        </div>
         <div className='add-to-today-popup-buttons'>
-          {eventTypes.map(choice => {
-            return (
-              <button className='selected-choice-button'>{choice}</button>
-            )
+          {eventTypes.filter((choice) => !(choice === 'All')).map((choice, index) => {
+            if (selectedType.includes(choice)) {
+              return (
+                <button key={index} className={`${type}-choice-button selected `} onClick={() => handleRemoveChoice(choice)}>{choice}</button>
+              )
+            } else {
+              return (
+                <button key={index} className={`${type}-choice-button unselected`} onClick={() => handleAddChoice(choice)}>{choice}</button>
+              )
+            }
           })}
         </div>
-        <div className='add-to-today-popup-action-buttons'>
-          <button className='add-to-today-popup-button' onClick={handleAddToOutfit}>
+        <div className='btns'>
+          <button className='confirm-btn' onClick={(event) => handleAddToOutfit(event, selectedType)}>
             Confirm
           </button>
-          <button className='add-to-today-popup-button' onClick={handleClosePopUp}>
+          <button className='cancel-btn' onClick={handleClosePopUp}>
             Cancel
           </button>
         </div>

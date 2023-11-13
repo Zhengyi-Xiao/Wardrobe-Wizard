@@ -1,37 +1,30 @@
 .weather {
   width: 100%;
   height: 87.954px;
-  background-color: aqua;
+  background-color: #ffe7df;
 }
 
-.bar-calendar-container {
+/* .bar-calendar-container {
   display: flex;
   width: 100%;
-  padding: 6.731px 7.629px 10.77px 8.077px;
+  padding: 10px 0px 10px 0px;
   justify-content: center;
   align-items: center;
-  background-color: bisque;
+  border-radius: 0px 0px 17.95px 17.95px;
+  background: var(--topbar, #FFE7DF);
+  box-shadow: 0px 1.8px 1.8px 0px rgba(0, 0, 0, 0.25);
 }
 
 .bar-calendar {
-  width: 337.009px;
-  height: 76.287px;
+  width: 95%;
+  height: 76px;
   flex-shrink: 0;
   border-radius: 10.77px;
   background: #fff;
-}
-
-.outfit-title {
-  color: #454c4e;
-  font-family: Poppins;
-  font-size: 21.54px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
+} */
 
 .add-activity-button {
-  width: 148.793px;
+  width: 160.793px;
   height: 34.105px;
   flex-shrink: 0;
   border-radius: 8.975px;
@@ -48,42 +41,79 @@
   );
 }
 
-.todays-outfit-container {
+.calendarIcon {
+  position: absolute;
+  left: 330px;
+  top: 40px;
+  width: 60px;
+  height: 60px;
+}
+
+.weatherIcon {
+  position: absolute;
+  left: 85px;
+  top: 40px;
+  width: 60px;
+  height: 60px;
+}
+
+.weatherIconNew {
+  position: absolute;
+  left: 90px;
+  top: 55px;
+  width: 35px;
+  height: 35px;
+}
+
+.weatherDateInfo {
   display: flex;
-  width: 100%;
-  padding: 6.731px 7.629px 10.77px 8.077px;
-  justify-content: center;
-  align-items: center;
-  background-color: bisque;
+  width: 124.794px;
+  height: 69.59px;
   flex-direction: column;
-}
-
-.outfit-option {
-  filter: drop-shadow(0px 1.7949886322021484px 2.2437357902526855px #6a7376);
-}
-
-.outfit-option-header {
-  /* width: 336.133px; */
-  height: 44.426px;
+  align-items: flex-start;
   flex-shrink: 0;
-  border-radius: 8.975px 8.975px 0px 0px;
-  width: 336.133px;
-  height: 44.426px;
+}
+
+.dateInfo {
+  position: absolute;
+  left: 15px;
+  top: 30px;
+  color: var(--WeatherColor, #454c4e);
+  font-family: Poppins;
+  font-size: 14.36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.temperature {
+  position: absolute;
+  left: 15px;
+  top: 50px;
+  color: #454c4e;
+  font-family: Poppins;
+  font-size: 28.72px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.seperator {
+  position: absolute;
+  left: 30px;
+  top: 50px;
+  width: 2.244px;
+  height: 31.412px;
+  background: #454c4e;
+}
+
+.weatherInfo {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
   align-items: center;
-  justify-content: space-between;
-  border-radius: 8.975px 8.975px 0px 0px;
-  background: var(--Component3, #ffd3c3);
+  gap: 13.014px;
 }
 
-.outfit-option-clothes {
-  /* width: 336.133px; */
-  height: 195.205px;
-  flex-shrink: 0;
-  border-radius: 0px 0px 8.975px 8.975px;
-  border: 1.346px solid #fcb;
-  background: #fefefe;
+.css-1q04gal-MuiDateCalendar-root {
+  background-color: #ffff;
+  border-radius: 9px 9px 0 0;
 }
