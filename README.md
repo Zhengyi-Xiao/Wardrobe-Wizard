@@ -1,64 +1,35 @@
 # Wardrobe Wizard
 
+*Elevating your style, Streamlining your morning* – Outfit Recommendation and Closet Management App
+
 Based on the weather and today’s event, our Wardrobe Wizard will offer personalized daily outfit recommendations just for you. Wardrobe Wizard enhances wardrobe management and provides convenient buying suggestions to simplify daily outfit selection, save users time and enhance outfit style.
 
-# Clothes
+## To Run On Laptop
 
-We have, in total, 6 types, including:
+To run our app on the web, try the following commands 
 
-- whole
-- top
-- bottom
-- shoes (optional)
-- accessory (optional)
-- jacket (optional)
+```
+# on terminal 1
+cd frontend/wardrobe-wizard
+npm install
+npm start
+```
 
-in which, (whole) and (top and bottom) are exclusive.
+```
+# on terminal 2
+cd backend
+npm install
+npm start
+```
+Now, open http://localhost:3000/, you can see our app display in a web-view. However, since it is a mobile app, it is not very compact with laptop view. To see how it looks like on a phone. Go to insepct and change the view to 390 * 852. 
 
-- Active Wear
-  - Top
-  - Trousers
-  - Short
-- Formal Event
-  - Dress (Whole)
-  - Pump
-- Meeting
-  - Whole Skirt (Whole)
-  - Jacket
-  - Shirt
-  - Pencil Skirt
-  - Trousers
-- Night Out
-  - Dresses (Whole)
-  - Tops
-  - Pants
-  - Skirt
-  - Jackets
-- Casual
-  - T-shirt
-  - Hoodie
-  - Shorts
+## To Run On Your iPhone
 
-# Looks on Iphone
+Besides the steps above, you should also go to mobile-app/Wardrobe-Wizard to build this Xcode project. 
 
-![image](https://github.com/Zhengyi-Xiao/Wardrobe-Wizard/assets/34410439/156ac861-0e88-43c8-9c42-83710671d18f)
+# Preview 
+![69121699901543_ pic](https://github.com/Zhengyi-Xiao/Wardrobe-Wizard/assets/34410439/fae5eb94-054a-41a4-95dd-45691c64658c)
+![69131699901544_ pic](https://github.com/Zhengyi-Xiao/Wardrobe-Wizard/assets/34410439/a35f71d6-355b-468d-989f-e7fa51ee48a1)
+
 
 # Miscellaneous
-
-- Assignment3: https://docs.google.com/document/d/1Jrjn6EVj6dP0nCZDBQOu_XbIs0tUYZUnJ-Z7Bomk11c/edit
-
-zxiao
-npm --version 8.15.0
-node --version v16.17.0
-
-jyh
-npm --version 9.8.1
-node --version v20.6.1
-
-xr
-npm --version 9.4.0
-node --version v19.6.0
-
-zz
-npm --version 8.19.2
-node --version 16.18.0
