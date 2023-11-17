@@ -10,8 +10,9 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
   // whether or not click on to select desired activities
   const [isChooseClothTypeOpen, setIsChooseClothTypeOpen] = useState(false);
-  const [eventType, setEventType] = useState(clothesActivities ? dbobj2obj[clothesActivities]: "Casual");
-  const [type, setClothType] = useState(clothesType ?dbobj2obj[clothesType] : "Top");
+  const [eventType, setEventType] = useState(clothesActivities ? dbobj2obj[clothesActivities]: "Causal");
+  const [type, setClothType] = useState(clothesType ? dbobj2obj[clothesType] : "Top");
+  console.log(type)
 
   const handleSelectActivity = (e) => {
     e.preventDefault();
@@ -75,7 +76,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
             <div className="add-cloth-attribute-input">
               <div className='tags'>
                 {/* {forEdit ? <button className="tag">{type.charAt(0).toUpperCase() + type.slice(1)}</button> : <button className="tag">{"Top"}</button>} */}
-                {forEdit ? <button className="tag">{type}</button> : <button className="tag">{"Top"}</button>}
+                {forEdit ? <button className="tag">{type}</button> : <button className="tag">{type}</button>}
               </div>
               <button className="edit" onClick={handleSelectClothType}>{edit_add_today}</button>
             </div>
@@ -85,7 +86,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
             <div className="add-cloth-attribute-input">
               <div className='tags'>
                 {/* {forEdit ? <button className="tag">{eventType.charAt(0).toUpperCase() + eventType.slice(1)}</button> : <button className="tag">{"Casual"}</button>} */}
-                {forEdit ? <button className="tag">{eventType}</button> : <button className="tag">{"Casual"}</button>}
+                {forEdit ? <button className="tag">{eventType}</button> : <button className="tag">{eventType}</button>}
               </div>
               <button className="edit" onClick={handleSelectActivity}>{edit_add_today}</button>
             </div>
@@ -96,8 +97,8 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
           {forEdit ? <button className="btn-add" onClick={handleUpload}>Save</button> : <button className="btn-add" onClick={handleUpload}>Add to Closet</button>}
           {forEdit ? <button className="btn-cancel" onClick={handleDelete}>Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button>}
         </div>
-        {isChooseEventTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeActivity} handleClosePopUp={handleSelectActivity} eventTypes={eventTypes} type={'activity'} chosen={clothesActivities} />}
-        {isChooseClothTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeType} handleClosePopUp={handleSelectClothType} eventTypes={clothType} type={'clothes'} chosen={clothesType}/>}
+        {isChooseEventTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeActivity} handleClosePopUp={handleSelectActivity} eventTypes={eventTypes} type={'activity'} chosen={eventType} />}
+        {isChooseClothTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeType} handleClosePopUp={handleSelectClothType} eventTypes={clothType} type={'clothes'} chosen={type}/>}
       </div>
     </div>
   );
