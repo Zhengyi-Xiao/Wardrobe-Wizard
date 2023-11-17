@@ -278,3 +278,15 @@ export const uploadPhotoAPI = async (imageFile, clothesType, eventType) => {
 };
 
 // export const deleteObject = async (imageFile) => {}
+
+export const deleteCloth = async (id) => {
+  try {
+    const response = await axios.get(
+      `/clothes/delete/${id}`
+    )
+    return response.data.message
+  } catch (error) {
+    console.error('Error:', error)
+    return []
+  }
+}

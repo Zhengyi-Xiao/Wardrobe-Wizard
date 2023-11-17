@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/AddClothPopUp.css';
 import { go_back, edit_add_today } from '../styles/icons.js';
-import { uploadPhotoAPI } from '../api/api.js'
+import { uploadPhotoAPI,deleteCloth } from '../api/api.js'
 import ChooseEventType from './ChooseEventType.js';
 import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
@@ -12,7 +12,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   const [isChooseClothTypeOpen, setIsChooseClothTypeOpen] = useState(false);
   const [eventType, setEventType] = useState(clothesActivities ? dbobj2obj[clothesActivities]: "Causal");
   const [type, setClothType] = useState(clothesType ? dbobj2obj[clothesType] : "Top");
-  console.log(eventType)
+  //console.log("popup MongoID is !!!",mongoID)
 
   const handleSelectActivity = (e) => {
     e.preventDefault();
@@ -57,7 +57,9 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   }
 
   const handleDelete = async () => {
-
+    console.log("mongoID is!!!! haha",mongoID)
+    await deleteCloth(mongoID)
+    window.location.reload()
   }
 
   return (

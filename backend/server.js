@@ -478,6 +478,30 @@ webapp.post('/uploadImage', async (req, res) => {
   }
 })
 
+webapp.get('/clothes/delete/:id', async (req, res) => {
+  const mongoId = req.params.id;
+  console.log("mongoID is!!!! server",mongoId)
+
+  // Connect to MongoDB
+  const client = new MongoClient(urlService);
+
+  try {
+    await client.connect();
+
+    const collection = client.db('Wardrobe-Wizard').collection('clothes'); // Replace with your collection name.
+
+    const result = await collection.deleteOne({ _id: new ObjectId(mongoId) });
+
+    res.json({ message: 'Cloth deleted successfully' });
+
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+    client.close();
+  }
+});
+
 
 webapp.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
