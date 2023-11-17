@@ -237,7 +237,7 @@ export const createImage = async (request) => {
 
 const api_key = "554946298277143"
 const cloud_name = "dldiferrn"
-export const uploadPhotoAPI = async (imageFile) => {
+export const uploadPhotoAPI = async (imageFile, clothesType, eventType) => {
   let imageUrl = '';
   const signatureResponse = await axios.get("/get-signature")
   const data = new FormData()
@@ -257,8 +257,10 @@ export const uploadPhotoAPI = async (imageFile) => {
   imageUrl = cloudinaryResponse.data.secure_url
   let brand_names = "Self-taken"
   let descriptions = "A cloth taken"
-  let event = "causal"
-  let type = "top"
+  // let event = "causal"
+  // let type = "top"
+  let event = obj2dbobj[eventType]
+  let type = obj2dbobj[clothesType]
   let time = moment().format("MM/DD/YYYY, HH:mm:ss");
   //11/08/2023, 21:03:25
   const dbData = {

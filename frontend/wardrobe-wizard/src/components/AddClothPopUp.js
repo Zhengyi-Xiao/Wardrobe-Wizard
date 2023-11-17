@@ -12,7 +12,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   const [isChooseClothTypeOpen, setIsChooseClothTypeOpen] = useState(false);
   const [eventType, setEventType] = useState(clothesActivities ? dbobj2obj[clothesActivities]: "Causal");
   const [type, setClothType] = useState(clothesType ? dbobj2obj[clothesType] : "Top");
-  console.log(type)
+  console.log(eventType)
 
   const handleSelectActivity = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   }
 
   const handleUploadImage = async () => {
-    await uploadPhotoAPI(selectedFile)
+    await uploadPhotoAPI(selectedFile, type, eventType);
     // await uploadPhotoAPI(selectedFile, type, clothes, mongo_id)
     // mongo_id can be null
     window.location.reload();
