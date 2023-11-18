@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/AddClothPopUp.css';
 import { go_back, edit_add_today } from '../styles/icons.js';
-import { uploadPhotoAPI,deleteCloth } from '../api/api.js'
+import { uploadPhotoAPI,deleteCloth,editCloth} from '../api/api.js'
 import ChooseEventType from './ChooseEventType.js';
 import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
@@ -25,10 +25,14 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   }
 
   const handleUploadImage = async () => {
-    await uploadPhotoAPI(selectedFile, type, eventType);
-    // await uploadPhotoAPI(selectedFile, type, clothes, mongo_id)
-    // mongo_id can be null
-    window.location.reload();
+    if (mongoID==null){
+      await uploadPhotoAPI(selectedFile, type, eventType);
+      window.location.reload();
+    } else{
+      await editCloth(mongoID, eventType, type);
+      console.log("It's now editting hahaah")
+      window.location.reload();
+    }
   }
 
   const handleChangeType = async (event, selectedTypes) => {

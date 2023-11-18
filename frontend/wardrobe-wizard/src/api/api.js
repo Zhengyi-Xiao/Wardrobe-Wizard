@@ -290,3 +290,17 @@ export const deleteCloth = async (id) => {
     return []
   }
 }
+
+export const editCloth = async (id, eventtype, clothtype) =>{
+  let finalEventType = obj2dbobj[eventtype]
+  let finalClothType = obj2dbobj[clothtype]
+  try {
+    const response = await axios.get(
+      `/clothes/edit/${id}/event/${finalEventType}/type/${finalClothType}`
+    )
+    return response.data.message
+  } catch (error){
+    console.error("error: There is something wrong with editCloth api", error)
+    return []
+  }
+}
