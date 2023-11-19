@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { getClothByTypeEvent } from '../api/api.js'
 import AddClothPopUp from './AddClothPopUp.js';
 import '../styles/Recommend.css'
+import { swicthVersion } from '../styles/icons.js'
 
 function SingleRecommendBlock({ type, eventTypes, clothType }) {
   const recommendSize = 3 // can be changed later
@@ -48,7 +49,7 @@ function SingleRecommendBlock({ type, eventTypes, clothType }) {
           .filter((imageUrl, index) => (index > clothTypeUrls.length - recommendSize - 1))
           .map((element, index) => {
             return (
-              <img className='recommend-cloth-image' src={element.image_urls} alt='cloth' onClick={() => handleClick(element)} />
+              <img className='recommend-cloth-image' key={index} src={element.image_urls} alt='cloth' onClick={() => handleClick(element)} />
             )
           })}
       </div>
@@ -56,7 +57,7 @@ function SingleRecommendBlock({ type, eventTypes, clothType }) {
   );
 }
 
-function RecommendPage() {
+function RecommendPage({ version, handleSwitchVersion }) {
 
   const eventTypes = [
     'Workout',
@@ -80,10 +81,14 @@ function RecommendPage() {
     <div className='recommend'>
       <div className='top-row-frame'>
         <div className='recommend-page-title'>Recommend</div>
+        <button className={`${version}-setting`}
+          onClick={handleSwitchVersion}>
+          {swicthVersion}
+        </button>
       </div>
       <div className='all-activity-container'>
-        {eventTypes.map(type => {
-          return (<SingleRecommendBlock key={type} type={type} eventTypes={eventTypes} clothType={clothType} />)
+        {eventTypes.map((type, index) => {
+          return (<SingleRecommendBlock key={index} type={type} eventTypes={eventTypes} clothType={clothType} />)
         })}
       </div>
     </div>

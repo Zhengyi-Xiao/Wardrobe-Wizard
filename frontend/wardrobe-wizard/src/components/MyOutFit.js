@@ -10,7 +10,7 @@ import ChooseEventType from './ChooseEventType.js';
 import { dbevent2event } from '../api/api.js'
 import { addNewActivity, getOutfitByDate, deleteActivity, fetchCloth, removeClothFromOutfit, randomGenerateClothByTypeEvent } from '../api/api.js'
 
-function MyOutFit({ selectedDate }) {
+function MyOutFit({ selectedDate, version }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const activity = queryParams.get('activity');
@@ -18,8 +18,6 @@ function MyOutFit({ selectedDate }) {
   const selectedDateStr = selectedDate.$y + '' +
     (selectedDate.$M + 1 < 10 ? '0' + selectedDate.$M + 1 : selectedDate.$M + 1) + '' +
     (selectedDate.$D < 10 ? '0' + selectedDate.$D : selectedDate.$D);
-
-  // console.log(selectedDateStr);
 
   const [todaysOutfit, setTodaysOutfit] = useState([])
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
@@ -63,10 +61,19 @@ function MyOutFit({ selectedDate }) {
   }
 
   const currentDate = dayjs();
-
+  const [showDelete, setShowDelete] = useState(false);
+  const handleSetShowDelete = () => {
+    setShowDelete(!showDelete);
+  }
   return (
     <div className='my-outfit'>
-      <p className='outfit-title'>My Outfit</p>
+      <div className='spacer-outfit'>
+        <p className='outfit-title'>My Outfit</p>
+        {version === 'v2' &&
+          <button className='version2-edit' onClick={handleSetShowDelete}>
+            Edit
+          </button>}
+      </div>
       {todaysOutfit.map((outfit, index) => {
         return (
           <TodaysOutfit
@@ -75,25 +82,27 @@ function MyOutFit({ selectedDate }) {
             index={index}
             event={outfit.event}
             outfits={outfit.outfits}
-            selectedDate={selectedDate} />
+            selectedDate={selectedDate}
+            showDelete={showDelete} />
         )
       })}
       {selectedDate.$D >= currentDate.$D && selectedDate.$M >= currentDate.$M && selectedDate.$y >= currentDate.$y &&
         <button className='add-activity-button' onClick={handleSelectActivity}>+ Add Activity</button>
       }
       <div className='spacer-outfit'></div>
-      {isChooseEventTypeOpen && <ChooseEventType
-        handleAddToOutfit={handleChangeActivity}
-        handleClosePopUp={handleSelectActivity}
-        eventTypes={eventTypes}
-        type={'activity'}
-        multiple={true} />}
+      {isChooseEventTypeOpen &&
+        <ChooseEventType
+          handleAddToOutfit={handleChangeActivity}
+          handleClosePopUp={handleSelectActivity}
+          eventTypes={eventTypes}
+          type={'activity'}
+          multiple={true} />}
     </div>
   )
 }
 
 
-function TodaysOutfit({ mongoID, index, event, outfits, selectedDate }) {
+function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete }) {
   const history = useHistory();
   const [foldContent, setFoldContent] = useState(index === 0);
 
@@ -158,6 +167,11 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate }) {
 
   return (
     <div className='todays-outfit-container'>
+      {showDelete &&
+        <button className='outfit-option-clothes-item-delete'
+          onClick={onDeleteActivity} >
+          {remove_todays_outfit}
+        </button>}
       <div className='outfit-option'>
         <div className={`outfit-option-header ${!foldContent ? 'folded' : ''}`}
           draggable="true"
