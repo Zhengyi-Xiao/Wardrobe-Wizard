@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import '../styles/AddClothPopUp.css';
 import { go_back, edit_add_today } from '../styles/icons.js';
 import { uploadPhotoAPI,deleteCloth,editCloth} from '../api/api.js'
 import ChooseEventType from './ChooseEventType.js';
 import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
-function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID}) {
+function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID, setFinalEventType, setFinalClothType}) {
   // whether or not click on to select desired event
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
   // whether or not click on to select desired activities
@@ -13,6 +14,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   const [eventType, setEventType] = useState(clothesActivities ? dbobj2obj[clothesActivities]: "Causal");
   const [type, setClothType] = useState(clothesType ? dbobj2obj[clothesType] : "Top");
   //console.log("popup MongoID is !!!",mongoID)
+  const history = useHistory();
 
   const handleSelectActivity = (e) => {
     e.preventDefault();
@@ -25,14 +27,19 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   }
 
   const handleUploadImage = async () => {
-    if (mongoID==null){
-      await uploadPhotoAPI(selectedFile, type, eventType);
-      window.location.reload();
-    } else{
+    if (mongoID){
       await editCloth(mongoID, eventType, type);
+      setFinalEventType(eventType)
+      setFinalClothType(type)
       console.log("It's now editting hahaah")
       window.location.reload();
+    } else{
+      await uploadPhotoAPI(selectedFile, type, eventType);
+      // await editCloth(mongoID, eventType, type);
+      // console.log("It's now editting hahaah")
+      window.location.reload();
     }
+    history.push('/closet')
   }
 
   const handleChangeType = async (event, selectedTypes) => {
@@ -58,6 +65,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
 
   const handleUpload = async () => {
     handleUploadImage();
+    onClose();
   }
 
   const handleDelete = async () => {
