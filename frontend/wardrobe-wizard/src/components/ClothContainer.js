@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom';
 import { add_to_todays_outfit } from '../styles/icons.js';
@@ -10,8 +10,8 @@ function ClothContainer({ imageUrl, activity, eventTypes, clothType, mongoID, ty
 
   const [openProfile, setOpenProfile] = useState(false);
   const [selectedImage,] = useState(imageUrl);
-  const [clothTypeFinal, setClothTypeFinal] = useState(type)
-  const [eventTypeFinal, setEventTypeFinal] = useState(event)
+  const [clothTypeFinal, setClothTypeFinal] = useState(type);
+  const [eventTypeFinal, setEventTypeFinal] = useState(event);
 
   const handleOpenProfile = () => {
     setOpenProfile(!openProfile);

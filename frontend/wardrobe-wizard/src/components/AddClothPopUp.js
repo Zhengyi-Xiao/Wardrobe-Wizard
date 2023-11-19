@@ -6,7 +6,7 @@ import { uploadPhotoAPI,deleteCloth,editCloth} from '../api/api.js'
 import ChooseEventType from './ChooseEventType.js';
 import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
-function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID, setFinalEventType, setFinalClothType}) {
+function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID, setClothTypeFinal, setEventTypeFinal}) {
   // whether or not click on to select desired event
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
   // whether or not click on to select desired activities
@@ -28,18 +28,18 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
 
   const handleUploadImage = async () => {
     if (mongoID){
+      setEventTypeFinal(obj2dbobj[eventType])
+      setClothTypeFinal(obj2dbobj[type])
       await editCloth(mongoID, eventType, type);
-      setFinalEventType(eventType)
-      setFinalClothType(type)
       console.log("It's now editting hahaah")
-      window.location.reload();
+      // window.location.reload();
     } else{
       await uploadPhotoAPI(selectedFile, type, eventType);
       // await editCloth(mongoID, eventType, type);
       // console.log("It's now editting hahaah")
       window.location.reload();
     }
-    history.push('/closet')
+    // history.push('/closet')
   }
 
   const handleChangeType = async (event, selectedTypes) => {
