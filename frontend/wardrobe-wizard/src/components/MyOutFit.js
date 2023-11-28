@@ -83,6 +83,7 @@ function MyOutFit({ selectedDate, version }) {
             event={outfit.event}
             outfits={outfit.outfits}
             selectedDate={selectedDate}
+            version={version}
             showDelete={showDelete} />
         )
       })}
@@ -96,15 +97,17 @@ function MyOutFit({ selectedDate, version }) {
           handleClosePopUp={handleSelectActivity}
           eventTypes={eventTypes}
           type={'activity'}
+          version={version}
           multiple={true} />}
     </div>
   )
 }
 
 
-function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete }) {
+function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete, version }) {
   const history = useHistory();
-  const [foldContent, setFoldContent] = useState(index === 0);
+  const init = index === 0;
+  const [foldContent, setFoldContent] = useState(init);
 
   const handleFoldContent = () => {
     setFoldContent(!foldContent);
@@ -186,7 +189,7 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
           <div className='outfit-option-header-open' onClick={handleFoldContent} >
             {foldContent ? collapse : open}
           </div>
-          {swiped && <p className='outfit-option-delete' onClick={onDeleteActivity}>
+          {(swiped && version === 'v1') && <p className='outfit-option-delete' onClick={onDeleteActivity}>
             Delete
           </p>}
         </div>

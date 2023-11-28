@@ -33,3 +33,15 @@ Besides the steps above, you should also go to mobile-app/Wardrobe-Wizard to bui
 
 
 # Miscellaneous
+
+## variant 1
+
+1. Edit 的signifier
+
+## variant 2
+1. Gray to red
+2. 
+
+## variant 3 
+1. Force press on title and icon 
+

@@ -102,8 +102,10 @@ function Closet() {
   const handleAddClothes = () => {
     // Check if the user is on an iPhone
     const isIPhone = /iPhone/i.test(navigator.userAgent)
-
+    console.log(isIPhone)
+    console.log(navigator)
     if (isIPhone) {
+      console.log('HERE')
       // If on iPhone, open the camera
       navigator.mediaDevices
         .getUserMedia({ video: true })
