@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/ChooseEventType.css';
 import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
-function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type, chosen, multiple }) {
+function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type, chosen, multiple, version }) {
   const [selectedType, setSelectedType] = useState(chosen ? [chosen] : []);
 
   const handleAddChoice = choice => {
