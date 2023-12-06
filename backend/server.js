@@ -88,12 +88,6 @@ webapp.get('/outfit/activity/:activity/date/:date', async (req, res) => {
   const currentDate = new Date(year, month, day);
   const eventType = req.params.activity.toLowerCase();
 
-  const activityData = {
-    date: currentDate,
-    event: eventType,
-    outfits: [],
-  };
-
   // Connect to MongoDB
   const client = new MongoClient(urlService);
 
@@ -102,7 +96,31 @@ webapp.get('/outfit/activity/:activity/date/:date', async (req, res) => {
 
     // Access the 'outfits' collection in the database
     const collection = client.db('Wardrobe-Wizard').collection('outfits'); // Replace with your collection name.
+    const clothesCollection = client.db('Wardrobe-Wizard').collection('clothes');
 
+    const top = await clothesCollection.aggregate([
+      { $match: { event: eventType, type: 'top' } },
+      { $sample: { size: 1 } }
+    ]).toArray();
+
+    const bottom = await clothesCollection.aggregate([
+      { $match: { event: eventType, type: 'bottom' } },
+      { $sample: { size: 1 } }
+    ]).toArray();
+
+
+    const activityData = {
+      date: currentDate,
+      event: eventType,
+      outfits: [],
+    };
+
+    if (top.length === 1) {
+      activityData.outfits.push(top[0]._id);
+    }
+    if (bottom.length === 1) {
+      activityData.outfits.push(bottom[0]._id);
+    }
     // Insert the new activity data into the 'outfits' collection
     const result = await collection.insertOne(activityData);
 
@@ -370,13 +388,18 @@ webapp.get('/outfits/regenerate/event/:event/id/:id/date/:date', async (req, res
       event: event,
       date: { $gte: begin, $lte: end }
     });
+
+    const thisClothMeta = await clothesCollection.findOne({
+      _id: clothingId
+    });
+
     if (outfitDocument) {
       const clothingToReplace = outfitDocument.outfits.findIndex((element) => element.equals(clothingId));
 
       if (clothingToReplace !== -1) {
         // Find clothing items of the same event and clothing type
         const clothingItem = await clothesCollection.aggregate([
-          { $match: { event: event } },
+          { $match: { event: event, type: thisClothMeta['type'] } },
           { $sample: { size: 1 } }
         ]).toArray();
 
@@ -501,7 +524,7 @@ webapp.get('/clothes/delete/:id', async (req, res) => {
   }
 });
 
-webapp.get('/clothes/edit/:id/event/:event/type/:type', async(req,res)=>{
+webapp.get('/clothes/edit/:id/event/:event/type/:type', async (req, res) => {
   const mongoID = req.params.id;
   const newEvent = req.params.event;
   const newType = req.params.type;
@@ -511,10 +534,10 @@ webapp.get('/clothes/edit/:id/event/:event/type/:type', async(req,res)=>{
     await client.connect();
 
     const collection = client.db('Wardrobe-Wizard').collection('clothes');
-    
+
     const result = await collection.updateOne(
-      {_id: new ObjectId(mongoID)},
-      {$set:{event: newEvent, type:newType}}
+      { _id: new ObjectId(mongoID) },
+      { $set: { event: newEvent, type: newType } }
     );
 
   } catch (error) {

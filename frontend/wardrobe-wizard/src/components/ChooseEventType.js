@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/ChooseEventType.css';
 import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
-function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type, chosen, multiple, version }) {
+function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type, chosen, multiple, existingTypes }) {
   const [selectedType, setSelectedType] = useState(chosen ? [chosen] : []);
 
   const handleAddChoice = choice => {
@@ -22,7 +22,7 @@ function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type
       setSelectedType([]);
     }
   }
-  console.log("selected Type", selectedType)
+  console.log("selected Type", existingTypes)
 
   return (
     <div className='add-to-today-popup'>
@@ -32,6 +32,11 @@ function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type
         </div>
         <div className='add-to-today-popup-buttons'>
           {eventTypes.filter((choice) => !(choice === 'All')).map((choice, index) => {
+            if (existingTypes && existingTypes.includes(obj2dbobj[choice])) {
+              return (
+                <></>
+              )
+            }
             if (selectedType && selectedType.includes(choice)) {
               return (
                 <button key={index} className={`${type}-choice-button selected `} onClick={() => handleRemoveChoice(choice)}>{choice}</button>

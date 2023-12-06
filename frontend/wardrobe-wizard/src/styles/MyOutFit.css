@@ -2,7 +2,8 @@
   position: absolute;
   top: 181.7426px;
   width: 100%;
-  height: 500px;
+  height: 65%;
+  /* height: 500px; */
   padding-bottom: 15px;
   text-align: center;
   display: flex;
@@ -39,10 +40,15 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  filter: drop-shadow(
-    0px 1.7949886322021484px 1.7949886322021484px rgba(0, 0, 0, 0.25)
-  );
+  filter: drop-shadow( 0px 1.7949886322021484px 1.7949886322021484px rgba(0, 0, 0, 0.25) );
   margin-right: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .unclicked-edit {
@@ -62,6 +68,8 @@
     0px 1.7949886322021484px 1.7949886322021484px rgba(0, 0, 0, 0.25)
   );
   margin-right: 25px;
+  text-align: center;
+  align-items: center;
 }
 
 .todays-outfit-container {

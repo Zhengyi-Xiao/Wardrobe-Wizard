@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/AddClothPopUp.css';
 import { go_back, edit_add_today } from '../styles/icons.js';
-import { uploadPhotoAPI,deleteCloth,editCloth} from '../api/api.js'
+import { uploadPhotoAPI, deleteCloth, editCloth } from '../api/api.js'
 import ChooseEventType from './ChooseEventType.js';
 import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
-function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID, setClothTypeFinal, setEventTypeFinal}) {
+function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID, setClothTypeFinal, setEventTypeFinal }) {
   // whether or not click on to select desired event
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
   // whether or not click on to select desired activities
   const [isChooseClothTypeOpen, setIsChooseClothTypeOpen] = useState(false);
-  const [eventType, setEventType] = useState(clothesActivities ? dbobj2obj[clothesActivities]: "Causal");
+  const [eventType, setEventType] = useState(clothesActivities ? dbobj2obj[clothesActivities] : "Causal");
   const [type, setClothType] = useState(clothesType ? dbobj2obj[clothesType] : "Top");
   //console.log("popup MongoID is !!!",mongoID)
   const history = useHistory();
@@ -27,13 +27,13 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   }
 
   const handleUploadImage = async () => {
-    if (mongoID){
+    if (mongoID) {
       setEventTypeFinal(obj2dbobj[eventType])
       setClothTypeFinal(obj2dbobj[type])
       await editCloth(mongoID, eventType, type);
       console.log("It's now editting hahaah")
       // window.location.reload();
-    } else{
+    } else {
       await uploadPhotoAPI(selectedFile, type, eventType);
       // await editCloth(mongoID, eventType, type);
       // console.log("It's now editting hahaah")
@@ -44,7 +44,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
 
   const handleChangeType = async (event, selectedTypes) => {
     event.preventDefault();
-    if(selectedTypes){
+    if (selectedTypes) {
       const activity = selectedTypes[0];
       setClothType(activity);
       handleSelectClothType(event);
@@ -55,7 +55,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   const handleChangeActivity = async (event, selectedTypes) => {
     event.preventDefault();
     // console.log(event)
-    if(selectedTypes){
+    if (selectedTypes) {
       const activity = selectedTypes[0];
       setEventType(activity);
       handleSelectActivity(event);
@@ -69,7 +69,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
   }
 
   const handleDelete = async () => {
-    console.log("mongoID is!!!! haha",mongoID)
+    console.log("mongoID is!!!! haha", mongoID)
     await deleteCloth(mongoID)
     window.location.reload()
   }
@@ -78,8 +78,8 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
     <div className="add-cloth-popup-flame">
       <div className="add-cloth-popup">
         <div className="add-cloth-pop-up-back">
-          {forEdit ? <h3>Edit Clothes' Profile</h3> :<h3>Add to Closet</h3>}
-          <button className="back-arrow" onClick={onClose}>back</button>
+          {forEdit ? <h3>Edit Clothes' Profile</h3> : <h3>Add to Closet</h3>}
+          <button className="back-arrow" onClick={onClose}>Back</button>
         </div>
         <div className="image-block">
           <img className="uploaded-image" src={selectedImage} alt="Selected Cloth" />
@@ -112,7 +112,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
           {forEdit ? <button className="btn-cancel" onClick={handleDelete}>Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button>}
         </div>
         {isChooseEventTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeActivity} handleClosePopUp={handleSelectActivity} eventTypes={eventTypes} type={'activity'} chosen={eventType} />}
-        {isChooseClothTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeType} handleClosePopUp={handleSelectClothType} eventTypes={clothType} type={'clothes'} chosen={type}/>}
+        {isChooseClothTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeType} handleClosePopUp={handleSelectClothType} eventTypes={clothType} type={'clothes'} chosen={type} />}
       </div>
     </div>
   );

@@ -38,7 +38,7 @@ function MyOutFit({ selectedDate }) {
 
 
     });
-  }, [selectedDate, isChooseEventTypeOpen, selectedDateStr])
+  }, [selectedDate, isChooseEventTypeOpen, selectedDateStr, activity])
 
   const eventTypes = [
     'Workout',
@@ -55,7 +55,6 @@ function MyOutFit({ selectedDate }) {
   }
 
   const handleChangeActivity = async (event, selectedTypes) => {
-    // event.preventDefault();
     if (selectedTypes) {
       const activity = selectedTypes;
       await addNewActivity(activity, selectedDateStr);
@@ -79,7 +78,6 @@ function MyOutFit({ selectedDate }) {
           </button>
         }
       </div>
-      {/* <DragWrapper todaysOutfit={todaysOutfit} selectedDate={selectedDate} showDelete={showDelete} /> */}
       {todaysOutfit.map((outfit, index) => {
         return (
           <TodaysOutfit
@@ -102,6 +100,7 @@ function MyOutFit({ selectedDate }) {
           handleAddToOutfit={handleChangeActivity}
           handleClosePopUp={handleSelectActivity}
           eventTypes={eventTypes}
+          existingTypes={todaysOutfit.map((outfit) => outfit.event)}
           type={'activity'}
           multiple={false} />}
     </div>
@@ -180,12 +179,12 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
           {remove_todays_outfit}
         </button>}
       <div className={`outfit-option ${showDelete ? 'shake' : ''}`}>
-        <div className={`outfit-option-header ${!foldContent ? 'folded' : ''}`}>
+        <div className={`outfit-option-header ${!foldContent ? 'folded' : ''}`} onClick={handleFoldContent}>
           <div className='outfit-option-header-icon'>
             {event2icon[event]}
           </div>
-          <p className='outfit-option-title' onClick={handleFoldContent}>{dbevent2event[event]}</p>
-          <div className='outfit-option-header-open' onClick={handleFoldContent} >
+          <p className='outfit-option-title' >{dbevent2event[event]}</p>
+          <div className='outfit-option-header-open' >
             {foldContent ? collapse : open}
           </div>
         </div>
