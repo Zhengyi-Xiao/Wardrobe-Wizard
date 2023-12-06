@@ -26,7 +26,7 @@
   align-items: center;
 }
 
-.version2-edit {
+.clicked-edit {
   width: 60.793px;
   height: 34.105px;
   flex-shrink: 0;
@@ -45,13 +45,30 @@
   margin-right: 25px;
 }
 
+.unclicked-edit {
+  width: 60.793px;
+  height: 34.105px;
+  flex-shrink: 0;
+  border-radius: 8.975px;
+  background: var(--ComponentAndTab, #ffbda5);
+  border: none;
+  color: #454c4e;
+  font-family: 'Poppins', sans-serif;
+  font-size: 17.95px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  filter: drop-shadow(
+    0px 1.7949886322021484px 1.7949886322021484px rgba(0, 0, 0, 0.25)
+  );
+  margin-right: 25px;
+}
+
 .todays-outfit-container {
   display: flex;
   width: 100%;
   padding: 6.731px 7.629px 10.77px 8.077px;
-  justify-content: center;
   align-items: center;
-  /* background-color: bisque; */
   flex-direction: column;
 }
 
@@ -64,6 +81,29 @@
   line-height: normal;
   display: inline-block;
   margin-left: 24px;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.shake {
+  animation: shake 0.7s infinite;
+  transform-origin: center;
 }
 
 .outfit-option {
@@ -141,9 +181,10 @@
 .outfit-option-clothes-item-delete {
   border: none;
   background: transparent;
-  padding: 0px;
-  margin-left: -345px;
-  margin-top: -14px;
+  position: absolute;
+  margin-left: -341px;
+  margin-top: -11px;
+  z-index: 1000;
 }
 
 .outfit-option-clothes::-webkit-scrollbar {

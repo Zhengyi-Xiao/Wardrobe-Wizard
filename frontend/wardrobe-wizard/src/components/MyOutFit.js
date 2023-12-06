@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import ReactDOM from 'react-dom';
 import { useHistory, useLocation } from 'react-router-dom';
 import {
   collapse, remove_todays_outfit, refresh_todays_outfit, add_new_cloth, open,
@@ -9,8 +10,9 @@ import '../styles/MyOutFit.css'
 import ChooseEventType from './ChooseEventType.js';
 import { dbevent2event } from '../api/api.js'
 import { addNewActivity, getOutfitByDate, deleteActivity, fetchCloth, removeClothFromOutfit, randomGenerateClothByTypeEvent } from '../api/api.js'
+import DeleteActivityConfirmation from './DeleteActivityConfirmation.js';
 
-function MyOutFit({ selectedDate, version }) {
+function MyOutFit({ selectedDate }) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const activity = queryParams.get('activity');
@@ -33,6 +35,7 @@ function MyOutFit({ selectedDate, version }) {
         });
       }
       setTodaysOutfit(response);
+
 
     });
   }, [selectedDate, isChooseEventTypeOpen, selectedDateStr])
@@ -65,15 +68,18 @@ function MyOutFit({ selectedDate, version }) {
   const handleSetShowDelete = () => {
     setShowDelete(!showDelete);
   }
+
   return (
     <div className='my-outfit'>
       <div className='spacer-outfit'>
         <p className='outfit-title'>My Outfit</p>
-        {version === 'v2' &&
-          <button className='version2-edit' onClick={handleSetShowDelete}>
+        {todaysOutfit.length > 0 &&
+          <button className={showDelete ? 'unclicked-edit' : 'clicked-edit'} onClick={handleSetShowDelete}>
             Edit
-          </button>}
+          </button>
+        }
       </div>
+      {/* <DragWrapper todaysOutfit={todaysOutfit} selectedDate={selectedDate} showDelete={showDelete} /> */}
       {todaysOutfit.map((outfit, index) => {
         return (
           <TodaysOutfit
@@ -83,10 +89,11 @@ function MyOutFit({ selectedDate, version }) {
             event={outfit.event}
             outfits={outfit.outfits}
             selectedDate={selectedDate}
-            showDelete={showDelete} />
+            showDelete={showDelete}
+            setShowDelete={setShowDelete} />
         )
       })}
-      {selectedDate.$D >= currentDate.$D && selectedDate.$M >= currentDate.$M && selectedDate.$y >= currentDate.$y &&
+      {!showDelete && selectedDate.$D >= currentDate.$D && selectedDate.$M >= currentDate.$M && selectedDate.$y >= currentDate.$y &&
         <button className='add-activity-button' onClick={handleSelectActivity}>+ Add Activity</button>
       }
       <div className='spacer-outfit'></div>
@@ -96,13 +103,13 @@ function MyOutFit({ selectedDate, version }) {
           handleClosePopUp={handleSelectActivity}
           eventTypes={eventTypes}
           type={'activity'}
-          multiple={true} />}
+          multiple={false} />}
     </div>
   )
 }
 
 
-function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete }) {
+function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete, setShowDelete }) {
   const history = useHistory();
   const [foldContent, setFoldContent] = useState(index === 0);
 
@@ -110,37 +117,33 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
     setFoldContent(!foldContent);
   }
 
-  const [swiped, setSwiped] = useState(false)
-  const [touchStart, setTouchStart] = useState(null)
-  const [touchEnd, setTouchEnd] = useState(null)
-  // the required distance between touchStart and touchEnd to be detected as a swipe
-  const minSwipeDistance = 50
-
-  const onTouchStart = (e) => {
-    setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
-    if (isLeftSwipe) {
-      setSwiped(true)
-    }
-    if (isRightSwipe) {
-      setSwiped(false)
-    }
-  }
-
   const [deleted, setDeleted] = useState(false)
+
+  const elementRef = useRef(document.createElement("div"));
+
+  const showElement = React.useCallback(() => {
+    document.querySelector("body").appendChild(elementRef.current);
+  }, []);
+
+  const hideElement = React.useCallback(() => {
+    try {
+      document.querySelector('body').removeChild(elementRef.current);
+    } catch (error) {
+      console.log('hideElement', error);
+    }
+  }, []);
+
   const onDeleteActivity = async () => {
-    await deleteActivity(mongoID);
-    setDeleted(true);
+    try {
+      await deleteActivity(mongoID);
+      document.querySelector('body').removeChild(elementRef.current);
+      setDeleted(true);
+      setShowDelete(false)
+    } catch (error) {
+      console.log('onDeleteActivity', error);
+    }
   }
+
   if (deleted) {
     return null;
   }
@@ -167,18 +170,17 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
 
   return (
     <div className='todays-outfit-container'>
+      {ReactDOM.createPortal(
+        <DeleteActivityConfirmation hideElement={hideElement} onDeleteActivity={onDeleteActivity} />,
+        elementRef.current
+      )}
       {showDelete &&
         <button className='outfit-option-clothes-item-delete'
-          onClick={onDeleteActivity} >
+          onClick={showElement} >
           {remove_todays_outfit}
         </button>}
-      <div className='outfit-option'>
-        <div className={`outfit-option-header ${!foldContent ? 'folded' : ''}`}
-          draggable="true"
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-        >
+      <div className={`outfit-option ${showDelete ? 'shake' : ''}`}>
+        <div className={`outfit-option-header ${!foldContent ? 'folded' : ''}`}>
           <div className='outfit-option-header-icon'>
             {event2icon[event]}
           </div>
@@ -186,9 +188,6 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
           <div className='outfit-option-header-open' onClick={handleFoldContent} >
             {foldContent ? collapse : open}
           </div>
-          {swiped && <p className='outfit-option-delete' onClick={onDeleteActivity}>
-            Delete
-          </p>}
         </div>
         {foldContent && <div className='outfit-option-clothes'>
           <div className='spacer'></div>
@@ -210,6 +209,7 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
         </div>}
       </div>
     </div>
+
   )
 }
 

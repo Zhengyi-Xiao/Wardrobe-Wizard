@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import MyOutFit from "./MyOutFit.js";
 import { weatherAPIiKey, getWeatherAPI, getWeatherForDateAPI } from '../api/api.js'
 
-function HomePage({ version }) {
+function HomePage() {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [temp, setTemp] = useState(null);
   const [weatherIconUrl, setWeatherIconUrl] = useState(null);
@@ -98,7 +98,7 @@ function HomePage({ version }) {
           clickWeekChange={setSelectedDate}
         />
       )}
-      <MyOutFit selectedDate={selectedDate} version={version} />
+      <MyOutFit selectedDate={selectedDate} />
     </div>
   );
 }

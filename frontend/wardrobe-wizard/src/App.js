@@ -8,27 +8,19 @@ import HomePage from './components/HomePage';
 import './styles/App.css'
 
 function App() {
-  const [version, setVersion] = useState('v1');
-  const handleSwitchVersion = () => {
-    if (version === 'v1') {
-      setVersion('v2');
-    } else {
-      setVersion('v1');
-    }
-  }
 
   return (
     <Router>
       <div className='App'>
         <Switch>
           <Route path="/recommend" >
-            <RecommendPage version={version} handleSwitchVersion={handleSwitchVersion} />
+            <RecommendPage />
           </Route>
           <Route path="/closet" >
             <Closet />
           </Route>
           <Route exact path="/" >
-            <HomePage version={version} />
+            <HomePage />
           </Route>
         </Switch>
         <Footbar />

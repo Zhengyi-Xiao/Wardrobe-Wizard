@@ -166,7 +166,6 @@ function Closet() {
   }
 
   if (isAddClothPopUpOpen) {
-    console.log('HERE')
     return ReactDOM.createPortal(
       <AddClothPopUp selectedFile={selectedFileImage} selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
       document.getElementById('root-portal')

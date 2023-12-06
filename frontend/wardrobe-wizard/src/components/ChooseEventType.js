@@ -4,8 +4,6 @@ import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
 function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type, chosen, multiple }) {
   const [selectedType, setSelectedType] = useState(chosen ? [chosen] : []);
-  console.log("choose event type", chosen)
-  console.log("selected Type", type)
 
   const handleAddChoice = choice => {
     if (multiple) {
@@ -24,6 +22,7 @@ function ChooseEventType({ handleAddToOutfit, handleClosePopUp, eventTypes, type
       setSelectedType([]);
     }
   }
+  console.log("selected Type", selectedType)
 
   return (
     <div className='add-to-today-popup'>

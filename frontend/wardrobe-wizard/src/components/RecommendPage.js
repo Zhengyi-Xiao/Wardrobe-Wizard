@@ -57,7 +57,7 @@ function SingleRecommendBlock({ type, eventTypes, clothType }) {
   );
 }
 
-function RecommendPage({ version, handleSwitchVersion }) {
+function RecommendPage() {
 
   const eventTypes = [
     'Workout',
@@ -81,10 +81,6 @@ function RecommendPage({ version, handleSwitchVersion }) {
     <div className='recommend'>
       <div className='top-row-frame'>
         <div className='recommend-page-title'>Recommend</div>
-        <button className={`${version}-setting`}
-          onClick={handleSwitchVersion}>
-          {swicthVersion}
-        </button>
       </div>
       <div className='all-activity-container'>
         {eventTypes.map((type, index) => {
