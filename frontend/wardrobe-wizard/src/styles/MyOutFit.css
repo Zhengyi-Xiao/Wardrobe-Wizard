@@ -69,6 +69,11 @@
   );
   margin-right: 25px;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
   align-items: center;
 }
 

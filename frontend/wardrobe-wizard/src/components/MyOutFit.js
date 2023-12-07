@@ -24,6 +24,12 @@ function MyOutFit({ selectedDate }) {
   const [todaysOutfit, setTodaysOutfit] = useState([])
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
 
+  const currentDate = dayjs();
+  const [showDelete, setShowDelete] = useState(false);
+  const handleSetShowDelete = () => {
+    setShowDelete(!showDelete);
+  }
+
   useEffect(() => {
     // Fetch the temperature and update the 'temp' state
     getOutfitByDate(selectedDateStr).then(async (response) => {
@@ -38,7 +44,7 @@ function MyOutFit({ selectedDate }) {
 
 
     });
-  }, [selectedDate, isChooseEventTypeOpen, selectedDateStr, activity])
+  }, [showDelete, selectedDate, isChooseEventTypeOpen, selectedDateStr, activity])
 
   const eventTypes = [
     'Workout',
@@ -62,17 +68,13 @@ function MyOutFit({ selectedDate }) {
     }
   }
 
-  const currentDate = dayjs();
-  const [showDelete, setShowDelete] = useState(false);
-  const handleSetShowDelete = () => {
-    setShowDelete(!showDelete);
-  }
+
 
   return (
     <div className='my-outfit'>
       <div className='spacer-outfit'>
         <p className='outfit-title'>My Outfit</p>
-        {todaysOutfit.length > 0 &&
+        {todaysOutfit.length > 0 && selectedDate.$D >= currentDate.$D && selectedDate.$M >= currentDate.$M && selectedDate.$y >= currentDate.$y &&
           <button className={showDelete ? 'unclicked-edit' : 'clicked-edit'} onClick={handleSetShowDelete}>
             Edit
           </button>
@@ -257,7 +259,7 @@ function OutfitOptions({ mongoID, handleOpenProfile, event, selectedDate }) {
             </button>
           </div>}
         <div className='outfit-option-clothes-item-image'>
-          <img className='cloth-image' key={Date.now()} src={openProfile.image_urls} alt='loading cloth' onClick={handleOpenProfile} />
+          <img className='cloth-image' key={Date.now()} src={openProfile?.image_urls} alt='loading cloth' onClick={handleOpenProfile} />
         </div>
       </div>
     </div>
