@@ -80,6 +80,31 @@ export const dbevent2event = {
   "null": "null"
 }
 
+export const addFromRecommend = async (id) => {
+  try {
+    const response = await axios.get(
+      `/recommend/addCloth/${id}`
+    )
+    return response.data.message
+  } catch (error) {
+    console.error('Error:', error)
+    return []
+  }
+}
+
+export const getRecommendClothByTypeEvent = async (type, event) => {
+  try {
+    // make type and evnnt to lower case
+    const response = await axios.get(
+      `/recommend/clothes/type/${typeMap[type]}/activity/${eventMap[event]}`
+    )
+    return response.data.data
+  } catch (error) {
+    console.error('Error:', error)
+    return []
+  }
+}
+
 export const getClothByTypeEvent = async (type, event) => {
   try {
     // make type and evnnt to lower case
@@ -291,7 +316,7 @@ export const deleteCloth = async (id) => {
   }
 }
 
-export const editCloth = async (id, eventtype, clothtype) =>{
+export const editCloth = async (id, eventtype, clothtype) => {
   let finalEventType = obj2dbobj[eventtype]
   let finalClothType = obj2dbobj[clothtype]
   try {
@@ -299,7 +324,7 @@ export const editCloth = async (id, eventtype, clothtype) =>{
       `/clothes/edit/${id}/event/${finalEventType}/type/${finalClothType}`
     )
     return response.data.message
-  } catch (error){
+  } catch (error) {
     console.error("error: There is something wrong with editCloth api", error)
     return []
   }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
-import { getClothByTypeEvent } from '../api/api.js'
+import { getRecommendClothByTypeEvent } from '../api/api.js'
 import AddClothPopUp from './AddClothPopUp.js';
 import '../styles/Recommend.css'
 import { swicthVersion } from '../styles/icons.js'
@@ -10,6 +10,7 @@ function SingleRecommendBlock({ type, eventTypes, clothType }) {
   const [clothTypeUrls, setClothTypeUrls] = useState([])
   const [openProfile, setOpenProfile] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   const closeAddClothPopUp = () => {
     setOpenProfile(false);
@@ -23,18 +24,25 @@ function SingleRecommendBlock({ type, eventTypes, clothType }) {
   useEffect(() => {
     // Fetch image URLs based on selected choices
     async function fetchClothUrls() {
-      const urls = await getClothByTypeEvent(
+      const urls = await getRecommendClothByTypeEvent(
         'All',
         type || 'null'
       )
       setClothTypeUrls(urls)
     }
     fetchClothUrls()
-  }, [type])
+  }, [type, refresh])
 
   if (openProfile) {
     return ReactDOM.createPortal(
-      <AddClothPopUp selectedImage={selectedElement.image_urls} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
+      <AddClothPopUp
+        selectedImage={selectedElement.image_urls}
+        mongoID={selectedElement?._id}
+        onClose={closeAddClothPopUp}
+        eventTypes={eventTypes}
+        clothType={clothType}
+        setRefresh={setRefresh}
+        forEdit={false} />,
       document.getElementById('root-portal')
     );
   }
@@ -92,3 +100,5 @@ function RecommendPage() {
 }
 
 export default RecommendPage
+
+// 10434 10925

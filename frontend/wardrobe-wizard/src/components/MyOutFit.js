@@ -29,6 +29,7 @@ function MyOutFit({ selectedDate }) {
   const handleSetShowDelete = () => {
     setShowDelete(!showDelete);
   }
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     // Fetch the temperature and update the 'temp' state
@@ -41,10 +42,8 @@ function MyOutFit({ selectedDate }) {
         });
       }
       setTodaysOutfit(response);
-
-
     });
-  }, [showDelete, selectedDate, isChooseEventTypeOpen, selectedDateStr, activity])
+  }, [showDelete, selectedDate, isChooseEventTypeOpen, selectedDateStr, activity, refresh])
 
   const eventTypes = [
     'Workout',
@@ -90,6 +89,8 @@ function MyOutFit({ selectedDate }) {
             outfits={outfit.outfits}
             selectedDate={selectedDate}
             showDelete={showDelete}
+            refresh={refresh}
+            setRefresh={setRefresh}
             setShowDelete={setShowDelete} />
         )
       })}
@@ -110,7 +111,7 @@ function MyOutFit({ selectedDate }) {
 }
 
 
-function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete, setShowDelete }) {
+function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete, setShowDelete, refresh, setRefresh }) {
   const history = useHistory();
   const [foldContent, setFoldContent] = useState(index === 0);
 
@@ -145,9 +146,9 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
     }
   }
 
-  if (deleted) {
-    return null;
-  }
+  // if (deleted) {
+  //   return null;
+  // }
 
   const handleJump = (event) => {
     const selectedDateStr = selectedDate.$y + '' +
@@ -197,6 +198,8 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
               <OutfitOptions key={`${index}-${Date.now()}`}
                 mongoID={outfit}
                 event={event}
+                refresh={refresh}
+                setRefresh={setRefresh}
                 selectedDate={selectedDate} />
             )
           })}
@@ -214,7 +217,7 @@ function TodaysOutfit({ mongoID, index, event, outfits, selectedDate, showDelete
   )
 }
 
-function OutfitOptions({ mongoID, handleOpenProfile, event, selectedDate }) {
+function OutfitOptions({ mongoID, handleOpenProfile, event, selectedDate, refresh, setRefresh }) {
   const [openProfile, setOpenProfile] = useState({});
   const [removed, setRemoved] = useState(false);
   const [mongoIDState, setMongoID] = useState(mongoID);
@@ -239,6 +242,7 @@ function OutfitOptions({ mongoID, handleOpenProfile, event, selectedDate }) {
       (selectedDate.$D < 10 ? '0' + selectedDate.$D : selectedDate.$D);
     const newId = await randomGenerateClothByTypeEvent(event, mongoIDState, selectedDateStr);
     setMongoID(newId);
+    setRefresh(!refresh);
   };
 
   if (removed) {
@@ -259,7 +263,7 @@ function OutfitOptions({ mongoID, handleOpenProfile, event, selectedDate }) {
             </button>
           </div>}
         <div className='outfit-option-clothes-item-image'>
-          <img className='cloth-image' key={Date.now()} src={openProfile?.image_urls} alt='loading cloth' onClick={handleOpenProfile} />
+          <img className='cloth-image' key={Date.now()} src={openProfile?.image_urls} alt='' onClick={handleOpenProfile} />
         </div>
       </div>
     </div>

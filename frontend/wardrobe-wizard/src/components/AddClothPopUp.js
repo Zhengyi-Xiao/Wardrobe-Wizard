@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../styles/AddClothPopUp.css';
 import { go_back, edit_add_today } from '../styles/icons.js';
-import { uploadPhotoAPI, deleteCloth, editCloth } from '../api/api.js'
+import { uploadPhotoAPI, deleteCloth, editCloth, addFromRecommend } from '../api/api.js'
 import ChooseEventType from './ChooseEventType.js';
 import { dbobj2obj, obj2dbobj } from '../api/api.js';
 
-function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID, setClothTypeFinal, setEventTypeFinal }) {
+function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, clothType, forEdit, clothesType, clothesActivities, mongoID, setClothTypeFinal, setEventTypeFinal, setRefresh }) {
   // whether or not click on to select desired event
   const [isChooseEventTypeOpen, setIsChooseEventTypeOpen] = useState(false);
   // whether or not click on to select desired activities
@@ -68,6 +68,14 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
     onClose();
   }
 
+  const handleRecommend = async () => {
+    console.log("mongoID is!!!! haha", mongoID)
+    await addFromRecommend(mongoID);
+    setRefresh(true);
+    onClose();
+    // window.location.reload()
+  }
+
   const handleDelete = async () => {
     console.log("mongoID is!!!! haha", mongoID)
     await deleteCloth(mongoID)
@@ -108,7 +116,7 @@ function AddClothPopUp({ selectedFile, selectedImage, onClose, eventTypes, cloth
         </div>
         <div className="btns">
           {/* {forEdit ? <button className="btn-add">Save</button> : <button className="btn-add" onClick={handleUploadImage}>Add to Closet</button>} */}
-          {forEdit ? <button className="btn-add" onClick={handleUpload}>Save</button> : <button className="btn-add" onClick={handleUpload}>Add to Closet</button>}
+          {forEdit ? <button className="btn-add" onClick={handleUpload}>Save</button> : <button className="btn-add" onClick={handleRecommend}>Add to Closet</button>}
           {forEdit ? <button className="btn-cancel" onClick={handleDelete}>Delete</button> : <button className="btn-cancel" onClick={onClose}>Cancel</button>}
         </div>
         {isChooseEventTypeOpen && <ChooseEventType handleAddToOutfit={handleChangeActivity} handleClosePopUp={handleSelectActivity} eventTypes={eventTypes} type={'activity'} chosen={eventType} />}
