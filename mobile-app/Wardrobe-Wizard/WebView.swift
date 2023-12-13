@@ -29,7 +29,8 @@ struct ContentWebView: View {
             Color(#colorLiteral(red: 1, green: 0.937254902, blue: 0.9137254902, alpha: 1)) // Set the background color to #FFEFE9
                 .ignoresSafeArea()
 
-            WebView(url: URL(string: "http://44.203.47.210:3000")!)
+            WebView(url: URL(string: "http://52.87.179.156:3000")!)
+                .ignoresSafeArea()
         }
     }
 }

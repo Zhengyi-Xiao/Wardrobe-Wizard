@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useHistory } from 'react-router-dom';
 import { add_to_todays_outfit } from '../styles/icons.js';
@@ -10,6 +10,9 @@ function ClothContainer({ imageUrl, activity, eventTypes, clothType, mongoID, ty
 
   const [openProfile, setOpenProfile] = useState(false);
   const [selectedImage,] = useState(imageUrl);
+  const [clothTypeFinal, setClothTypeFinal] = useState(type);
+  const [eventTypeFinal, setEventTypeFinal] = useState(event);
+
   const handleOpenProfile = () => {
     setOpenProfile(!openProfile);
   }
@@ -22,7 +25,7 @@ function ClothContainer({ imageUrl, activity, eventTypes, clothType, mongoID, ty
 
   if (openProfile) {
     return ReactDOM.createPortal(
-      <AddClothPopUp selectedImage={selectedImage} onClose={handleOpenProfile} eventTypes={eventTypes} clothType={clothType} forEdit={true} clothesType={type} clothesActivities={event} mongoID={mongoID} />,
+      <AddClothPopUp selectedImage={selectedImage} onClose={handleOpenProfile} eventTypes={eventTypes} clothType={clothType} forEdit={true} clothesType={clothTypeFinal} clothesActivities={eventTypeFinal} mongoID={mongoID} setClothTypeFinal = {setClothTypeFinal} setEventTypeFinal={setEventTypeFinal} />,
       document.getElementById('root-portal')
     );
   }

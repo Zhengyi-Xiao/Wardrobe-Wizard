@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import MyOutFit from "./MyOutFit.js";
 import { weatherAPIiKey, getWeatherAPI, getWeatherForDateAPI } from '../api/api.js'
 
-function HomePage(eventTypes) {
+function HomePage() {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [temp, setTemp] = useState(null);
   const [weatherIconUrl, setWeatherIconUrl] = useState(null);

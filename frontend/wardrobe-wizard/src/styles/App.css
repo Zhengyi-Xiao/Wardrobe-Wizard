@@ -8,6 +8,9 @@ body,
   font-family: 'Poppins';
   background-color: #ffefe9;
   font-style: normal;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 body::-webkit-scrollbar {

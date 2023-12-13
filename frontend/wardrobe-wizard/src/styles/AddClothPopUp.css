@@ -61,13 +61,14 @@
 
 .add-cloth-popup .add-cloth-pop-up-back .back-arrow {
   position: absolute;
-  font-size: 14px;
-  top: 10px;
+  top: 15px;
   right: 10px;
   background: none;
   border: none;
   text-decoration: underline;
   flex: auto;
+  font-size: 16px;
+  font-family: poppins;
 }
 
 .add-cloth-popup .add-cloth-pop-up-back h3 {

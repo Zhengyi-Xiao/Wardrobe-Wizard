@@ -79,6 +79,71 @@ webapp.get('/clothes/type/:type/activity/:activity', async (req, res) => {
   }
 })
 
+webapp.get('/recommend/addCloth/:id', async (req, res) => {
+  const clothingId = req.params.id;
+
+  // Connect to MongoDB
+  const client = new MongoClient(urlService);
+
+  try {
+    await client.connect();
+
+    const clothesCollection = client.db('Wardrobe-Wizard').collection('clothes');
+
+    const currentTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    const result = await clothesCollection.updateOne(
+      { _id: new ObjectId(clothingId) },
+      { $set: { time: currentTime } }
+    );
+
+    if (result.modifiedCount === 1) {
+      res.json({ message: 'Clothing item added to the event outfit' });
+    } else {
+      res.status(500).json({ message: 'Failed to update the outfit' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+    client.close();
+  }
+})
+
+webapp.get('/recommend/clothes/type/:type/activity/:activity', async (req, res) => {
+  const clothingType = req.params.type.toLowerCase()
+  const activity = req.params.activity.toLowerCase()
+  // Connect to MongoDB
+  const client = new MongoClient(urlService)
+
+  try {
+    await client.connect()
+
+    // Access the MongoDB collection where you stored the clothing data
+    const collection = client.db('Wardrobe-Wizard').collection('clothes') // Replace with your collection name.
+
+    // Define the query object based on type and activity
+    const query = {}
+
+    if (clothingType !== 'all' && clothingType !== 'null') {
+      query.type = clothingType
+    }
+
+    if (activity !== 'all' && activity !== 'null') {
+      query.event = activity
+    }
+
+    // Query for clothing items matching the type and activity
+    const matchingClothes = await collection.find(query).sort({ "time": -1 }).toArray()
+    res.json({ data: matchingClothes })
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).json({ message: 'Internal Server Error' })
+  } finally {
+    client.close()
+  }
+})
+
 webapp.get('/outfit/activity/:activity/date/:date', async (req, res) => {
   // Extract year, month, and day from the string
   const year = req.params.date.slice(0, 4);
@@ -88,12 +153,6 @@ webapp.get('/outfit/activity/:activity/date/:date', async (req, res) => {
   const currentDate = new Date(year, month, day);
   const eventType = req.params.activity.toLowerCase();
 
-  const activityData = {
-    date: currentDate,
-    event: eventType,
-    outfits: [],
-  };
-
   // Connect to MongoDB
   const client = new MongoClient(urlService);
 
@@ -102,7 +161,31 @@ webapp.get('/outfit/activity/:activity/date/:date', async (req, res) => {
 
     // Access the 'outfits' collection in the database
     const collection = client.db('Wardrobe-Wizard').collection('outfits'); // Replace with your collection name.
+    const clothesCollection = client.db('Wardrobe-Wizard').collection('clothes');
 
+    const top = await clothesCollection.aggregate([
+      { $match: { event: eventType, type: 'top' } },
+      { $sample: { size: 1 } }
+    ]).toArray();
+
+    const bottom = await clothesCollection.aggregate([
+      { $match: { event: eventType, type: 'bottom' } },
+      { $sample: { size: 1 } }
+    ]).toArray();
+
+
+    const activityData = {
+      date: currentDate,
+      event: eventType,
+      outfits: [],
+    };
+
+    if (top.length === 1) {
+      activityData.outfits.push(top[0]._id);
+    }
+    if (bottom.length === 1) {
+      activityData.outfits.push(bottom[0]._id);
+    }
     // Insert the new activity data into the 'outfits' collection
     const result = await collection.insertOne(activityData);
 
@@ -370,13 +453,18 @@ webapp.get('/outfits/regenerate/event/:event/id/:id/date/:date', async (req, res
       event: event,
       date: { $gte: begin, $lte: end }
     });
+
+    const thisClothMeta = await clothesCollection.findOne({
+      _id: clothingId
+    });
+
     if (outfitDocument) {
       const clothingToReplace = outfitDocument.outfits.findIndex((element) => element.equals(clothingId));
 
       if (clothingToReplace !== -1) {
         // Find clothing items of the same event and clothing type
         const clothingItem = await clothesCollection.aggregate([
-          { $match: { event: event } },
+          { $match: { event: event, type: thisClothMeta['type'] } },
           { $sample: { size: 1 } }
         ]).toArray();
 
@@ -477,6 +565,54 @@ webapp.post('/uploadImage', async (req, res) => {
     res.status(409).json({ message: 'there was error' });
   }
 })
+
+webapp.get('/clothes/delete/:id', async (req, res) => {
+  const mongoId = req.params.id;
+
+  // Connect to MongoDB
+  const client = new MongoClient(urlService);
+
+  try {
+    await client.connect();
+
+    const collection = client.db('Wardrobe-Wizard').collection('clothes'); // Replace with your collection name.
+
+    const result = await collection.deleteOne({ _id: new ObjectId(mongoId) });
+
+    res.json({ message: 'Cloth deleted successfully' });
+
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+    client.close();
+  }
+});
+
+webapp.get('/clothes/edit/:id/event/:event/type/:type', async (req, res) => {
+  const mongoID = req.params.id;
+  const newEvent = req.params.event;
+  const newType = req.params.type;
+  const client = new MongoClient(urlService);
+
+  try {
+    await client.connect();
+
+    const collection = client.db('Wardrobe-Wizard').collection('clothes');
+
+    const result = await collection.updateOne(
+      { _id: new ObjectId(mongoID) },
+      { $set: { event: newEvent, type: newType } }
+    );
+
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  } finally {
+    client.close();
+  }
+
+});
 
 
 webapp.listen(port, () => {

@@ -2,7 +2,8 @@
   position: absolute;
   top: 181.7426px;
   width: 100%;
-  height: 600px;
+  height: 65%;
+  /* height: 500px; */
   padding-bottom: 15px;
   text-align: center;
   display: flex;
@@ -17,17 +18,70 @@
 
 .spacer-outfit {
   width: 100%;
-  height: 20px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clicked-edit {
+  width: 60.793px;
+  height: 34.105px;
+  flex-shrink: 0;
+  border-radius: 8.975px;
+  background: var(--ComponentAndTab, #fff3ef);
+  border: none;
+  color: #454c4e;
+  font-family: 'Poppins', sans-serif;
+  font-size: 17.95px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  filter: drop-shadow( 0px 1.7949886322021484px 1.7949886322021484px rgba(0, 0, 0, 0.25) );
+  margin-right: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.unclicked-edit {
+  width: 60.793px;
+  height: 34.105px;
+  flex-shrink: 0;
+  border-radius: 8.975px;
+  background: var(--ComponentAndTab, #ffbda5);
+  border: none;
+  color: #454c4e;
+  font-family: 'Poppins', sans-serif;
+  font-size: 17.95px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  filter: drop-shadow(
+    0px 1.7949886322021484px 1.7949886322021484px rgba(0, 0, 0, 0.25)
+  );
+  margin-right: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .todays-outfit-container {
   display: flex;
   width: 100%;
   padding: 6.731px 7.629px 10.77px 8.077px;
-  justify-content: center;
   align-items: center;
-  /* background-color: bisque; */
   flex-direction: column;
 }
 
@@ -39,7 +93,30 @@
   font-weight: 400;
   line-height: normal;
   display: inline-block;
-  margin-left: -232px;
+  margin-left: 24px;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.shake {
+  animation: shake 0.7s infinite;
+  transform-origin: center;
 }
 
 .outfit-option {
@@ -112,6 +189,15 @@
 .outfit-option-clothes-item-refresh {
   border: none;
   background: transparent;
+}
+
+.outfit-option-clothes-item-delete {
+  border: none;
+  background: transparent;
+  position: absolute;
+  margin-left: -341px;
+  margin-top: -11px;
+  z-index: 1000;
 }
 
 .outfit-option-clothes::-webkit-scrollbar {

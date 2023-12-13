@@ -66,7 +66,7 @@ function Closet() {
   useEffect(() => {
     // Delay rendering the ClothContainer components
     const timeout = setTimeout(() => {
-      setRenderIndex(renderIndex + 4)
+      setRenderIndex(renderIndex + 6)
     }, 1000) // Adjust the delay time (in milliseconds) as needed
 
     return () => clearTimeout(timeout)
@@ -102,14 +102,17 @@ function Closet() {
   const handleAddClothes = () => {
     // Check if the user is on an iPhone
     const isIPhone = /iPhone/i.test(navigator.userAgent)
-
+    console.log(isIPhone)
+    console.log(navigator)
     if (isIPhone) {
+      console.log('HERE')
       // If on iPhone, open the camera
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        .getUserMedia({ video: { facingMode: "environment" } })
         .then(stream => {
           // Use the stream for your camera functionality
           console.log('Camera opened on iPhone')
+          console.log(stream)
         })
         .catch(error => {
           console.error('Error opening the camera:', error)
@@ -166,7 +169,6 @@ function Closet() {
   }
 
   if (isAddClothPopUpOpen) {
-    console.log('HERE')
     return ReactDOM.createPortal(
       <AddClothPopUp selectedFile={selectedFileImage} selectedImage={selectedImage} onClose={closeAddClothPopUp} eventTypes={eventTypes} clothType={clothType} forEdit={false} />,
       document.getElementById('root-portal')
