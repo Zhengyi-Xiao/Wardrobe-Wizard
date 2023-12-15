@@ -3,11 +3,10 @@
   background-color: white;
 }
 
-
 .closet .top-row-frame {
   /* border-bottom: 1.346px solid var(--colors-font, #454c4e); */
   border: none;
-  padding: 0px 37.25px 0px 37.25px;
+  padding: 0px 37.25px 0px 7.25px;
   display: flex;
   justify-content: space-between; /* Align items at each end of the container */
   align-items: center;
@@ -63,7 +62,7 @@
   height: 42.631px;
   flex-shrink: 0;
   border-radius: 12px;
-  border: 1px solid #96A9AF;
+  border: 1px solid #96a9af;
   background: var(--Pink-background, #fffdfd);
   display: flex;
   align-items: center;
@@ -79,7 +78,11 @@
   gap: 8.975px;
 }
 
-.closet .search-bar-frame .input-bar .input-bar-selection-part .selected-choice-button {
+.closet
+  .search-bar-frame
+  .input-bar
+  .input-bar-selection-part
+  .selected-choice-button {
   background: #ffbda5;
   align-items: center;
   border-radius: 12px;
@@ -171,7 +174,10 @@
   margin-left: 5px;
 }
 
-.closet .selection-fields-container .selection-fields .unselected-choice-button {
+.closet
+  .selection-fields-container
+  .selection-fields
+  .unselected-choice-button {
   align-items: center;
   border-radius: 12px;
   /* border: 1.795px solid var(--colors-font, #454c4e); */
@@ -219,7 +225,8 @@
   padding: 5px 15px 5px 15px;
   background: #ffbda5;
   filter: none;
-  box-shadow: inset 0px 1.7949885129928589px 1.7949885129928589px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 1.7949885129928589px 1.7949885129928589px
+    rgba(0, 0, 0, 0.25);
   gap: 8px;
 }
 
@@ -227,7 +234,7 @@
   overflow-y: auto;
   white-space: nowrap;
   scrollbar-width: none;
-  max-height:700px;
+  max-height: 700px;
   margin-left: 43.25px;
   /* margin-right: 37.25px; */
   display: flex;
@@ -255,7 +262,7 @@
   background: var(--Pink-background, #fffdfd);
 }
 
-.closet .all-clothes-container .cloth-container  .cloth-image {
+.closet .all-clothes-container .cloth-container .cloth-image {
   width: 134.399px;
   height: 135.021px;
   padding: 33.3px 9.04px 11.2px 9.04px;

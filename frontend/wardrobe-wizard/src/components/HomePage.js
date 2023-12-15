@@ -37,26 +37,31 @@ function HomePage() {
   };
 
   useEffect(() => {
-    if (selectedDate.isSame(dayjs(), 'day') || selectedDate.isAfter(dayjs(), 'day')) {
-      // Fetch current weather when selectedDate is the current date
-      getWeather().then(async (response) => {
-        const temperature = response?.main?.temp;
-        const weatherIconCode = response?.weather[0]?.icon;
-        const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
-        setTemp(temperature);
-        setWeatherIconUrl(weatherIconUrl);
-      });
-    } else {
-      // Fetch weather for a specific date (e.g., yesterday)
-      getWeatherForDate(selectedDate).then(async (response) => {
-        // Process the response for the specific date
-        const temperature = response.list[0].main.temp;
-        const weatherIconCode = response.list[0].weather[0].icon;
-        const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
-        setTemp(temperature);
-        setWeatherIconUrl(weatherIconUrl);
-      });
+    try {
+      if (selectedDate.isSame(dayjs(), 'day') || selectedDate.isAfter(dayjs(), 'day')) {
+        // Fetch current weather when selectedDate is the current date
+        getWeather().then(async (response) => {
+          const temperature = response?.main?.temp;
+          const weatherIconCode = response?.weather[0]?.icon;
+          const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+          setTemp(temperature);
+          setWeatherIconUrl(weatherIconUrl);
+        });
+      } else {
+        // Fetch weather for a specific date (e.g., yesterday)
+        getWeatherForDate(selectedDate).then(async (response) => {
+          // Process the response for the specific date
+          const temperature = response?.main?.temp;
+          const weatherIconCode = response?.weather[0]?.icon;
+          const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+          setTemp(temperature);
+          setWeatherIconUrl(weatherIconUrl);
+        });
+      }
+    } catch (error) {
+      setTemp(-1);
     }
+
   }, [selectedDate]);
 
   return (
