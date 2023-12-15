@@ -3,16 +3,12 @@
 
 
 ## Table of Contents
-- [Wardrobe Wizard: An Innovative Solution for Closet Management and Daily Outfit Decision](#wardrobe-wizard-an-innovative-solution-for-closet-management-and-daily-outfit-decision)
+- [Wardrobe Wizard: An Innovative Solution for Closet Management and Daily Outfit Decision](#wardrobe-wizard)
   - [Motivation](#motivation)
   - [Features](#features)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-  - [Usage](#usage)
-    - [Web Application](#web-application)
-    - [Mobile Application](#mobile-application)
-  - [Contributing](#contributing)
   - [License](#license)
   - [Acknowledgements](#acknowledgements)
 
@@ -102,7 +98,7 @@ Follow these steps to install and run Wardrobe Wizard:
    # Additional steps for iOS development, check iOS Development section
    ```
    
-4. **iOS Development**
+4. **iOS Deployment**
    
    1. **Build the Xcode Project:**
 
@@ -114,21 +110,13 @@ Follow these steps to install and run Wardrobe Wizard:
   
    3. **Explore the Mobile Experience:**
 
-      Once the app is running on your iPhone, explore the features and functionalities tailored for mobile usage. Enjoy the seamless experience of outfit recommendations on the go.
+      Once the app is running on your iPhone, you should able to see our app on screen as the following image.
+      
+      <p align="center">
+        <img src="https://github.com/Zhengyi-Xiao/Wardrobe-Wizard/assets/34410439/46339c65-76e5-4444-9d24-7a5c3034e873" width="230">
+      </p>
 
-## Usage
-
-### Web Application
-
-The web application provides a comprehensive view of your wardrobe and outfit recommendations. Navigate through the user-friendly interface to manage your closet and explore daily outfit suggestions.
-
-### Mobile Application
-
-Experience Wardrobe Wizard on the go with our mobile application. Receive timely outfit recommendations, access your closet, and enjoy the convenience of managing your wardrobe from your iPhone.
-
-## Contributing
-
-We welcome contributions from the community. If you'd like to contribute to Wardrobe Wizard, please follow our [Contribution Guidelines](CONTRIBUTING.md).
+      Explore our app!
 
 ## License
 
@@ -136,8 +124,12 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-We would like to express our gratitude to the open-source community and all contributors who have helped shape Wardrobe Wizard. Special thanks to [mention names or organizations] for their valuable contributions and support.
+As we reflect on our journey, from the inception of our idea to the final product, we’re reminded of the invaluable lessons we’ve learned. Our process, rooted in user research and iterative design, has not only shaped our app but also enriched our understanding of user-centric development.
 
-Now, open http://localhost:3000/, you can see our app display in a web-view. However, since it is a mobile app, it is not very compact with laptop view. To see how it looks like on a phone. Go to insepct and change the view to 390 * 852. 
+During the final evaluation phase, we were delighted to receive positive reviews from our users. We’ve seen the potential for technology to simplify daily routines and elevate personal style, and we’re excited to continue refining and expanding Wardrobe Wizard.
+
+We hope our experience inspires others in their creative ventures. We’re thrilled to share our journey with you and look forward to the adventures that lie ahead as we continue to enhance the Wardrobe Wizard experience.
+
+Lastly, none of this would have been possible without our dedicated, creative team! Each member brought unique skills and perspectives, contributing to the success of our project. We invite you to meet the team behind Wardrobe Wizard, whose combined efforts brought this vision to life!
 
 
