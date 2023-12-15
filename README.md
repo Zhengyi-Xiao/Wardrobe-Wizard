@@ -1,6 +1,11 @@
 # Wardrobe Wizard
 #### *Elevating your style, Streamlining your morning* – Outfit Recommendation and Closet Management App
 
+<p align="center">
+  <img src="https://github.com/Zhengyi-Xiao/Wardrobe-Wizard/assets/34410439/1e978172-1bda-4bf9-9c78-e344e7f159b3" width="230">
+</p>
+
+
 
 ## Table of Contents
 - [Wardrobe Wizard](#wardrobe-wizard)
@@ -120,15 +125,14 @@ Follow these steps to install and run Wardrobe Wizard:
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](https://opensource.org/license/mit/).
 
 ## Acknowledgements
 
-Our journey, rooted in user research and iterative design, has profoundly shaped Wardrobe Wizard. Positive user reviews during the final evaluation phase reaffirmed the app's potential to simplify routines and elevate personal style. We remain committed to refining and expanding the Wardrobe Wizard experience.
+Our journey, rooted in user research and iterative design, has profoundly shaped Wardrobe Wizard. Positive user reviews during the final evaluation phase reaffirmed the app's potential to simplify routines and elevate personal style. Thanks for all interviewees that helps us to to refine and expand the Wardrobe Wizard experience.
 
-Our experience serves as an inspiration for creative ventures. We eagerly share our journey and anticipate the exciting adventures ahead in enhancing Wardrobe Wizard.
 
-Special thanks to our dedicated, creative team whose unique skills and perspectives contributed to the project's success. Meet the team behind Wardrobe Wizard:
+In the end, special thanks to our dedicated, creative team whose unique skills and perspectives contributed to the project's success. Meet the team behind Wardrobe Wizard:
 
 - [Jiayun He](mailto:valica_he_006@yahoo.com)
 - [Xinran Liu](mailto:xinranliu2001@gmail.com)
