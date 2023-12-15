@@ -40,7 +40,9 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  filter: drop-shadow( 0px 1.7949886322021484px 1.7949886322021484px rgba(0, 0, 0, 0.25) );
+  filter: drop-shadow(
+    0px 1.7949886322021484px 1.7949886322021484px rgba(0, 0, 0, 0.25)
+  );
   margin-right: 25px;
   text-align: center;
   display: flex;
@@ -120,12 +122,11 @@
 }
 
 .outfit-option {
-  width: 338.125px;
+  width: 361.125px;
   filter: drop-shadow(0px 1.7949886322021484px 2.2437357902526855px #6a7376);
 }
 
 .outfit-option-header {
-  width: 338.125px;
   height: 44.426px;
   display: flex;
   flex-direction: row;
@@ -143,7 +144,6 @@
 }
 
 .outfit-option-clothes {
-  width: 338.125px;
   height: 195.205px;
   flex-shrink: 0;
   border-radius: 0px 0px 8.975px 8.975px;
