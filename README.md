@@ -125,7 +125,7 @@ Follow these steps to install and run Wardrobe Wizard:
 
 ## License
 
-This project is licensed under the [MIT License](https://opensource.org/license/mit/).
+This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
