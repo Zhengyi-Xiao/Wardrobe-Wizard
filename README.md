@@ -3,7 +3,7 @@
 
 
 ## Table of Contents
-- [Wardrobe Wizard: An Innovative Solution for Closet Management and Daily Outfit Decision](#wardrobe-wizard)
+- [Wardrobe Wizard](#wardrobe-wizard)
   - [Motivation](#motivation)
   - [Features](#features)
   - [Getting Started](#getting-started)
@@ -124,12 +124,17 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-As we reflect on our journey, from the inception of our idea to the final product, we’re reminded of the invaluable lessons we’ve learned. Our process, rooted in user research and iterative design, has not only shaped our app but also enriched our understanding of user-centric development.
+Our journey, rooted in user research and iterative design, has profoundly shaped Wardrobe Wizard. Positive user reviews during the final evaluation phase reaffirmed the app's potential to simplify routines and elevate personal style. We remain committed to refining and expanding the Wardrobe Wizard experience.
 
-During the final evaluation phase, we were delighted to receive positive reviews from our users. We’ve seen the potential for technology to simplify daily routines and elevate personal style, and we’re excited to continue refining and expanding Wardrobe Wizard.
+Our experience serves as an inspiration for creative ventures. We eagerly share our journey and anticipate the exciting adventures ahead in enhancing Wardrobe Wizard.
 
-We hope our experience inspires others in their creative ventures. We’re thrilled to share our journey with you and look forward to the adventures that lie ahead as we continue to enhance the Wardrobe Wizard experience.
+Special thanks to our dedicated, creative team whose unique skills and perspectives contributed to the project's success. Meet the team behind Wardrobe Wizard:
 
-Lastly, none of this would have been possible without our dedicated, creative team! Each member brought unique skills and perspectives, contributing to the success of our project. We invite you to meet the team behind Wardrobe Wizard, whose combined efforts brought this vision to life!
+- [Jiayun He](mailto:valica_he_006@yahoo.com)
+- [Xinran Liu](mailto:xinranliu2001@gmail.com)
+- [Zhengyi Xiao](mailto:zhengy.x1116@hotmail.com)
+- [Zhen Zhang](mailto:billzhangzhen@gmail.com)
 
-
+<p align="center">
+  <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*QbJQMW6L__l28kheap4j2Q.jpeg">
+</p>
