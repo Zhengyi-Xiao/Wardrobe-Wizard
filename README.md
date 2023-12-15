@@ -25,7 +25,7 @@ In the hustle and bustle of our morning routines, time is a precious commodity. 
 
 As we grappled with these daily decisions, the idea for the Wardrobe Wizard was born. Our mission was clear: to harness technology’s power to simplify your morning routine, ensuring that you start your day confident and well-prepared.
 
-Wardrobe Wizard was designed with you in mind, whether you’re a fashion-forward trendsetter or someone who prefers a more casual approach. We aimed to simplify the daily ritual of selecting an outfit, making it effortless and convenient. In a world where time is of the essence, we are here to elevate your style and streamline your mornings.
+Wardrobe Wizard was designed with you in mind, whether you’re a fashion-forward trendsetter or someone who prefers a more casual approach. We aimed to simplify the daily ritual of selecting an outfit, making it effortless and convenient. In a world where time is of the essence, we are here to elevate your style and streamline your mornings. More information about our journey can be found in this [Medium](https://medium.com/@valica.he.0061/55976fd67036) article. 
 
 ## Features
 
